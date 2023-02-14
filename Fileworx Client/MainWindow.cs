@@ -13,7 +13,7 @@ namespace Fileworx_Client
 {
     public partial class MainWindow : Form
     {
-        // path of current directory and path for each object
+
         public static string absolutePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\"));
         public static string newsPath = Path.GetFullPath(Path.Combine(absolutePath, @"News"));
         public static string photoPath = Path.GetFullPath(Path.Combine(absolutePath, @"Photos"));
@@ -21,7 +21,6 @@ namespace Fileworx_Client
         User loggedIn;
 
         ListViewItem focusedItem;
-        int focusedIndex = -1;
 
         static int newsCount = 0;
         static int photoCount = 0;
@@ -48,19 +47,17 @@ namespace Fileworx_Client
 
         }
 
-        // when listview is clicked
+
         private void listClick(object sender, MouseEventArgs e)
         {
             
            
 
-            // get the focused item and row
+    
             var listItem = listView.FocusedItem;
             focusedItem = listItem;
             var row = listItem.Index;
-            focusedIndex = row;
 
-            // disable the image tab
             tabControlMain.TabPages.Remove(imgTab);
 
             // if right click then delete
@@ -81,7 +78,7 @@ namespace Fileworx_Client
                         fileOp.DeleteFile(photoPath + "\\" + listView.FocusedItem.SubItems[5].Text + ".txt");
                         photoCount--;
                     }
-                    // update the list after deletion 
+
                     updateTable();
 
 
@@ -124,7 +121,7 @@ namespace Fileworx_Client
             var listItem = listView.FocusedItem;
             focusedItem = listItem;
             var row = listItem.Index;
-            focusedIndex = row;
+
             if (row < newsCount)
             {
 

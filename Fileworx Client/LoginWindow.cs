@@ -26,7 +26,7 @@ namespace Fileworx_Client
         {
             InitializeComponent();
             ReadUsers();
-            
+
         }
 
         private void ReadUsers()
@@ -42,17 +42,17 @@ namespace Fileworx_Client
                 {
                     continue;
                 }
-                
+
                 Users.Add(item[1], item[2]);
                 Guids.Add(item[1], guidTemp);
-                
+
             }
 
         }
         private User ReconstructUser(string guid)
         {
-            List<string> temp = fileOp.ReadOneFile(Path.Combine(userPath,guid)+".txt");
-            User u = new User(temp[0], temp[1], temp[2], temp[3],new Guid(guid));
+            List<string> temp = fileOp.ReadOneFile(Path.Combine(userPath, guid) + ".txt");
+            User u = new User(temp[0], temp[1], temp[2], temp[3], new Guid(guid));
             return u;
         }
         private void btnLogin_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace Fileworx_Client
             if (Users.ContainsKey(txtLogin.Text) && Users.ContainsValue(txtPassword.Text))
             {
                 loggedIn = ReconstructUser(Guids[txtLogin.Text].ToString());
-                MessageBox.Show("Login Successful","Success");
+                MessageBox.Show("Login Successful", "Success");
 
                 main = new MainWindow(loggedIn);
                 main.Show();

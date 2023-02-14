@@ -19,7 +19,7 @@ namespace Fileworx_Client
         public static string photoPathTemp = MainWindow.photoPath;
         public static string userPathTemp = MainWindow.userPath;
         MainWindow main;
-        // on init fills txt boxes with paths
+
 
         public EditPathWindow(MainWindow main)
         {
@@ -31,7 +31,7 @@ namespace Fileworx_Client
             this.main = main;
         }
 
-        // when any path is selected new path is changed its saved into temp vars when save button is pressed the path is in main is changed
+
         private void btnNews_Click(object sender, EventArgs e)
         {
             DialogResult res = folderDialog.ShowDialog();

@@ -12,7 +12,7 @@ namespace Fileworx_Client
         News news;
         bool categoryChanged = false;
 
-        // fill categories and check if new or edited 
+ 
         public CreateNewsWindow(MainWindow main, ListViewItem newsFromMain = null)
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Fileworx_Client
 
         }
 
-        // if its not new fill the text boxes
+
         private void FillTxt()
         {
 
@@ -46,7 +46,7 @@ namespace Fileworx_Client
 
         }
 
-        // reconstruct the object to get values 
+
         private News ReconstructNews(ListViewItem item)
         {
             News temp = new News(item.SubItems[0].Text, DateTime.Parse(item.SubItems[1].Text), item.SubItems[2].Text, item.SubItems[3].Text, item.SubItems[4].Text, new Guid(item.SubItems[5].Text));
@@ -183,7 +183,7 @@ namespace Fileworx_Client
 
 
 
-        // check for unsaved edits when before closing
+
         private void CreateNewsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (hasChanged() && this.Visible == true)
