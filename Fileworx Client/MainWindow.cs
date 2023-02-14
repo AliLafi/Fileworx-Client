@@ -141,7 +141,6 @@ namespace Fileworx_Client
         }
 
 
-        // reads from files to update table 
         public void updateTable()
         {
             newsCount = 0;
