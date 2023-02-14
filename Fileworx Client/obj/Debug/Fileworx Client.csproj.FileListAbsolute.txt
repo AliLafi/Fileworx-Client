@@ -1,0 +1,16 @@
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\bin\Debug\Fileworx Client.exe.config
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\bin\Debug\Fileworx Client.exe
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\bin\Debug\Fileworx Client.pdb
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.csproj.AssemblyReference.cache
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.csproj.SuggestedBindingRedirects.cache
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.CreateNewsWindow.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.CreatePhotosWindow.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.CreateUserWindow.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.EditPathWindow.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.MainWindow.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.Properties.Resources.resources
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.csproj.GenerateResource.cache
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.csproj.CoreCompileInputs.cache
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.exe
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx Client.pdb
+C:\Users\ali.lafi\Desktop\project1\Fileworx Client\Fileworx Client\obj\Debug\Fileworx_Client.LoginWindow.resources

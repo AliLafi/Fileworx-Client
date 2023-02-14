@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fileworx Client", "Fileworx Client\Fileworx Client.csproj", "{D54A0D31-6E3B-4419-B9AF-0DDC8650EC84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D54A0D31-6E3B-4419-B9AF-0DDC8650EC84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D54A0D31-6E3B-4419-B9AF-0DDC8650EC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D54A0D31-6E3B-4419-B9AF-0DDC8650EC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D54A0D31-6E3B-4419-B9AF-0DDC8650EC84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA79F41A-64F5-4B2C-AC19-A074879280AA}
+	EndGlobalSection
+EndGlobal
