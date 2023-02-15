@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Windows.Forms;
-
+using FileworxObjects;
 namespace Fileworx_Client
 {
 
     public partial class CreateNewsWindow : Form
     {
         MainWindow main;
-        FileOp fileOp = new FileOp();
-        ListViewItem newsItem;
-        News news;
-        bool categoryChanged = false;
+        News newsItem;
 
- 
-        public CreateNewsWindow(MainWindow main, ListViewItem newsFromMain = null)
+        bool categoryChanged = false;
+        public enum categories
+        {
+            General,
+            Politics,
+            Sports,
+            Health
+
+        }
+
+        public CreateNewsWindow(MainWindow main, News newsFromMain = null)
         {
             InitializeComponent();
 
-            foreach (News.categories cat in Enum.GetValues(typeof(News.categories)))
+            foreach (categories cat in Enum.GetValues(typeof(categories)))
             {
                 listCategory.Items.Add(cat.ToString());
 
@@ -28,7 +34,6 @@ namespace Fileworx_Client
             if (newsFromMain != null)
             {
                 this.newsItem = newsFromMain;
-                news = ReconstructNews(newsItem);
                 FillTxt();
             }
 
@@ -39,19 +44,13 @@ namespace Fileworx_Client
         private void FillTxt()
         {
 
-            txtTitle.Text = news.Title;
-            txtDescription.Text = news.Description;
-            txtBody.Text = news.Body;
-            listCategory.Text = news.Category;
+            txtTitle.Text = newsItem.Title;
+            txtDescription.Text = newsItem.Description;
+            txtBody.Text = newsItem.Body;
+            listCategory.Text = newsItem.Category;
 
         }
 
-
-        private News ReconstructNews(ListViewItem item)
-        {
-            News temp = new News(item.SubItems[0].Text, DateTime.Parse(item.SubItems[1].Text), item.SubItems[2].Text, item.SubItems[3].Text, item.SubItems[4].Text, new Guid(item.SubItems[5].Text));
-            return temp;
-        }
 
 
         private bool hasChanged()
@@ -81,7 +80,7 @@ namespace Fileworx_Client
         {
             if (newsItem != null)
             {
-                if (listCategory.Text != newsItem.SubItems[3].Text)
+                if (listCategory.Text != newsItem.Category)
                 {
                     categoryChanged = true;
 
@@ -90,7 +89,6 @@ namespace Fileworx_Client
 
 
         }
-
 
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -102,13 +100,15 @@ namespace Fileworx_Client
                     if (newsItem == null)
                     {
                         News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                        fileOp.WriteToFile(temp, temp.guid.ToString());
-
+                        temp.Update();
                     }
                     else
                     {
-                        News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text, news.guid);
-                        fileOp.WriteToFile(temp, temp.guid.ToString());
+                        newsItem.Title = txtTitle.Text;
+                        newsItem.Description = txtDescription.Text;
+                        newsItem.Body = txtBody.Text;
+                        newsItem.Category = listCategory.Text;
+                        newsItem.Update();
 
                     }
 
@@ -141,14 +141,18 @@ namespace Fileworx_Client
                             if (newsItem == null)
                             {
                                 News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                temp.Update();
                             }
                             else
                             {
-                                News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text, news.guid);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
-                            }
+                                newsItem.Title = txtTitle.Text;
+                                newsItem.Description = txtDescription.Text;
+                                newsItem.Body = txtBody.Text;
+                                newsItem.Category = listCategory.Text;
+                                newsItem.Update();
 
+
+                            }
                             main.updateTable();
                             this.Hide();
 
@@ -202,16 +206,20 @@ namespace Fileworx_Client
                             break;
 
                         case DialogResult.Yes:
-
                             if (newsItem == null)
                             {
                                 News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                temp.Update();
                             }
                             else
                             {
-                                News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text, news.guid);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                newsItem.Title = txtTitle.Text;
+                                newsItem.Description = txtDescription.Text;
+                                newsItem.Body = txtBody.Text;
+                                newsItem.Category = listCategory.Text;
+                                newsItem.Update();
+
+
                             }
 
                             main.updateTable();

@@ -48,14 +48,14 @@ namespace Fileworx_Client
         // writing to file gets the object selects the path based on type of object 
         public async void WriteToFile(Object o, string guid)
         {
-            string path = (o is News) ? MainWindow.newsPath : ((o is Photo) ? MainWindow.photoPath : MainWindow.userPath);
+         //   string path = (o is News) ? MainWindow.newsPath : ((o is Photo) ? MainWindow.photoPath : MainWindow.userPath);
 
             try
             {
 
-                using (StreamWriter st = new StreamWriter(Path.Combine(path, guid + ".txt"), false))
+               // using (StreamWriter st = new StreamWriter(Path.Combine(path, guid + ".txt"), false))
                 {
-                    await st.WriteLineAsync(o.ToString());
+               //     await st.WriteLineAsync(o.ToString());
                 }
 
             }

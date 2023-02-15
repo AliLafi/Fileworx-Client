@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FileworxObjects;
+using System;
 using System.Windows.Forms;
 
 namespace Fileworx_Client
@@ -9,11 +10,11 @@ namespace Fileworx_Client
     {
         MainWindow main;
         FileOp fileOp = new FileOp();
-        ListViewItem photoItem;
-        Photo photo;
+        Photo photoItem;
+        //Photo photo;
         bool imageChange = false;
 
-        public CreatePhotosWindow(MainWindow main, ListViewItem photoFromMain = null)
+        public CreatePhotosWindow(MainWindow main, Photo photoFromMain = null)
         {
             InitializeComponent();
 
@@ -22,7 +23,6 @@ namespace Fileworx_Client
             if (photoFromMain != null)
             {
                 photoItem = photoFromMain;
-                photo = ReconstructPhoto(photoItem);
                 FillTxt();
             }
 
@@ -31,19 +31,13 @@ namespace Fileworx_Client
         private void FillTxt()
         {
 
-            txtTitle.Text = photo.Title;
-            txtDescription.Text = photo.Description;
-            txtBody.Text = photo.Body;
-            lblImage.Text = photo.ImagePath;
-            pictureBox.ImageLocation = photo.ImagePath;
+            txtTitle.Text = photoItem.Title;
+            txtDescription.Text = photoItem.Description;
+            txtBody.Text = photoItem.Body;
+           
+            lblImage.Text = photoItem.ImagePath;
+            pictureBox.ImageLocation = photoItem.ImagePath;
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-
-        }
-        private Photo ReconstructPhoto(ListViewItem item)
-        {
-
-            Photo temp = new Photo(item.SubItems[0].Text, DateTime.Parse(item.SubItems[1].Text), item.SubItems[2].Text, item.SubItems[3].Text, item.SubItems[4].Text, new Guid(item.SubItems[5].Text));
-            return temp;
 
         }
 
@@ -97,15 +91,18 @@ namespace Fileworx_Client
                 {
                     if (photoItem == null)
                     {
-                        Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text);
-                        fileOp.WriteToFile(temp, temp.guid.ToString());
+                        Photo temp = new Photo(txtTitle.Text,DateTime.Now,txtDescription.Text,lblImage.Text,txtBody.Text);
+                        temp.Update();
                     }
                     else
                     {
-                        Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text, photo.guid);
-                        fileOp.WriteToFile(temp, temp.guid.ToString());
-                    }
+                        photoItem.Title = txtTitle.Text;
+                        photoItem.Description = txtDescription.Text;
+                        photoItem.Body = txtBody.Text;
+                        photoItem.ImagePath = lblImage.Text;
+                        photoItem.Update();
 
+                    }
                     main.updateTable();
                     this.Hide();
                 }
@@ -134,13 +131,17 @@ namespace Fileworx_Client
 
                             if (photoItem == null)
                             {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                Photo temp = new Photo(txtTitle.Text, DateTime.Now, txtDescription.Text, lblImage.Text, txtBody.Text);
+                                temp.Update();
                             }
                             else
                             {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text, photo.guid);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                photoItem.Title = txtTitle.Text;
+                                photoItem.Description = txtDescription.Text;
+                                photoItem.Body = txtBody.Text;
+                                photoItem.ImagePath = lblImage.Text;
+                                photoItem.Update();
+
                             }
 
                             main.updateTable();
@@ -176,13 +177,13 @@ namespace Fileworx_Client
 
         private void CreatePhotosWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (hasChanged() && this.Visible== true )
+            if (hasChanged() && this.Visible == true)
             {
                 e.Cancel = true;
 
                 if (!isEmpty())
                 {
-                    
+
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     switch (res)
                     {
@@ -194,18 +195,20 @@ namespace Fileworx_Client
 
                         case DialogResult.Yes:
 
-
                             if (photoItem == null)
                             {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
+                                Photo temp = new Photo(txtTitle.Text, DateTime.Now, txtDescription.Text, lblImage.Text, txtBody.Text);
+                                temp.Update();
                             }
                             else
                             {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, pictureBox.ImageLocation, txtBody.Text, photo.guid);
-                                fileOp.WriteToFile(temp, temp.guid.ToString());
-                            }
+                                photoItem.Title = txtTitle.Text;
+                                photoItem.Description = txtDescription.Text;
+                                photoItem.Body = txtBody.Text;
+                                photoItem.ImagePath = lblImage.Text;
+                                photoItem.Update();
 
+                            }
                             main.updateTable();
                             e.Cancel = false;
 

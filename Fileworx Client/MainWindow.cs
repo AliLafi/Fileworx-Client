@@ -1,10 +1,12 @@
-﻿using System;
+﻿using FileworxObjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,242 +15,192 @@ namespace Fileworx_Client
 {
     public partial class MainWindow : Form
     {
-
-        public static string absolutePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\"));
-        public static string newsPath = Path.GetFullPath(Path.Combine(absolutePath, @"News"));
-        public static string photoPath = Path.GetFullPath(Path.Combine(absolutePath, @"Photos"));
-        public static string userPath = Path.GetFullPath(Path.Combine(absolutePath, @"Users"));
-        User loggedIn;
-
-        ListViewItem focusedItem;
-
-        static int newsCount = 0;
-        static int photoCount = 0;
+        int selectedRow;
+        DataTable NewsTable;
+        DataTable PhotoTable;
 
         public static bool categoryChanged = false;
         public static bool dateChanged = false;
 
-        FileOp fileOp = new FileOp();
+        NewsQuery nq = new NewsQuery();
+        PhotoQuery pq = new PhotoQuery();
 
-        public MainWindow(User u)
+        static string mod;
+
+        public enum categories
+        {
+            General,
+            Politics,
+            Sports,
+            Health
+
+        }
+
+        public MainWindow()
         {
             InitializeComponent();
-            initPath();
-            
-            this.WindowState = FormWindowState.Maximized;
-            this.loggedIn = u;
 
-            foreach (News.categories cat  in Enum.GetValues(typeof(News.categories)))
+
+            this.WindowState = FormWindowState.Maximized;
+
+            foreach (categories cat in Enum.GetValues(typeof(categories)))
+            {
                 txtCategory.Items.Add(cat.ToString());
 
+            }
+
             txtCreated.MaxDate = DateTime.Now;
-            listView.Select();
             updateTable();
 
         }
-
-
-        private void listClick(object sender, MouseEventArgs e)
+        public MainWindow(string m)
         {
-            
-           
+            InitializeComponent();
 
-    
-            var listItem = listView.FocusedItem;
-            focusedItem = listItem;
-            var row = listItem.Index;
 
-            tabControlMain.TabPages.Remove(imgTab);
+            this.WindowState = FormWindowState.Maximized;
 
-            // if right click then delete
-            if (e.Button == MouseButtons.Right)
+            foreach (categories cat in Enum.GetValues(typeof(categories)))
             {
-
-                DialogResult res = MessageBox.Show($"are you sure you want to delete{listItem.Text}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (res == DialogResult.Yes)
-                {
-                    // if row is less than newsCount than its news object
-                    if (row < newsCount)
-                    {
-                        fileOp.DeleteFile(newsPath + "\\" + listView.FocusedItem.SubItems[5].Text + ".txt");
-                        newsCount--;
-                    }
-                    else
-                    {
-                        fileOp.DeleteFile(photoPath + "\\" + listView.FocusedItem.SubItems[5].Text + ".txt");
-                        photoCount--;
-                    }
-
-                    updateTable();
-
-
-                }
+                txtCategory.Items.Add(cat.ToString());
 
             }
+            mod= m;
 
-            // if left click show items
-            else
-            {
-
-                txtTitle.Text = listItem.Text;
-                txtCreated.Text = listItem.SubItems[1].Text;
-                txtBody.Text = listItem.SubItems[4].Text;
-
-                // if its a photo object also show the image tab
-                if (row >= newsCount)
-                {
-                    tabControlMain.TabPages.Add(imgTab);
-                    pictureBox.ImageLocation = listItem.SubItems[3].Text;
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    lblCategory.Visible = false;
-                    txtCategory.Visible = false;
-
-                }
-                else
-                {
-                    txtCategory.Visible = true;
-                    txtCategory.Text = listItem.SubItems[3].Text;
-                    lblCategory.Visible = true;
-                }
-
-            }
-
-        }
-
-        // double click for editing
-        private void double_Click(object sender, MouseEventArgs e)
-        {
-            var listItem = listView.FocusedItem;
-            focusedItem = listItem;
-            var row = listItem.Index;
-
-            if (row < newsCount)
-            {
-
-                CreateNewsWindow f1 = new CreateNewsWindow(this,focusedItem);
-                f1.Show();
-            }
-            else
-            {
-                CreatePhotosWindow f1 = new CreatePhotosWindow(this,focusedItem);
-                f1.Show();
-            }
-
+            txtCreated.MaxDate = DateTime.Now;
+            updateTable();
 
         }
 
 
         public void updateTable()
         {
-            newsCount = 0;
-            photoCount = 0;
-            listView.Items.Clear();
 
-            ListViewItem itemTemp;
-            List<List<string>> strTemp;
+            NewsTable = nq.ReadAll();
+            PhotoTable = pq.ReadAll();
 
-            Guid guidTemp;
-            DateTime dateTemp;
 
-            strTemp = fileOp.ReadFromFile(newsPath);
+            NewsTable.Merge(PhotoTable);
+            GridView.DataSource = NewsTable;
 
-            foreach (List<string> s in strTemp)
+            GridView.Columns[5].Visible = false;
+            GridView.Columns[6].Visible = false;
+            GridView.Columns[7].Visible = false;
+            GridView.Columns[8].Visible = false;
+
+        }
+
+        private void GridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            selectedRow = e.RowIndex;
+            tabControlMain.TabPages.Remove(imageTab);
+            if (selectedRow != -1)
             {
-                if (!DateTime.TryParse(s[1], out dateTemp) || !Guid.TryParse(s[5], out guidTemp) || s.Count != 6)
+
+                txtTitle.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
+                txtCreated.Text = GridView.Rows[selectedRow].Cells[2].Value.ToString();
+                txtBody.Text = GridView.Rows[selectedRow].Cells[4].Value.ToString();
+                int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
+                string desc = GridView.Rows[selectedRow].Cells[3].Value.ToString();
+
+                if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
                 {
-                    continue;
+
+                    txtCategory.Visible = true;
+                    txtCategory.Text = GridView.Rows[selectedRow].Cells[7].Value.ToString();
+                    lblCategory.Visible = true;
+
+                }
+                else
+                {
+                    txtCategory.Visible = false;
+                    lblCategory.Visible = false;
+                    tabControlMain.TabPages.Add(imageTab);
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox.ImageLocation = txtCategory.Text = GridView.Rows[selectedRow].Cells[8].Value.ToString();
+
                 }
 
+                if (e.Button == MouseButtons.Right)
+                {
+                    DialogResult res = MessageBox.Show($"are you sure you want to delete {txtTitle.Text} with id of {id}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (res == DialogResult.Yes)
+                    {
+                        if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
+                        {
+                            News t = new News(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, txtCategory.Text, txtBody.Text, id);
+                            t.Delete();
 
-                itemTemp = new ListViewItem(s.ToArray());
-                listView.Items.Add(itemTemp);
-                newsCount++;
+
+                        }
+                        else
+                        {
+                            Photo t = new Photo(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, pictureBox.ImageLocation, txtBody.Text, id);
+                            t.Delete();
+                        }
+                        updateTable();
+                    }
+                }
+
             }
-
-            strTemp = fileOp.ReadFromFile(photoPath);
-
-            foreach (List<string> s in strTemp)
-            {
-                if (!DateTime.TryParse(s[1], out dateTemp) || !Guid.TryParse(s[5], out guidTemp) || s.Count != 6) continue;
-                itemTemp = new ListViewItem(s.ToArray());
-                listView.Items.Add(itemTemp);
-                photoCount++;
-            }
-
-            if (newsCount + photoCount == 0)
-            {
-                txtTitle.Text = string.Empty;
-                txtBody.Text = string.Empty;
-                txtCategory.Text = string.Empty;
-                txtCreated.Text = string.Empty;
-            }
-
-            txtTitle.Modified = false;
-            txtBody.Modified = false;
-            categoryChanged = false;
-            dateChanged = false;
-
         }
 
- 
-
-
-  
-
-        // create inital path if there is no path 
-        private void initPath()
+        private void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!Directory.Exists(newsPath))
+            selectedRow = GridView.CurrentCell.RowIndex;
+            int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
+            string desc = GridView.Rows[selectedRow].Cells[3].Value.ToString();
+            if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
             {
-                Directory.CreateDirectory(newsPath);
-            }
+                News t = new News(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, txtCategory.Text, txtBody.Text, id);
+                CreateNewsWindow f1 = new CreateNewsWindow(this, t);
+                f1.Show();
 
-            if (!Directory.Exists(photoPath))
+            }
+            else
             {
-                Directory.CreateDirectory(photoPath);
+                Photo t = new Photo(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, pictureBox.ImageLocation, txtBody.Text, id);
+                CreatePhotosWindow f1 = new CreatePhotosWindow(this, t);
+                f1.Show();
             }
-
-            if (!Directory.Exists(userPath))
-            {
-                Directory.CreateDirectory(userPath);
-            }
-
         }
 
-  
-        // changing window when toolstrip is selected 
+
+
         private void newsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateNewsWindow f1 = new CreateNewsWindow(this,null);
+            CreateNewsWindow f1 = new CreateNewsWindow(this, null);
             f1.Show();
 
         }
 
         private void photoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreatePhotosWindow f1 = new CreatePhotosWindow(this,null);
+            CreatePhotosWindow f1 = new CreatePhotosWindow(this, null);
             f1.Show();
 
         }
 
         private void userToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateUserWindow f1 = new CreateUserWindow(loggedIn.LoginName);
+            CreateUserWindow f1 = new CreateUserWindow(this,mod);
             f1.Show();
 
         }
 
-        private void editFilePathToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            EditPathWindow f1 = new EditPathWindow(this);
-            f1.Show();
 
-        }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
+
+
+
+
+        
+
     }
 
 }

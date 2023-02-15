@@ -1,41 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fileworx_Client
+namespace FileworxObjects
 {
-    internal abstract class Media
+    public abstract class BusinessObject
     {
-
-        public  Guid guid { get; set; }
+         
+        public  int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string Body { get; set; }
 
         // constructor for existing object
-        public Media(string title, string description, DateTime created,string body,Guid guid)
+        public BusinessObject(string title, string description, DateTime created,string body,int id)
         {
             Title = title;
             Description = description;
             Created = created;
             Body = body;
-            this.guid = guid;
+            this.ID = id;
         }
 
         // constructor for new object new guid is created for file name
-        public Media(string title, string description, DateTime created, string body)
+        public BusinessObject(string title, string description, DateTime created, string body)
         {
             Title = title;
             Description = description;
             Created = created;
             Body = body;
-            this.guid = Guid.NewGuid();
+            ID = -1;
         }
 
+  
     }
 
 }

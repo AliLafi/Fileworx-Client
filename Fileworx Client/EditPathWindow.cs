@@ -15,9 +15,7 @@ namespace Fileworx_Client
 
     public partial class EditPathWindow : Form
     {
-        public static string newsPathTemp = MainWindow.newsPath;
-        public static string photoPathTemp = MainWindow.photoPath;
-        public static string userPathTemp = MainWindow.userPath;
+
         MainWindow main;
 
 
@@ -25,9 +23,7 @@ namespace Fileworx_Client
         {
             InitializeComponent();
 
-            txtNews.Text = newsPathTemp;
-            txtPhoto.Text = photoPathTemp;
-            txtUser.Text = userPathTemp;
+
             this.main = main;
         }
 
@@ -82,31 +78,7 @@ namespace Fileworx_Client
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            newsPathTemp = txtNews.Text;
-            photoPathTemp = txtPhoto.Text;
-            userPathTemp = txtUser.Text;
-
-            if (!(FolderExists(newsPathTemp) && FolderExists(photoPathTemp) && FolderExists(userPathTemp) ) )
-            {
-
-                DialogResult res = MessageBox.Show("Not All Paths exist ", "Path Doesn\'t Exist", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                if (res == DialogResult.Cancel)
-                {
-                    this.Hide();
-                }
-
-            }
-
-            else
-            {
-
-                MainWindow.userPath = userPathTemp;
-                MainWindow.photoPath = photoPathTemp;
-                MainWindow.newsPath = newsPathTemp;
-
-                main.updateTable();
-                this.Hide();
-            }
+           
 
         }
         private void btnCancel_Click(object sender, EventArgs e)

@@ -137,6 +137,7 @@
             this.Controls.Add(this.lblName);
             this.Name = "CreateUserWindow";
             this.Text = "User";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateUserWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

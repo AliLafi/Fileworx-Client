@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView = new System.Windows.Forms.ListView();
-            this.titleHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.createdHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.descriptionHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCreated = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
@@ -42,55 +38,21 @@
             this.newsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.photoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editFilePathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.previewTab = new System.Windows.Forms.TabPage();
             this.txtBody = new System.Windows.Forms.RichTextBox();
-            this.imgTab = new System.Windows.Forms.TabPage();
+            this.imageTab = new System.Windows.Forms.TabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.txtCategory = new System.Windows.Forms.ComboBox();
             this.txtCreated = new System.Windows.Forms.DateTimePicker();
+            this.GridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.previewTab.SuspendLayout();
-            this.imgTab.SuspendLayout();
+            this.imageTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listView
-            // 
-            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.titleHeader,
-            this.createdHeader,
-            this.descriptionHeader});
-            this.listView.FullRowSelect = true;
-            this.listView.HideSelection = false;
-            this.listView.Location = new System.Drawing.Point(12, 22);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(871, 157);
-            this.listView.TabIndex = 0;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listClick);
-            this.listView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.double_Click);
-            // 
-            // titleHeader
-            // 
-            this.titleHeader.Text = "Title";
-            this.titleHeader.Width = 150;
-            // 
-            // createdHeader
-            // 
-            this.createdHeader.Text = "Creation Date";
-            this.createdHeader.Width = 150;
-            // 
-            // descriptionHeader
-            // 
-            this.descriptionHeader.Text = "Description";
-            this.descriptionHeader.Width = 150;
             // 
             // lblTitle
             // 
@@ -139,14 +101,14 @@
             this.txtTitle.Location = new System.Drawing.Point(153, 188);
             this.txtTitle.MaxLength = 255;
             this.txtTitle.Name = "txtTitle";
+            this.txtTitle.ReadOnly = true;
             this.txtTitle.Size = new System.Drawing.Size(730, 23);
             this.txtTitle.TabIndex = 4;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.settingsToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(904, 24);
@@ -168,7 +130,7 @@
             this.photoToolStripMenuItem,
             this.userToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // newsToolStripMenuItem
@@ -192,28 +154,13 @@
             this.userToolStripMenuItem.Text = "User";
             this.userToolStripMenuItem.Click += new System.EventHandler(this.userToolStripMenuItem_Click);
             // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editFilePathToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // editFilePathToolStripMenuItem
-            // 
-            this.editFilePathToolStripMenuItem.Name = "editFilePathToolStripMenuItem";
-            this.editFilePathToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.editFilePathToolStripMenuItem.Text = "Change Path";
-            this.editFilePathToolStripMenuItem.Click += new System.EventHandler(this.editFilePathToolStripMenuItem_Click);
-            // 
             // tabControlMain
             // 
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.previewTab);
-            this.tabControlMain.Controls.Add(this.imgTab);
+            this.tabControlMain.Controls.Add(this.imageTab);
             this.tabControlMain.Location = new System.Drawing.Point(18, 304);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -240,20 +187,21 @@
             this.txtBody.Location = new System.Drawing.Point(3, 3);
             this.txtBody.MaxLength = 10000;
             this.txtBody.Name = "txtBody";
+            this.txtBody.ReadOnly = true;
             this.txtBody.Size = new System.Drawing.Size(847, 174);
             this.txtBody.TabIndex = 0;
             this.txtBody.Text = "";
             // 
-            // imgTab
+            // imageTab
             // 
-            this.imgTab.Controls.Add(this.pictureBox);
-            this.imgTab.Location = new System.Drawing.Point(4, 22);
-            this.imgTab.Name = "imgTab";
-            this.imgTab.Padding = new System.Windows.Forms.Padding(3);
-            this.imgTab.Size = new System.Drawing.Size(857, 184);
-            this.imgTab.TabIndex = 1;
-            this.imgTab.Text = "Image";
-            this.imgTab.UseVisualStyleBackColor = true;
+            this.imageTab.Controls.Add(this.pictureBox);
+            this.imageTab.Location = new System.Drawing.Point(4, 22);
+            this.imageTab.Name = "imageTab";
+            this.imageTab.Padding = new System.Windows.Forms.Padding(3);
+            this.imageTab.Size = new System.Drawing.Size(857, 184);
+            this.imageTab.TabIndex = 1;
+            this.imageTab.Text = "Image";
+            this.imageTab.UseVisualStyleBackColor = true;
             // 
             // pictureBox
             // 
@@ -291,11 +239,28 @@
             this.txtCreated.Size = new System.Drawing.Size(730, 23);
             this.txtCreated.TabIndex = 11;
             // 
+            // GridView
+            // 
+            this.GridView.AllowUserToAddRows = false;
+            this.GridView.AllowUserToDeleteRows = false;
+            this.GridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridView.Location = new System.Drawing.Point(18, 27);
+            this.GridView.Name = "GridView";
+            this.GridView.ReadOnly = true;
+            this.GridView.Size = new System.Drawing.Size(865, 142);
+            this.GridView.TabIndex = 12;
+            this.GridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellDoubleClick);
+            this.GridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridView_CellMouseClick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 526);
+            this.Controls.Add(this.GridView);
             this.Controls.Add(this.txtCreated);
             this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.tabControlMain);
@@ -303,7 +268,6 @@
             this.Controls.Add(this.lblCategory);
             this.Controls.Add(this.lblCreated);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.listView);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
@@ -313,19 +277,15 @@
             this.menuStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.previewTab.ResumeLayout(false);
-            this.imgTab.ResumeLayout(false);
+            this.imageTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.ColumnHeader titleHeader;
-        private System.Windows.Forms.ColumnHeader createdHeader;
-        private System.Windows.Forms.ColumnHeader descriptionHeader;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblCreated;
         private System.Windows.Forms.Label lblCategory;
@@ -336,15 +296,14 @@
         private System.Windows.Forms.ToolStripMenuItem newsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem photoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editFilePathToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage previewTab;
         private System.Windows.Forms.RichTextBox txtBody;
-        private System.Windows.Forms.TabPage imgTab;
+        private System.Windows.Forms.TabPage imageTab;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.ComboBox txtCategory;
         private System.Windows.Forms.DateTimePicker txtCreated;
+        private System.Windows.Forms.DataGridView GridView;
     }
 }
 
