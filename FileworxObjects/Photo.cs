@@ -42,10 +42,10 @@ namespace FileworxObjects
                 Run();
                 if (this.ID > -1)
                 {
-                    q = $"UPDATE TABLE S.T_BUSINESSOBJECT SET C_TITLE =\'{this.Title}\', C_DESCRIPTION = \'{this.Description}\',C_BODY = \'{this.Body}\' WHERE ID = \'{this.ID}\'; ";
+                    q = $"UPDATE  S.T_BUSINESSOBJECT SET C_TITLE =\'{this.Title}\', C_DESCRIPTION = \'{this.Description}\',C_BODY = \'{this.Body}\' WHERE ID = \'{this.ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
-                    q = $"UPDATE TABLE S.T_PHOTO SET C_LOCATION = \'{this.ImagePath}\' WHERE ID = \'{this.ID}\'";
+                    q = $"UPDATE  S.T_PHOTO SET C_LOCATION = \'{this.ImagePath}\' WHERE ID = \'{this.ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -61,15 +61,19 @@ namespace FileworxObjects
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
             finally
             {
                 Close();
-
+                cmd.Dispose();
             }
+                
+            
+            
+           
         }
         public void Delete()
         {
@@ -92,6 +96,7 @@ namespace FileworxObjects
                 finally
                 {
                     Close();
+                    cmd.Dispose();
                 }
             }
         }
@@ -117,6 +122,7 @@ namespace FileworxObjects
             finally
             {
                 Close();
+                cmd.Dispose();
             }
             return stringBuilder.ToString();
         }

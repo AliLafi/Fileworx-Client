@@ -48,11 +48,14 @@ namespace FileworxObjects
 
         public void Update()
         {
-            
+            try
+            {
+
+
                 Run();
                 if (this.ID > -1)
                 {
-                    q = $"UPDATE TABLE S.T_USERS SET C_NAME =\'{this.Name}\', C_LOGINNAME = \'{this.LoginName}\',C_LASTMODIFIED = ADMIN, PASSWORD =\'{this.Password}\' WHERE ID = \'{this.ID}\' ";
+                    q = $"UPDATE  S.T_USERS SET C_NAME =\'{this.Name}\', C_LOGINNAME = \'{this.LoginName}\',C_LASTMODIFIED = ADMIN, PASSWORD =\'{this.Password}\' WHERE ID = \'{this.ID}\' ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -64,8 +67,18 @@ namespace FileworxObjects
                     cmd.ExecuteNonQuery();
                 }
             
-        
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
                 Close();
+                cmd.Dispose();
+            }
+        
+                
 
             
         }
@@ -88,6 +101,7 @@ namespace FileworxObjects
                 finally
                 {
                     Close();
+                    cmd.Dispose();
                 }
             }
         }
@@ -110,6 +124,7 @@ namespace FileworxObjects
             }
             finally
             {
+                cmd.Dispose();
                 Close();
             }
             return stringBuilder.ToString();

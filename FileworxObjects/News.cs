@@ -74,6 +74,7 @@ namespace FileworxObjects
             finally
             {
                 Close();
+                cmd.Dispose();
             }
         }
 
@@ -101,6 +102,7 @@ namespace FileworxObjects
                 finally
                 {
                     Close();
+                    cmd.Dispose();
                 }
             }
         }
@@ -127,6 +129,7 @@ namespace FileworxObjects
             finally
             {
                 Close();
+                cmd.Dispose();
             }
 
             return stringBuilder.ToString();

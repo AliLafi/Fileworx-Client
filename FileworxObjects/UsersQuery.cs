@@ -16,22 +16,34 @@ namespace FileworxObjects
             Hashtable LoginInfo= new Hashtable();
             q = "SELECT C_LOGINNAME,C_PASSWORD from S.T_USERS ";
 
-            
+            try
+            {
                 Run();
-                cmd = new SqlCommand(q,conn);
+                cmd = new SqlCommand(q, conn);
                 using (SqlDataReader sqlDataReader = cmd.ExecuteReader())
                 {
-                    while(sqlDataReader.Read())
+                    while (sqlDataReader.Read())
                     {
-                        LoginInfo.Add(sqlDataReader.GetString(0),sqlDataReader.GetString(1));
+                        LoginInfo.Add(sqlDataReader.GetString(0), sqlDataReader.GetString(1));
                     }
                 }
-            
 
-                
-            
-        
-            
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                cmd.Dispose();
+                Close();
+            }
+
+
+
+
+
+
             return LoginInfo;
         }
 
@@ -44,6 +56,7 @@ namespace FileworxObjects
         public void Close()
         {
             conn.Close();
+            
         }
     }
 }

@@ -38,6 +38,7 @@ namespace FileworxObjects
         public void Close()
         {
             conn.Close();
+            _adapter.Dispose();
         }
 
     }
