@@ -31,6 +31,16 @@ namespace FileworxAPI.Controllers
 
         }
 
+        [HttpGet("/News/{query}")]
+        public JsonResult SerachNews(string query) 
+        {
+            List<NewsDTO> list; 
+            NewsQuery nq = new NewsQuery();
+            list = nq.SearchNews(query);
+
+            return Json(list);
+        }
+
         [HttpDelete("/News")]
         public string DeleteNews([FromBody] NewsDTO dto)
         {
@@ -54,6 +64,7 @@ namespace FileworxAPI.Controllers
             n.Update();
             return "Updated Successfully";
         }
+
 
 
     }

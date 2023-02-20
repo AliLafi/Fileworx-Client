@@ -25,6 +25,16 @@ namespace FileworxAPI.Controllers
 
         }
 
+        [HttpGet("/Photos/{query}")]
+        public JsonResult SerachPhotos(string query)
+        {
+            List<PhotoDTO> list;
+            PhotoQuery pq= new PhotoQuery();
+            list = pq.SearchPhotos(query);
+
+            return Json(list);
+        }
+
         [HttpDelete("/Photo")]
         public string DeletePhoto([FromBody] PhotoDTO dto)
         {

@@ -40,6 +40,24 @@ namespace FileworxObjects
             return list;
         }
 
+        public List<NewsDTO> SearchNews(string query)
+        {
+            Run();
+            q = $"SELECT C_ID, C_description, C_name, C_body,C_category, C_creation_date FROM dbo.T_BusinessObject B  INNER JOIN dbo.T_File F  ON B.C_ID = F.ID  Inner Join dbo.T_News N on F.id=N.ID WHERE  C_class_id=1 AND CONCAT ( LOWER(B.C_name),  lower(B.C_description) , lower(B.C_creation_date)  , lower(F.C_body) , lower(N.C_category) ) like \'%{query}%\';";
+            List<NewsDTO> list = new List<NewsDTO>();
+            SqlCommand cmd = new SqlCommand(q, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                NewsDTO dto = new NewsDTO(reader.GetString(2), reader.GetString(1), reader.GetDateTime(5), reader.GetInt32(0), reader.GetString(3), reader.GetString(4));
+                list.Add(dto);
+            }
+
+            return list;
+
+        }
+
 
 
         public void Run()

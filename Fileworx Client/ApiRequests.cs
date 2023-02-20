@@ -41,7 +41,19 @@ namespace Fileworx_Client
             return result;
         }
 
-       
+        public async Task<List<T>> GetSearch<T>(string url,string key)
+        {
+            var response = await _httpClient.GetAsync(url+"\\"+key);
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var result = new List<T>();
+
+            result = JsonConvert.DeserializeObject<List<T>>(content);
+
+
+
+            return result;
+        }
 
         public async Task<string> Create<T>(string url, T item)
         {

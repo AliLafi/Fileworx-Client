@@ -28,6 +28,7 @@ namespace Fileworx_Client
         public static bool dateChanged = false;
 
         public  string mod;
+ 
 
         public enum categories
         {
@@ -71,14 +72,54 @@ namespace Fileworx_Client
 
             updateTable();
 
+
+
+
+        }
+        private void searchBar_Leave(object sender, EventArgs e)
+        {
+            AddText(sender,e);
+        }
+
+   
+        private void searchBar_MouseClick(object sender, MouseEventArgs e)
+        {
+            RemoveText(sender, e);
+
+        }
+
+        public void RemoveText(object sender, EventArgs e)
+        {
+            if (searchBar.Text == "Enter Keyword")
+            {
+                searchBar.Text = "";
+            }
+        }
+
+        public void AddText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(searchBar.Text))
+                searchBar.Text = "Enter Keyword";
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News",searchBar.Text));
+            List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos",searchBar.Text));
+            FillTable(list,list2);
         }
 
 
         public async void updateTable()
         {
-            List<NewsDTO> list =  (await req.GetAll<NewsDTO>("News"));
-            List<PhotoDTO> list2 =  (await req.GetAll<PhotoDTO>("Photos"));
+            List<NewsDTO> list = (await req.GetAll<NewsDTO>("News"));
+            List<PhotoDTO> list2 = (await req.GetAll<PhotoDTO>("Photos"));
+            FillTable(list, list2);
 
+        }
+
+        private void FillTable(List<NewsDTO> list, List<PhotoDTO> list2)
+        {
             DataTable dt1 = ToDataTable<NewsDTO>(list);
             dt1.Merge(ToDataTable<PhotoDTO>(list2));
             GridView.DataSource = dt1;
@@ -86,7 +127,6 @@ namespace Fileworx_Client
             GridView.Columns[6].Visible = false;
             GridView.Columns[7].Visible = false;
             GridView.Columns[1].Visible = false;
-
         }
 
         public static DataTable ToDataTable<T>(List<T> items)
@@ -229,7 +269,10 @@ namespace Fileworx_Client
             Application.Exit();
         }
 
-  
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            updateTable();
+        }
     }
 
 }
