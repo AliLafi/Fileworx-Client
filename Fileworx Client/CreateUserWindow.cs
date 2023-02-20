@@ -62,7 +62,7 @@ namespace Fileworx_Client
             {
                 if (!isEmpty())
                 {
-                    UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,-1);
+                    UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,main.mod);
                     await req.Create("user", temp);
                     main.updateTable();
                     this.Hide();
@@ -92,7 +92,7 @@ namespace Fileworx_Client
 
                             if (userItem == null)
                             {
-                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, -1);
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.mod);
                                 await req.Create("user", temp);   
                             }
                             else
@@ -150,7 +150,7 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
                             if (userItem == null)
                             {
-                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, -1);
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.mod);
                                 await req.Create("user", temp);
                             }
                             else
