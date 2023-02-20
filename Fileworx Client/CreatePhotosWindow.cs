@@ -1,5 +1,8 @@
 ﻿using FileworxObjects;
+using FileworxObjects.DTOs;
 using System;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fileworx_Client
@@ -8,17 +11,19 @@ namespace Fileworx_Client
 
     public partial class CreatePhotosWindow : Form
     {
-        MainWindow main;
-        FileOp fileOp = new FileOp();
-        Photo photoItem;
-        //Photo photo;
+
+        PhotoDTO photoItem;
+
         bool imageChange = false;
 
-        public CreatePhotosWindow(MainWindow main, Photo photoFromMain = null)
+        ApiRequests req = new ApiRequests();
+        MainWindow main;
+
+
+        public CreatePhotosWindow(MainWindow m, PhotoDTO photoFromMain = null)
         {
             InitializeComponent();
-
-            this.main = main;
+            main = m;
 
             if (photoFromMain != null)
             {
@@ -31,10 +36,10 @@ namespace Fileworx_Client
         private void FillTxt()
         {
 
-            txtTitle.Text = photoItem.Title;
+            txtTitle.Text = photoItem.Name;
             txtDescription.Text = photoItem.Description;
             txtBody.Text = photoItem.Body;
-           
+
             lblImage.Text = photoItem.ImagePath;
             pictureBox.ImageLocation = photoItem.ImagePath;
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -89,22 +94,9 @@ namespace Fileworx_Client
             {
                 if (!isEmpty())
                 {
-                    if (photoItem == null)
-                    {
-                        Photo temp = new Photo(txtTitle.Text,DateTime.Now,txtDescription.Text,lblImage.Text,txtBody.Text);
-                        temp.Update();
-                    }
-                    else
-                    {
-                        photoItem.Title = txtTitle.Text;
-                        photoItem.Description = txtDescription.Text;
-                        photoItem.Body = txtBody.Text;
-                        photoItem.ImagePath = lblImage.Text;
-                        photoItem.Update();
-
-                    }
-                    main.updateTable();
+                    UpdateOrCreate();
                     this.Hide();
+
                 }
 
                 else
@@ -117,7 +109,7 @@ namespace Fileworx_Client
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancel_ClickAsync(object sender, EventArgs e)
         {
             if (hasChanged())
             {
@@ -129,22 +121,7 @@ namespace Fileworx_Client
                     {
                         case DialogResult.Yes:
 
-                            if (photoItem == null)
-                            {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now, txtDescription.Text, lblImage.Text, txtBody.Text);
-                                temp.Update();
-                            }
-                            else
-                            {
-                                photoItem.Title = txtTitle.Text;
-                                photoItem.Description = txtDescription.Text;
-                                photoItem.Body = txtBody.Text;
-                                photoItem.ImagePath = lblImage.Text;
-                                photoItem.Update();
-
-                            }
-
-                            main.updateTable();
+                            UpdateOrCreate();
                             this.Hide();
 
                             break;
@@ -175,7 +152,29 @@ namespace Fileworx_Client
 
         }
 
-        private void CreatePhotosWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private async void UpdateOrCreate()
+        {
+            if (photoItem == null)
+            {
+                pictureBox.ImageLocation = (pictureBox.ImageLocation == null) ? "abc" : pictureBox.ImageLocation;
+                PhotoDTO temp = new PhotoDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, pictureBox.ImageLocation);
+                await req.Create("Photo", temp);
+
+            }
+            else
+            {
+                photoItem.Name = txtTitle.Text;
+                photoItem.Description = txtDescription.Text;
+                photoItem.Body = txtBody.Text;
+                photoItem.ImagePath = lblImage.Text;
+                await req.Update("Photo", photoItem);
+
+            }
+            main.updateTable();
+
+        }
+
+        private void CreatePhotosWindow_FormClosingAsync(object sender, FormClosingEventArgs e)
         {
             if (hasChanged() && this.Visible == true)
             {
@@ -195,21 +194,8 @@ namespace Fileworx_Client
 
                         case DialogResult.Yes:
 
-                            if (photoItem == null)
-                            {
-                                Photo temp = new Photo(txtTitle.Text, DateTime.Now, txtDescription.Text, lblImage.Text, txtBody.Text);
-                                temp.Update();
-                            }
-                            else
-                            {
-                                photoItem.Title = txtTitle.Text;
-                                photoItem.Description = txtDescription.Text;
-                                photoItem.Body = txtBody.Text;
-                                photoItem.ImagePath = lblImage.Text;
-                                photoItem.Update();
-
-                            }
-                            main.updateTable();
+                            UpdateOrCreate();
+                            main.Show();
                             e.Cancel = false;
 
                             break;

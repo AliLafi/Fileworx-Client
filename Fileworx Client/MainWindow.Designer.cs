@@ -1,4 +1,6 @@
-﻿namespace Fileworx_Client
+﻿using System;
+
+namespace Fileworx_Client
 {
     partial class MainWindow
     {
@@ -130,7 +132,7 @@
             this.photoToolStripMenuItem,
             this.userToolStripMenuItem});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // newsToolStripMenuItem
@@ -284,6 +286,8 @@
             this.PerformLayout();
 
         }
+
+
 
         #endregion
         private System.Windows.Forms.Label lblTitle;

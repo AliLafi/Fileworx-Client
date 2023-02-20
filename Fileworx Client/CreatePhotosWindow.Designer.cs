@@ -98,7 +98,7 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_ClickAsync);
             // 
             // txtBody
             // 
@@ -222,7 +222,7 @@
             this.Controls.Add(this.Tabs);
             this.Name = "CreatePhotosWindow";
             this.Text = "Photos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreatePhotosWindow_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreatePhotosWindow_FormClosingAsync);
             this.Tabs.ResumeLayout(false);
             this.descTab.ResumeLayout(false);
             this.descTab.PerformLayout();

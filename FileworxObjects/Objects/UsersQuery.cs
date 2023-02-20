@@ -9,12 +9,12 @@ namespace FileworxObjects
         SqlConnection conn;
         string q;
         SqlCommand cmd;
-        string connectionString = ConfigurationManager.ConnectionStrings["MyKey"].ConnectionString;
+        readonly string connectionString = "Data Source=ALILAFI;Initial Catalog=Fileworx;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public Hashtable ReadAll()
+        public Hashtable ReadLoginInfo()
         {
-            Hashtable LoginInfo= new Hashtable();
-            q = "SELECT C_LOGINNAME,C_PASSWORD from S.T_USERS ";
+            Hashtable LoginInfo = new Hashtable();
+            q = "SELECT C_LOGIN_NAME,C_PASSWORD from dbo.T_USERS ";
 
             try
             {
@@ -29,7 +29,7 @@ namespace FileworxObjects
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -56,7 +56,7 @@ namespace FileworxObjects
         public void Close()
         {
             conn.Close();
-            
+
         }
     }
 }

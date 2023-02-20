@@ -1,4 +1,5 @@
 ﻿using FileworxObjects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,26 +7,27 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FileworxObjects.DTOs;
 
 namespace Fileworx_Client
 {
     public partial class MainWindow : Form
     {
+        
         int selectedRow;
-        DataTable NewsTable;
-        DataTable PhotoTable;
+        ApiRequests req = new ApiRequests();
+
 
         public static bool categoryChanged = false;
         public static bool dateChanged = false;
 
-        NewsQuery nq = new NewsQuery();
-        PhotoQuery pq = new PhotoQuery();
-
-        static string mod;
+        public  string mod;
 
         public enum categories
         {
@@ -36,7 +38,7 @@ namespace Fileworx_Client
 
         }
 
-        public MainWindow()
+        public   MainWindow()
         {
             InitializeComponent();
 
@@ -49,11 +51,10 @@ namespace Fileworx_Client
 
             }
 
-            txtCreated.MaxDate = DateTime.Now;
-            updateTable();
 
         }
-        public MainWindow(string m)
+
+        public   MainWindow(string m)
         {
             InitializeComponent();
 
@@ -65,32 +66,56 @@ namespace Fileworx_Client
                 txtCategory.Items.Add(cat.ToString());
 
             }
-            mod= m;
+            mod = m;
 
-            txtCreated.MaxDate = DateTime.Now;
+
             updateTable();
 
         }
 
 
-        public void updateTable()
+        public async void updateTable()
         {
+            List<NewsDTO> list =  (await req.GetAll<NewsDTO>("News"));
+            List<PhotoDTO> list2 =  (await req.GetAll<PhotoDTO>("Photos"));
 
-            NewsTable = nq.ReadAll();
-            PhotoTable = pq.ReadAll();
-
-
-            NewsTable.Merge(PhotoTable);
-            GridView.DataSource = NewsTable;
-
-            GridView.Columns[5].Visible = false;
+            DataTable dt1 = ToDataTable<NewsDTO>(list);
+            dt1.Merge(ToDataTable<PhotoDTO>(list2));
+            GridView.DataSource = dt1;
+            GridView.Columns[0].Visible = false;
             GridView.Columns[6].Visible = false;
             GridView.Columns[7].Visible = false;
-            GridView.Columns[8].Visible = false;
+            GridView.Columns[1].Visible = false;
 
         }
 
-        private void GridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
+        }
+
+
+        private async void GridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
             selectedRow = e.RowIndex;
@@ -98,17 +123,17 @@ namespace Fileworx_Client
             if (selectedRow != -1)
             {
 
-                txtTitle.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
-                txtCreated.Text = GridView.Rows[selectedRow].Cells[2].Value.ToString();
-                txtBody.Text = GridView.Rows[selectedRow].Cells[4].Value.ToString();
-                int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
-                string desc = GridView.Rows[selectedRow].Cells[3].Value.ToString();
+                txtTitle.Text = GridView.Rows[selectedRow].Cells[3].Value.ToString();
+                txtCreated.Text = GridView.Rows[selectedRow].Cells[5].Value.ToString();
+                txtBody.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
+                int id = int.Parse(GridView.Rows[selectedRow].Cells[2].Value.ToString());
+                string desc = GridView.Rows[selectedRow].Cells[4].Value.ToString();
 
-                if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
+                if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
                 {
 
                     txtCategory.Visible = true;
-                    txtCategory.Text = GridView.Rows[selectedRow].Cells[7].Value.ToString();
+                    txtCategory.Text = GridView.Rows[selectedRow].Cells[0].Value.ToString();
                     lblCategory.Visible = true;
 
                 }
@@ -118,7 +143,7 @@ namespace Fileworx_Client
                     lblCategory.Visible = false;
                     tabControlMain.TabPages.Add(imageTab);
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox.ImageLocation = txtCategory.Text = GridView.Rows[selectedRow].Cells[8].Value.ToString();
+                    pictureBox.ImageLocation = txtCategory.Text = GridView.Rows[selectedRow].Cells[7].Value.ToString();
 
                 }
 
@@ -127,43 +152,51 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show($"are you sure you want to delete {txtTitle.Text} with id of {id}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
+                        if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
                         {
-                            News t = new News(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, txtCategory.Text, txtBody.Text, id);
-                            t.Delete();
+                            NewsDTO temp = new NewsDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, txtCategory.Text);
+                            await req.Delete<NewsDTO>("News", temp);
 
 
                         }
                         else
                         {
-                            Photo t = new Photo(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, pictureBox.ImageLocation, txtBody.Text, id);
-                            t.Delete();
+                            PhotoDTO temp = new PhotoDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, pictureBox.ImageLocation);
+                            await req.Delete<PhotoDTO>("Photo", temp);
+
                         }
-                        updateTable();
+
+                         updateTable();
+
                     }
+ 
                 }
 
             }
+        
         }
 
         private void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedRow = GridView.CurrentCell.RowIndex;
-            int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
-            string desc = GridView.Rows[selectedRow].Cells[3].Value.ToString();
-            if (GridView.Rows[selectedRow].Cells[8].Value.ToString() == String.Empty)
+
+            int id = int.Parse(GridView.Rows[selectedRow].Cells[2].Value.ToString());
+            string desc = GridView.Rows[selectedRow].Cells[4].Value.ToString();
+
+            if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
             {
-                News t = new News(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, txtCategory.Text, txtBody.Text, id);
-                CreateNewsWindow f1 = new CreateNewsWindow(this, t);
+                NewsDTO temp = new NewsDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, txtCategory.Text);
+                CreateNewsWindow f1 = new CreateNewsWindow(this, temp);
                 f1.Show();
 
             }
             else
             {
-                Photo t = new Photo(txtTitle.Text, DateTime.Parse(txtCreated.Text), desc, pictureBox.ImageLocation, txtBody.Text, id);
-                CreatePhotosWindow f1 = new CreatePhotosWindow(this, t);
+                PhotoDTO temp = new PhotoDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, pictureBox.ImageLocation);
+                CreatePhotosWindow f1 = new CreatePhotosWindow(this,temp);
                 f1.Show();
             }
+
         }
 
 
@@ -177,14 +210,14 @@ namespace Fileworx_Client
 
         private void photoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreatePhotosWindow f1 = new CreatePhotosWindow(this, null);
+            CreatePhotosWindow f1 = new CreatePhotosWindow( this,null);
             f1.Show();
 
         }
 
         private void userToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateUserWindow f1 = new CreateUserWindow(this,mod);
+            CreateUserWindow f1 = new CreateUserWindow(this, mod);
             f1.Show();
 
         }
@@ -196,11 +229,7 @@ namespace Fileworx_Client
             Application.Exit();
         }
 
-
-
-
-        
-
+  
     }
 
 }

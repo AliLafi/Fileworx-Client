@@ -24,7 +24,7 @@ namespace Fileworx_Client
         {
             InitializeComponent();
             ReadUsers();
- 
+
            
             
         }
@@ -33,9 +33,9 @@ namespace Fileworx_Client
         {
 
 
-            UsersQuery uq = new UsersQuery();
-            Users = uq.ReadAll();
-           
+            ApiRequests req = new ApiRequests();
+            Users = req.getLoginInfo().Result;
+            
 
         }
   

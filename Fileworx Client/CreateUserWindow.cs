@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FileworxObjects;
+using FileworxObjects.DTOs;
 
 namespace Fileworx_Client
 {
@@ -18,6 +19,7 @@ namespace Fileworx_Client
         MainWindow main;
         User userItem;
         string LastMod;
+        ApiRequests req = new ApiRequests();
         public CreateUserWindow(MainWindow m ,string mod, User u=null)
         {
             
@@ -27,7 +29,7 @@ namespace Fileworx_Client
             if(u != null)
             {
                 this.userItem= u;
-                //FillTxt();
+                
             }
         }
 
@@ -54,24 +56,14 @@ namespace Fileworx_Client
         }
 
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             if (hasChanged())
             {
                 if (!isEmpty())
                 {
-                    if (userItem == null)
-                    {
- 
-                        User temp = new User(txtName.Text,txtLogin.Text,txtPassword.Text,LastMod);
-                        temp.Update();
-                    }
-                    else
-                    {
-
-                        //userItem.Update();
-                    }
-
+                    UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,-1);
+                    await req.Create("user", temp);
                     main.updateTable();
                     this.Hide();
 
@@ -87,7 +79,7 @@ namespace Fileworx_Client
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private async void   btnCancel_Click(object sender, EventArgs e)
         {
             if (hasChanged())
             {
@@ -100,8 +92,8 @@ namespace Fileworx_Client
 
                             if (userItem == null)
                             {
-                                User temp = new User(txtName.Text, txtLogin.Text, txtPassword.Text, LastMod);
-                                temp.Update(); temp.Update();
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, -1);
+                                await req.Create("user", temp);   
                             }
                             else
                             {
@@ -138,7 +130,7 @@ namespace Fileworx_Client
             }
         }
 
-        private void CreateUserWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private async void CreateUserWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (hasChanged() && this.Visible == true)
             {
@@ -158,8 +150,8 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
                             if (userItem == null)
                             {
-                                User temp = new User(txtName.Text, txtLogin.Text, txtPassword.Text, LastMod);
-                                temp.Update();
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, -1);
+                                await req.Create("user", temp);
                             }
                             else
                             {

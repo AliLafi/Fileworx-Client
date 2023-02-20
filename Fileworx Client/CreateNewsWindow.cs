@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using FileworxObjects;
+using FileworxObjects.DTOs;
+
 namespace Fileworx_Client
 {
 
     public partial class CreateNewsWindow : Form
     {
         MainWindow main;
-        News newsItem;
+        NewsDTO newsItem;
+        ApiRequests req = new ApiRequests();
+
 
         bool categoryChanged = false;
         public enum categories
@@ -19,7 +24,7 @@ namespace Fileworx_Client
 
         }
 
-        public CreateNewsWindow(MainWindow main, News newsFromMain = null)
+        public CreateNewsWindow(MainWindow main, NewsDTO newsFromMain = null)
         {
             InitializeComponent();
 
@@ -44,7 +49,7 @@ namespace Fileworx_Client
         private void FillTxt()
         {
 
-            txtTitle.Text = newsItem.Title;
+            txtTitle.Text = newsItem.Name;
             txtDescription.Text = newsItem.Description;
             txtBody.Text = newsItem.Body;
             listCategory.Text = newsItem.Category;
@@ -90,6 +95,28 @@ namespace Fileworx_Client
 
         }
 
+        private async void UpdateOrCreate()
+        {
+            if (newsItem == null)
+            {
+
+                NewsDTO temp = new NewsDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, listCategory.Text);
+                await req.Create("News", temp);
+
+            }
+            else
+            {
+                newsItem.Name = txtTitle.Text;
+                newsItem.Description = txtDescription.Text;
+                newsItem.Body = txtBody.Text;
+                newsItem.Category = listCategory.Text;
+                await req.Update("News", newsItem);
+
+            }
+            main.updateTable();
+
+        }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -97,22 +124,7 @@ namespace Fileworx_Client
             {
                 if (!isEmpty())
                 {
-                    if (newsItem == null)
-                    {
-                        News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                        temp.Update();
-                    }
-                    else
-                    {
-                        newsItem.Title = txtTitle.Text;
-                        newsItem.Description = txtDescription.Text;
-                        newsItem.Body = txtBody.Text;
-                        newsItem.Category = listCategory.Text;
-                        newsItem.Update();
-
-                    }
-
-                    main.updateTable();
+                    UpdateOrCreate();
                     this.Hide();
 
                 }
@@ -138,21 +150,7 @@ namespace Fileworx_Client
                     {
                         case DialogResult.Yes:
 
-                            if (newsItem == null)
-                            {
-                                News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                                temp.Update();
-                            }
-                            else
-                            {
-                                newsItem.Title = txtTitle.Text;
-                                newsItem.Description = txtDescription.Text;
-                                newsItem.Body = txtBody.Text;
-                                newsItem.Category = listCategory.Text;
-                                newsItem.Update();
-
-
-                            }
+                            UpdateOrCreate();
                             main.updateTable();
                             this.Hide();
 
@@ -206,23 +204,9 @@ namespace Fileworx_Client
                             break;
 
                         case DialogResult.Yes:
-                            if (newsItem == null)
-                            {
-                                News temp = new News(txtTitle.Text, DateTime.Now.Date, txtDescription.Text, listCategory.Text, txtBody.Text);
-                                temp.Update();
-                            }
-                            else
-                            {
-                                newsItem.Title = txtTitle.Text;
-                                newsItem.Description = txtDescription.Text;
-                                newsItem.Body = txtBody.Text;
-                                newsItem.Category = listCategory.Text;
-                                newsItem.Update();
 
 
-                            }
-
-                            main.updateTable();
+                            UpdateOrCreate();
                             e.Cancel = false;
 
                             break;
