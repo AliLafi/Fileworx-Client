@@ -7,12 +7,20 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
+using FileworxObjects.Objects;
+using Nest;
+using Newtonsoft.Json;
+using FileworxObjects.Connection;
 
 namespace FileworxAPI.Controllers
 {
+
+
     public class NewsController : Controller
     {
-        
+
+        ElasticClient elasticClient = ElasticConnection.GetESClient();
+
         public IActionResult Index()
         {
             return View();
@@ -23,28 +31,36 @@ namespace FileworxAPI.Controllers
         {
 
 
-            List<NewsDTO> list; 
+            List<NewsDTO> list;
             NewsQuery nq = new NewsQuery();
-            list= nq.ReadAllNews();
-            
+
+            list = nq.Run(elasticClient, DateTime.MinValue, DateTime.MaxValue);
+
             return Json(list);
 
         }
 
-        [HttpGet("/News/{query}")]
-        public JsonResult SerachNews(string query) 
+        [HttpGet("/News/search")]
+        public JsonResult SerachNews([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] string cat, [FromQuery] string query)
         {
-            List<NewsDTO> list; 
+
+
+            List<NewsDTO> list;
             NewsQuery nq = new NewsQuery();
-            list = nq.SearchNews(query);
+            if (end == start && end == DateTime.MinValue)
+            {
+                end = DateTime.MaxValue;
+            }
+            list = nq.Run(elasticClient, start, end, cat, query);
 
             return Json(list);
         }
 
-        [HttpDelete("/News")]
-        public string DeleteNews([FromBody] NewsDTO dto)
+        [HttpDelete("/News/{id}")]
+        public string DeleteNews(int id)
         {
-            News n = NewsMapper.DtoToNews(dto);
+            News n = new News();
+            n.ID = id;
             n.Delete();
             return "Deleted Successfully";
         }

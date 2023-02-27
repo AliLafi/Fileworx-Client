@@ -31,9 +31,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net48\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elasticsearch.Net.7.17.5\lib\net461\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NEST.7.17.5\lib\net461\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,25 +70,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="Connection\ElasticConnection.cs" />
     <Compile Include="FileOp.cs" />
     <Compile Include="Mappers\PhotoMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
-    <Compile Include="Objects\BusinessObject.cs" />
+    <Compile Include="Objects\Business Object\BusinessObject.cs" />
     <Compile Include="DTOs\BusinessObjectDTO.cs" />
     <Compile Include="DTOs\FileDTO.cs" />
     <Compile Include="DTOs\NewsDTO.cs" />
     <Compile Include="DTOs\PhotoDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
-    <Compile Include="Objects\File.cs" />
+    <Compile Include="Objects\Business Object\BusinessObjectDB.cs" />
+    <Compile Include="Objects\File\File.cs" />
     <Compile Include="Mappers\NewsMapper.cs" />
-    <Compile Include="Objects\News.cs" />
-    <Compile Include="Objects\NewsQuery.cs" />
-    <Compile Include="Objects\Photo.cs" />
-    <Compile Include="Objects\PhotoQuery.cs" />
+    <Compile Include="Objects\File\FileDB.cs" />
+    <Compile Include="Objects\LoginCredentials.cs" />
+    <Compile Include="Objects\News\NewsCrud.cs" />
+    <Compile Include="Objects\News\NewsDB.cs" />
+    <Compile Include="Objects\News\NewsElastic.cs" />
+    <Compile Include="Objects\News\NewsProp.cs" />
+    <Compile Include="Objects\News\NewsQuery.cs" />
+    <Compile Include="Objects\Photo\PhotoCrud.cs" />
+    <Compile Include="Objects\Photo\PhotoDB.cs" />
+    <Compile Include="Objects\Photo\PhotoElastic.cs" />
+    <Compile Include="Objects\Photo\PhotoProp.cs" />
+    <Compile Include="Objects\Photo\PhotoQuery.cs" />
+    <Compile Include="Objects\SearchObject.cs" />
+    <Compile Include="Objects\User\UserCrud.cs" />
+    <Compile Include="Objects\User\UserDB.cs" />
+    <Compile Include="Objects\User\UserValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Objects\User.cs" />
-    <Compile Include="Objects\UsersQuery.cs" />
+    <Compile Include="Objects\User\User.cs" />
+    <Compile Include="Objects\User\UsersQuery.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

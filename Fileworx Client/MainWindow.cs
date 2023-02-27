@@ -14,12 +14,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FileworxObjects.DTOs;
+using FileworxObjects.Objects;
 
 namespace Fileworx_Client
 {
     public partial class MainWindow : Form
     {
-        
+
         int selectedRow;
         ApiRequests req = new ApiRequests();
 
@@ -27,8 +28,8 @@ namespace Fileworx_Client
         public static bool categoryChanged = false;
         public static bool dateChanged = false;
 
-        public  string mod;
- 
+        public string mod;
+
 
         public enum categories
         {
@@ -39,7 +40,7 @@ namespace Fileworx_Client
 
         }
 
-        public   MainWindow()
+        public MainWindow()
         {
             InitializeComponent();
 
@@ -52,10 +53,9 @@ namespace Fileworx_Client
 
             }
 
-
         }
 
-        public   MainWindow(string m)
+        public MainWindow(string m)
         {
             InitializeComponent();
 
@@ -72,16 +72,14 @@ namespace Fileworx_Client
 
             updateTable();
 
-
-
-
         }
+
         private void searchBar_Leave(object sender, EventArgs e)
         {
-            AddText(sender,e);
+            AddText(sender, e);
         }
 
-   
+
         private void searchBar_MouseClick(object sender, MouseEventArgs e)
         {
             RemoveText(sender, e);
@@ -104,20 +102,61 @@ namespace Fileworx_Client
 
         private async void btnSearch_Click(object sender, EventArgs e)
         {
-            List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News",searchBar.Text));
-            List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos",searchBar.Text));
-            FillTable(list,list2);
+            DateTime start = DateTime.Parse(startDate.Text);
+            DateTime end = DateTime.Parse(endDate.Text);
+            List<string> categories = new List<string>();
+
+            RemoveText(sender, e);
+
+            foreach (object item in catList.CheckedItems)
+            {
+                categories.Add(item.ToString());
+            }
+
+            bool valid = true;
+
+            if (start > end)
+            {
+                MessageBox.Show("The start Date Cannot be after end Date");
+                valid = false;
+            }
+
+            if (start > DateTime.Now || end > DateTime.Now)
+            {
+                MessageBox.Show("The Date Cannot be in the future");
+                valid = false;
+            }
+
+            if (start.Date == DateTime.Now.Date)
+            {
+                start = DateTime.MinValue;
+            }
+            if(end.Date == DateTime.Now.Date)
+            {
+                end = DateTime.MaxValue;
+            }
+
+            if (valid)
+            {
+
+                SearchObject s = new SearchObject(start, end, categories, searchBar.Text);
+                List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News", s));
+                List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos",s));
+                FillTable(list, list2);
+            }
         }
+
 
 
         public async void updateTable()
         {
-            List<NewsDTO> list = (await req.GetAll<NewsDTO>("News"));
-            List<PhotoDTO> list2 = (await req.GetAll<PhotoDTO>("Photos"));
+
+
+            List<NewsDTO> list = await req.GetAll<NewsDTO>("News");
+            List<PhotoDTO> list2 = await req.GetAll<PhotoDTO>("Photos");
+
             FillTable(list, list2);
-
         }
-
         private void FillTable(List<NewsDTO> list, List<PhotoDTO> list2)
         {
             DataTable dt1 = ToDataTable<NewsDTO>(list);
@@ -129,23 +168,26 @@ namespace Fileworx_Client
             GridView.Columns[1].Visible = false;
         }
 
+
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
 
-            
+
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
             foreach (PropertyInfo prop in Props)
             {
-                
+
                 dataTable.Columns.Add(prop.Name);
             }
+
             foreach (T item in items)
             {
                 var values = new object[Props.Length];
                 for (int i = 0; i < Props.Length; i++)
                 {
-                    
+
                     values[i] = Props[i].GetValue(item, null);
                 }
                 dataTable.Rows.Add(values);
@@ -167,7 +209,6 @@ namespace Fileworx_Client
                 txtCreated.Text = GridView.Rows[selectedRow].Cells[5].Value.ToString();
                 txtBody.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
                 int id = int.Parse(GridView.Rows[selectedRow].Cells[2].Value.ToString());
-                string desc = GridView.Rows[selectedRow].Cells[4].Value.ToString();
 
                 if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
                 {
@@ -194,26 +235,22 @@ namespace Fileworx_Client
                     {
                         if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
                         {
-                            NewsDTO temp = new NewsDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, txtCategory.Text);
-                            await req.Delete<NewsDTO>("News", temp);
-
+                            await req.Delete<NewsDTO>("News", id);
+                            updateTable();
 
                         }
                         else
                         {
-                            PhotoDTO temp = new PhotoDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, pictureBox.ImageLocation);
-                            await req.Delete<PhotoDTO>("Photo", temp);
+                            await req.Delete<PhotoDTO>("Photo", id);
 
                         }
 
-                         updateTable();
-
                     }
- 
+
                 }
 
             }
-        
+
         }
 
         private void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -233,7 +270,7 @@ namespace Fileworx_Client
             else
             {
                 PhotoDTO temp = new PhotoDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, pictureBox.ImageLocation);
-                CreatePhotosWindow f1 = new CreatePhotosWindow(this,temp);
+                CreatePhotosWindow f1 = new CreatePhotosWindow(this, temp);
                 f1.Show();
             }
 
@@ -250,7 +287,7 @@ namespace Fileworx_Client
 
         private void photoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreatePhotosWindow f1 = new CreatePhotosWindow( this,null);
+            CreatePhotosWindow f1 = new CreatePhotosWindow(this, null);
             f1.Show();
 
         }

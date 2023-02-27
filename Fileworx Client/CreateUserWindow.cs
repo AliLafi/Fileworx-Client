@@ -63,7 +63,8 @@ namespace Fileworx_Client
                 if (!isEmpty())
                 {
                     UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,main.mod);
-                    await req.Create("user", temp);
+                    string x = await req.Create("user", temp);
+                    MessageBox.Show(x);
                     main.updateTable();
                     this.Hide();
 

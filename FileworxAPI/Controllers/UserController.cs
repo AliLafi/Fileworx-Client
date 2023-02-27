@@ -4,6 +4,7 @@ using System.Collections;
 using System.Data;
 using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
+using FileworxObjects.Objects;
 
 namespace FileworxAPI.Controllers
 {
@@ -13,14 +14,15 @@ namespace FileworxAPI.Controllers
         {
             return View();
         }
-        [HttpGet("/Users")]
-        public Hashtable GetUsers()
+        [HttpPost("/login")]
+        public bool ValidateLogin([FromBody]LoginCredentials login)
         {
+            User u = new User();
+            u.LoginName = login.userName; 
+            u.Password = login.password;
+            
 
-
-            UsersQuery UserQuery = new UsersQuery();
-            Hashtable h= UserQuery.ReadLoginInfo();
-            return h;
+            return u.Validate();
 
         }
 
@@ -36,8 +38,15 @@ namespace FileworxAPI.Controllers
         public string AddUser([FromBody] UserDTO dto)
         {
             User user = UserMapper.DtoToUser(dto);
-            user.Update();
-            return "Added Successfully";
+
+            if (user.UserExists())
+            {
+
+                user.Update();
+                return "Added Successfully";
+
+            }
+            return "User Exists";
         }
 
         [HttpPut("/User")]

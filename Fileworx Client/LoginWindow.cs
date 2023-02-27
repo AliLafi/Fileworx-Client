@@ -17,45 +17,49 @@ namespace Fileworx_Client
     {
 
         MainWindow main;
-
+        bool valid = false;
         string loggedIn;
-        Hashtable Users = new Hashtable();
+        ApiRequests apiRequests= new ApiRequests();
         public LoginWindow()
         {
             InitializeComponent();
-            ReadUsers();
-
-           
-            
         }
-
-        private void ReadUsers()
+        
+        public async Task ValidateUser()
         {
-
-
-            ApiRequests req = new ApiRequests();
-            Users = req.getLoginInfo().Result;
-            
-
+            valid = await apiRequests.getLoginInfo(txtLogin.Text,txtPassword.Text);
         }
+
+
   
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async   void btnLogin_Click(object sender, EventArgs e)
         {
-            if (Users.ContainsKey(txtLogin.Text.Trim()) && Users.ContainsValue(txtPassword.Text))
+            if (txtLogin.Text.Trim() != string.Empty && txtPassword.Text != string.Empty)
             {
+                await ValidateUser();
 
-                MessageBox.Show("Login Successful", "Success");
-                loggedIn= txtLogin.Text.Trim();
-                main = new MainWindow(loggedIn);
-                main.Show();
-                this.Hide();
+                if(valid)
+                {
+
+                    MessageBox.Show("Login Successful", "Success");
+                    loggedIn = txtLogin.Text.Trim();
+                    main = new MainWindow(loggedIn);
+                    main.Show();
+                    this.Hide();
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Login Name or Password is incorrect");
+                }
+
             }
-
             else
             {
-
-                MessageBox.Show("Login Name or Password is incorrect");
+                MessageBox.Show("Fields cannot be empty");
             }
+
         }
     }
 }
