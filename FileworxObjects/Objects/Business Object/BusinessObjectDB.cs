@@ -79,7 +79,7 @@ namespace FileworxObjects
             }
 
             q = $"select * from dbo.T_BusinessObject where C_ID = {this.ID}";
-            cmd = new SqlCommand(q);
+            cmd = new SqlCommand(q,conn);
             
             SqlDataReader r = cmd.ExecuteReader();
         
@@ -88,11 +88,12 @@ namespace FileworxObjects
                 this.Created = DateTime.Parse(r["C_Creation_date"].ToString());
                 this.ClassID = int.Parse(r["C_class_id"].ToString());
                 this.Description = r["C_description"].ToString();
-                this.Name = r["Name"].ToString();
+                this.Name = r["C_name"].ToString();
 
         
             }
         
+            r.Close();
         }
 
     }

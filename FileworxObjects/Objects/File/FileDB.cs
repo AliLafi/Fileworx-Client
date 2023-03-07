@@ -62,7 +62,7 @@ namespace FileworxObjects
         {
             base.DBRead();
             q = $"select * from dbo.T_File where ID = {this.ID}";
-            cmd = new SqlCommand(q);
+            cmd = new SqlCommand(q,conn);
 
             SqlDataReader r = cmd.ExecuteReader();
 
@@ -71,7 +71,7 @@ namespace FileworxObjects
                 this.Body = r["C_body"].ToString();
 
             }
-        
+        r.Close();
         }
 
     }

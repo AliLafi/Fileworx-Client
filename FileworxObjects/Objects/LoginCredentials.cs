@@ -16,5 +16,6 @@ namespace FileworxObjects.Objects
             this.userName = userName;
             this.password = password;
         }
+        public LoginCredentials() { }
     }
 }

@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+{
+
+    <div class="mb-3">
+        @Html.Label("Name","Name")
+        @Html.Editor("Name",new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Name cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Description","Description")
+        @Html.Editor("Description",new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Description cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("LoginName","Login Name")
+        @Html.Editor("LoginName",new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Login Name cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Password","Password")
+        @Html.Editor("Password",new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Password cannot be empty
+        </div>
+    </div>
+    @Html.Hidden("created",DateTime.Now)
+    @Html.Hidden("ID","-1",new {  htmlAttributes = new {value = -1}})
+    @Html.Hidden("classID","3",new {  htmlAttributes = new {value = 3}})
+    @Html.Hidden("LastModifier","ADMIN",new {  htmlAttributes = new {value = "Admin"}})
+
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+
+}
+
+
+@if (Model)
+{
+    <p class="alert-danger">Username already exists</p>
+}

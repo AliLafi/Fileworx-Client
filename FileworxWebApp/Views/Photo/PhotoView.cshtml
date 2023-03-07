@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="mb-3">
+    <label for="ID">ID</label>
+    <input type="text" class="form-control" id="ID" name="ID" value="@Model.ID" readonly />
+</div>
+
+<div class="mb-3">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" value="@Model.Name" readonly />
+</div>
+
+<div class="mb-3">
+    <label for="Description">Description</label>
+    <input type="text" class="form-control" id="Description" name="Description" value="@Model.Description" readonly />
+</div>
+
+<div class="mb-3">
+    <label for="Body">Body</label>
+    <textarea rows="3" class="form-control" id="Body" name="Body" readonly>@Model.Body</textarea>
+
+</div>
+
+<img src="@Model.ImagePath" class="img-fluid" alt="@Model.ImagePath">
+
+
+<div class="mb-3">
+    <label for="created">Created</label>
+    <input type="text" class="form-control" id="created" name="created" value="@Model.Created" readonly />
+</div>
+
+

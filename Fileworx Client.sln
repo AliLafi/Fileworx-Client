@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fileworx Client", "Fileworx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileworxObjects", "FileworxObjects\FileworxObjects.csproj", "{76CF9F1C-1D61-440A-818A-21EA85389E12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileworxAPI", "FileworxAPI\FileworxAPI.csproj", "{0F7E7C2B-6718-4FD3-B315-9D314607CEF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileworxAPI", "FileworxAPI\FileworxAPI.csproj", "{0F7E7C2B-6718-4FD3-B315-9D314607CEF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileworxWebApp", "FileworxWebApp\FileworxWebApp.csproj", "{BE1A376A-1C83-4954-9FCF-58C349A84AFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0F7E7C2B-6718-4FD3-B315-9D314607CEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F7E7C2B-6718-4FD3-B315-9D314607CEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F7E7C2B-6718-4FD3-B315-9D314607CEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1A376A-1C83-4954-9FCF-58C349A84AFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1A376A-1C83-4954-9FCF-58C349A84AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1A376A-1C83-4954-9FCF-58C349A84AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1A376A-1C83-4954-9FCF-58C349A84AFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using FileworxObjects;
 using Newtonsoft.Json;
 using FileworxObjects.DTOs;
@@ -19,7 +18,7 @@ using System.Security.Policy;
 
 namespace Fileworx_Client
 {
-    internal class ApiRequests
+    public class ApiRequests
     {
         HttpClient _httpClient = new HttpClient();
         public ApiRequests()
@@ -29,7 +28,16 @@ namespace Fileworx_Client
         }
 
 
-
+        public async Task<T> GetByID<T>(string url , int id)
+        {
+            var response = await _httpClient.GetAsync(url+"/"+id);
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            Console.Write(content);
+            var res = JsonConvert.DeserializeObject<T>(content);
+            
+            return res;
+        }
         public async Task<List<T>> GetAll<T>(string url)
         {
             var response = await _httpClient.GetAsync(url);
@@ -106,7 +114,7 @@ namespace Fileworx_Client
 
 
 
-        public async Task<string> Delete<T>(string url, int id)
+        public async Task<string> Delete(string url, int id)
         {
             var response = await _httpClient.DeleteAsync(url + "/" + id);
             response.EnsureSuccessStatusCode();

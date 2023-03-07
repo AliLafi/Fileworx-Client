@@ -235,13 +235,13 @@ namespace Fileworx_Client
                     {
                         if (GridView.Rows[selectedRow].Cells[7].Value.ToString() == String.Empty)
                         {
-                            await req.Delete<NewsDTO>("News", id);
+                            await req.Delete("News", id);
                             updateTable();
 
                         }
                         else
                         {
-                            await req.Delete<PhotoDTO>("Photo", id);
+                            await req.Delete("Photo", id);
 
                         }
 

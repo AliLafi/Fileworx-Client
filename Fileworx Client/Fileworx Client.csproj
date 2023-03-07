@@ -96,7 +96,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiRequests.cs" />
     <Compile Include="CreateNewsWindow.cs">
       <SubType>Form</SubType>
     </Compile>

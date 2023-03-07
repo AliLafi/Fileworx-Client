@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model FileModel
+@using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+{
+
+    <div class="mb-3">
+        @Html.Label("Name","Name")
+        @Html.EditorFor(m=>m.Name,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Name cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Description","Description")
+        @Html.EditorFor(m=>m.Description,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Description cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Body","Body")
+        @Html.TextAreaFor(m=>m.Body,new  {@class = "form-control",required = string.Empty ,rows="3"})
+        <div class="invalid-feedback">
+            Body cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+
+        @Html.Label("ImagePath","Image Path")
+        @Html.EditorFor(m=>m.ImagePath,new {  htmlAttributes = new {@class = "form-control" ,type = "file" , value = Model.ImagePath}})
+
+        <div class="invalid-feedback">
+            Image Path cannot be empty
+        </div>
+    </div>
+    @Html.Hidden("created",DateTime.Now)
+    @Html.Hidden("ID",Model.ID,new {  htmlAttributes = new {value = Model.ID}})
+    @Html.Hidden("classID","2",new {  htmlAttributes = new {value = 2}})
+
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </div>
+
+}
+<img src="@Model.ImagePath" class="img-fluid" alt="@Model.ImagePath">

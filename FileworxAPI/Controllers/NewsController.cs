@@ -26,6 +26,17 @@ namespace FileworxAPI.Controllers
             return View();
         }
 
+        [HttpGet("news/{id}")]
+        public JsonResult GetNewsByID(int id)
+        {
+            News n = new News();
+            n.ID = id;
+           n= n.Read();
+            
+            return Json(n);
+
+        }
+
         [HttpGet("/News")]
         public JsonResult GetNews()
         {

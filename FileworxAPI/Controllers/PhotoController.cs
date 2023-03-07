@@ -14,11 +14,16 @@ namespace FileworxAPI.Controllers
 
         ElasticClient elasticClient = ElasticConnection.GetESClient();
 
-        public IActionResult Index()
+        [HttpGet("Photos/{id}")]
+        public JsonResult GetNewsByID(int id)
         {
-            return View();
-        }
+            Photo p = new Photo();
+            p.ID = id;
+            p = p.Read();
 
+            return Json(p);
+
+        }
         [HttpGet("/Photos")]
         public JsonResult GetPhotos()
         {

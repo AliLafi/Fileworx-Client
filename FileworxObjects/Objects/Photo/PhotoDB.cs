@@ -61,7 +61,7 @@ namespace FileworxObjects.Objects
         {
             base.DBRead();
             q = $"select * from dbo.T_Photo where ID = \'{this.ID}\'";
-            cmd = new SqlCommand(q);
+            cmd = new SqlCommand(q,conn);
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
@@ -70,7 +70,7 @@ namespace FileworxObjects.Objects
             }
 
             conn.Close();
-
+            r.Close();
         }
 
     }
