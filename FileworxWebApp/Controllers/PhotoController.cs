@@ -75,6 +75,7 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
+
             if (ModelState.IsValid)
             {
                 PhotoDTO photo = FileMapper.FileToPhotoDto(f);
@@ -83,7 +84,6 @@ namespace FileworxWebApp.Controllers
             }
 
             return RedirectToAction("Index", "");
-
         }
 
         [Route("/2/delete/{id}")]
@@ -97,7 +97,6 @@ namespace FileworxWebApp.Controllers
             ApiRequests req = new ApiRequests();
             await req.Delete("news", ID);
             return RedirectToAction("Index", "");
-
         }
     }
 }

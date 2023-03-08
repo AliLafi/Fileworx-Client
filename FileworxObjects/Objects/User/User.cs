@@ -4,7 +4,6 @@ namespace FileworxObjects
 {
     public partial class User : BusinessObject
     {
-
         public string LoginName { get; set; }
         public string Password { get; set; }
         public int LastModifier { get; set; }

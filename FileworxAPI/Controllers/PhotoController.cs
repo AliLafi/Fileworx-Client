@@ -10,7 +10,6 @@ namespace FileworxAPI.Controllers
 {
     public class PhotoController : Controller
     {
-
         ElasticClient elasticClient = ElasticConnection.GetESClient();
 
         [HttpGet("Photos/{id}")]
@@ -23,18 +22,15 @@ namespace FileworxAPI.Controllers
             photo = photo.Read();
 
             return Json(photo);
-
         }
 
         [HttpGet("/Photos")]
         public JsonResult GetPhotos()
         {
-
             List<PhotoDTO> list;
             PhotoQuery photoQuery = new();
 
             list = photoQuery.Run(elasticClient, DateTime.MinValue,DateTime.MaxValue);
-
             return Json(list);
 
         }
@@ -42,8 +38,6 @@ namespace FileworxAPI.Controllers
         [HttpGet("/Photos/search")]
         public JsonResult SearchPhotos([FromQuery] DateTime start, [FromQuery] DateTime end,  [FromQuery] string query)
         {
-
-
             List<PhotoDTO> list;
             PhotoQuery photoQuery = new();
 
@@ -53,7 +47,6 @@ namespace FileworxAPI.Controllers
             }
 
             list = photoQuery.Run(elasticClient, start, end, query);
-
             return Json(list);
         }
 
@@ -73,7 +66,6 @@ namespace FileworxAPI.Controllers
         public string AddPhoto([FromBody] PhotoDTO dto)
         {
             Photo photo = PhotoMapper.DtoToPhoto(dto);
-
             photo.Update();
             return "Added Successfully";
         }
@@ -82,11 +74,8 @@ namespace FileworxAPI.Controllers
         public string UpdatePhoto([FromBody] PhotoDTO dto)
         {
             Photo photo = PhotoMapper.DtoToPhoto(dto);
-
             photo.Update();
             return "Updated Successfully";
         }
-
     }
-
 }

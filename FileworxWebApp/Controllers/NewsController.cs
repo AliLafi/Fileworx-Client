@@ -47,7 +47,6 @@ namespace FileworxWebApp.Controllers
             }
 
             FileModel file = await req.GetByID<FileModel>("news", ID);
-
             return View(file);
         }
 
@@ -67,7 +66,6 @@ namespace FileworxWebApp.Controllers
             }
 
             return RedirectToAction("Index", "");
-
         }
 
         [HttpGet]
@@ -80,7 +78,6 @@ namespace FileworxWebApp.Controllers
             }
 
             NewsDTO news = await req.GetByID<NewsDTO>("news", ID);
-
             FileModel file = FileMapper.NewsDtoToFile(news);
             return View(file);
         }
@@ -95,7 +92,6 @@ namespace FileworxWebApp.Controllers
 
             await req.Delete("news", ID);
             return RedirectToAction("Index", "");
-
         }
     }
 }

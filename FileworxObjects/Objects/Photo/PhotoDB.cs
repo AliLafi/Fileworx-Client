@@ -5,10 +5,8 @@ namespace FileworxObjects.Objects
 {
     public partial class Photo : File
     {
-
         public override void DBUpdate()
         {
-
             if (ID > -1)
             {
                 base.DBUpdate();
@@ -18,7 +16,6 @@ namespace FileworxObjects.Objects
             }
             else
             {
-
                 base.DBUpdate();
                 q = $"INSERT INTO dbo.T_Photo (ID,C_location) VALUES(\'{ID}\',\'{ImagePath}\')";
                 cmd = new SqlCommand(q, conn);
@@ -33,21 +30,17 @@ namespace FileworxObjects.Objects
             {
                 try
                 {
-
                     q = $"DELETE FROM dbo.T_Photo WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                     base.DBDelete();
-
                 }
-
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
 
                 conn.Close();
-
             }
         }
 

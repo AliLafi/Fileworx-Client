@@ -4,7 +4,6 @@ namespace FileworxObjects
 {
     public partial class BusinessObject
     {
-
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -29,8 +28,7 @@ namespace FileworxObjects
             ClassID = classid;
         }
         public BusinessObject() 
-        { 
-        
+        {        
         }
     }
 }

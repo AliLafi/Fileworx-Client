@@ -20,7 +20,9 @@ namespace FileworxObjects.DTOs
             ImagePath = imgPath;
         }
 
-        public PhotoDTO() { }
+        public PhotoDTO() 
+        {
+        }
 
         public override string ToString()
         {

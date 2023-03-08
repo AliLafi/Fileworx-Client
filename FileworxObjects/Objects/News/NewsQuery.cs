@@ -8,10 +8,8 @@ namespace FileworxObjects
 {
     public class NewsQuery
     {
-
         public List<NewsDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string cat = "", string query = "*")
         {
-
             var queries = new List<QueryContainer>();
 
             QueryStringQuery keywordQuery = new QueryStringQuery
@@ -21,7 +19,6 @@ namespace FileworxObjects
                 AnalyzeWildcard = true,
                 DefaultOperator = Operator.Or
             };
-
             queries.Add(keywordQuery);
 
             MatchQuery categoryQuery = new MatchQuery
@@ -30,7 +27,6 @@ namespace FileworxObjects
                 Query = cat,
                 Operator= Operator.Or
             };
-
             queries.Add(categoryQuery);
 
             QueryStringQuery classidQuery = new QueryStringQuery
@@ -39,7 +35,6 @@ namespace FileworxObjects
                 Query = "1"
 
             };
-
             queries.Add(classidQuery);
 
             DateRangeQuery dateQuery = new DateRangeQuery
@@ -49,7 +44,6 @@ namespace FileworxObjects
                 LessThan= upper
 
             };
-
             queries.Add(dateQuery);
 
             var searchRequest = new SearchRequest<NewsDTO>
@@ -64,9 +58,7 @@ namespace FileworxObjects
             };
 
             var response = elasticClient.Search<NewsDTO>(searchRequest);
-
             return response.Documents.ToList();
-
         }
     }
 }

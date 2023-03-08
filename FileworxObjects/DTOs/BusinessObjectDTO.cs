@@ -34,8 +34,6 @@ namespace FileworxObjects.DTOs
 
         public BusinessObjectDTO() 
         { 
-
         }
-
     }
 }

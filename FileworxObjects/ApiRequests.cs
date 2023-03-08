@@ -44,7 +44,6 @@ namespace Fileworx_Client
         public async Task<List<T>> GetSearch<T>(string url, SearchObject search)
         {
             StringBuilder cat = new StringBuilder();
-
             foreach (string s in search.Categories)
             {
                 cat.Append(s);
@@ -72,13 +71,10 @@ namespace Fileworx_Client
             var response = await _httpClient.PostAsync(
                 url,
                 itemJson);
-
             response.EnsureSuccessStatusCode();
-
 
             var content = await response.Content.ReadAsStringAsync();
             var resMessage = content.ToString();
-
             return resMessage;
         }
 
@@ -92,11 +88,9 @@ namespace Fileworx_Client
             var response = await _httpClient.PutAsync(
                url,
               itemJson);
-
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-
             return content.ToString(); ;
         }
 
@@ -105,12 +99,9 @@ namespace Fileworx_Client
             var response = await _httpClient.DeleteAsync(url + "/" + id);
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            
+            var content = await response.Content.ReadAsStringAsync();            
             return content.ToString();
         }
-
-
 
         public async Task<int> GetLoginInfo(string user, string pass)
         {
@@ -124,12 +115,10 @@ namespace Fileworx_Client
             var response = await _httpClient.PostAsync(
                 "login",
                 itemJson);
-
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
             var res = content.ToString();
-
             return int.Parse(res);
         }
     }

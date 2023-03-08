@@ -10,7 +10,6 @@ namespace FileworxObjects
     {
         public List<PhotoDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string query = "*")
         {
-
             var queries = new List<QueryContainer>();
 
             QueryStringQuery keywordQuery = new QueryStringQuery
@@ -20,7 +19,6 @@ namespace FileworxObjects
                 AnalyzeWildcard = true,
                 DefaultOperator = Operator.Or
             };
-
             queries.Add(keywordQuery);
 
             QueryStringQuery classidQuery = new QueryStringQuery
@@ -29,7 +27,6 @@ namespace FileworxObjects
                 Query = "2"
 
             };
-
             queries.Add(classidQuery);
 
             DateRangeQuery dateQuery = new DateRangeQuery
@@ -39,7 +36,6 @@ namespace FileworxObjects
                 LessThan = upper
 
             };
-
             queries.Add(dateQuery);
 
             var searchRequest = new SearchRequest<PhotoDTO>
@@ -54,9 +50,7 @@ namespace FileworxObjects
             };
 
             var response = elasticClient.Search<PhotoDTO>(searchRequest);
-
             return response.Documents.ToList();
-
         }
     }
 }

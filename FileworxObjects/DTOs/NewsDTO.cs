@@ -11,7 +11,6 @@ namespace FileworxObjects.DTOs
     {
         public string Category { get; set; }
 
-
         public NewsDTO(string name, string description, DateTime created, int id, string body, string category) : base(name, description, created, id, body, 1)
         {
             Category = category;
@@ -21,7 +20,9 @@ namespace FileworxObjects.DTOs
         {
             Category = category;
         }
-        public NewsDTO() { }
+        public NewsDTO() 
+        {      
+        }
 
         public override string ToString()
         {

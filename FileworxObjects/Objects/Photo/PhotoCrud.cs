@@ -6,22 +6,20 @@ namespace FileworxObjects.Objects
     {
         public void Update()
         {
-            this.DBUpdate();
-            this.UpdateDocument(ElasticConnection.GetESClient());
+            DBUpdate();
+            UpdateDocument(ElasticConnection.GetESClient());
         }
 
         public void Delete()
         {
-            this.DBDelete();
-            this.DeleteDocument(ElasticConnection.GetESClient());
-
+            DBDelete();
+            DeleteDocument(ElasticConnection.GetESClient());
         }
 
         public Photo Read()
         {
-            this.DBRead();
+            DBRead();
             return this;
         }
-
     }
 }

@@ -5,10 +5,8 @@ namespace FileworxObjects
 {
     public partial class File 
     {
-   
         public override void DBUpdate()
-        {
-           
+        {          
                 if (ID > -1)
                 {
                     base.DBUpdate();
@@ -36,16 +34,12 @@ namespace FileworxObjects
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                     base.DBDelete();
-
                 }
-
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
             }
-
         }
 
         public override void DBRead()
@@ -57,12 +51,10 @@ namespace FileworxObjects
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
-                this.Body = r["C_body"].ToString();
-
+                Body = r["C_body"].ToString();
             }
 
             r.Close();
-
         }
     }
 }

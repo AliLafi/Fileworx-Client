@@ -16,9 +16,7 @@ namespace FileworxObjects
             q = $"select Count(C_login_name) from dbo.T_Users where C_login_name = \'{LoginName}\'";
             cmd = new SqlCommand(q, conn);
             int count = int.Parse(cmd.ExecuteScalar().ToString());
-
             return count < 1;
-
         }
 
         public override void DBUpdate()
@@ -27,13 +25,12 @@ namespace FileworxObjects
             {
                 string hashed = BCrypt.Net.BCrypt.HashPassword(Password);
 
-                if (this.ID > -1)
+                if (ID > -1)
                 {
                     base.DBUpdate();
                     q = $"UPDATE  dbo.T_Users SET C_login_name='{LoginName}',C_password = \'{hashed}\',C_last_modifier = \'{LastModifier}\' WHERE ID = \'{ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
-
                 }
                 else
                 {
@@ -41,7 +38,6 @@ namespace FileworxObjects
                     q = $"INSERT INTO dbo.T_Users (ID,C_login_name,C_password,C_last_modifier) VALUES(\'{ID}\',\'{LoginName}\',\'{hashed}\',\'{LastModifier}\')";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
-
                 }
             }
             catch (Exception ex)
@@ -52,7 +48,6 @@ namespace FileworxObjects
             {
                 conn.Close();
             }
-
         }
 
         public override void DBDelete()
@@ -74,18 +69,15 @@ namespace FileworxObjects
                 {
                     conn.Close();
                 }
-
             }
-
         }
+
         public int GetID()
         {
             conn.Open();
             q = $"select ID from dbo.T_Users where C_login_name = \'{LoginName}\'";
             cmd = new SqlCommand(q, conn);
-
             return int.Parse(cmd.ExecuteScalar().ToString()); ;
         }
-
     }
 }

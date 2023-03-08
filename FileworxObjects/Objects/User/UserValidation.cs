@@ -16,7 +16,6 @@ namespace FileworxObjects
             {
                 try
                 {
-
                     string hash = r["C_password"].ToString();
                     valid = BCrypt.Net.BCrypt.Verify(Password, hash);
                 }
@@ -24,7 +23,6 @@ namespace FileworxObjects
                 {
                     return false;
                 }
-
             }
 
             conn.Close();

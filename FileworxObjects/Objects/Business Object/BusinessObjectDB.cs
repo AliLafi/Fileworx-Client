@@ -36,9 +36,7 @@ namespace FileworxObjects
                 int t = int.Parse(cmd.ExecuteScalar().ToString());
                 ID = t;
             }
-
         }
-
 
         public virtual void DBDelete()
         {
@@ -55,7 +53,6 @@ namespace FileworxObjects
                     q = $"DELETE FROM dbo.T_BusinessObject WHERE C_ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
-
                 }
                 catch (Exception ex)
                 {
@@ -66,7 +63,6 @@ namespace FileworxObjects
 
         public virtual void DBRead()
         {
-
             if (conn.State == System.Data.ConnectionState.Closed)
             {
                 conn.Open();
@@ -75,8 +71,7 @@ namespace FileworxObjects
             q = $"select * from dbo.T_BusinessObject where C_ID = {ID}";
             cmd = new SqlCommand(q,conn);
             
-            SqlDataReader r = cmd.ExecuteReader();
-        
+            SqlDataReader r = cmd.ExecuteReader();        
             while (r.Read())
             {
                 Created = DateTime.Parse(r["C_Creation_date"].ToString());
@@ -88,7 +83,5 @@ namespace FileworxObjects
         
             r.Close();
         }
-
     }
-
 }

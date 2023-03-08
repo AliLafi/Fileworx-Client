@@ -4,9 +4,7 @@ namespace FileworxObjects.Objects
 {
     public partial class News : File
     {
-
         public string Category { get; set; }
-
 
         public News(string name, string description, DateTime created, int id, string body, string category) : base(name, description, created, id, body, 1)
         {
@@ -18,13 +16,14 @@ namespace FileworxObjects.Objects
             Category = category;
             
         }
-        public News() { }
+
+        public News() 
+        {
+        }
 
         public override string ToString()
         {
             return $"{Name}%{Created}%{Description}%{Category}%{Body}";
         }
-
     }
-
 }

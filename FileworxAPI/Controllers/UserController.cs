@@ -8,8 +8,6 @@ namespace FileworxAPI.Controllers
 {
     public class UserController : Controller
     {
-
-
         [HttpPost("/login")]
         public int ValidateLogin([FromBody]LoginCredentials login)
         {
@@ -23,8 +21,8 @@ namespace FileworxAPI.Controllers
             {
                return u.GetID();
             }
-            return -1;
 
+            return -1;
         }
 
         [HttpDelete("/User")]
@@ -32,7 +30,6 @@ namespace FileworxAPI.Controllers
         {
             User user = UserMapper.DtoToUser(dto);
             user.Delete();
-
             return "Deleted Successfully";
         }
 
@@ -56,10 +53,7 @@ namespace FileworxAPI.Controllers
         {
             User user = UserMapper.DtoToUser(dto);
             user.Update();
-
             return "Updated Successfully";
         }
-
     }
-
 }

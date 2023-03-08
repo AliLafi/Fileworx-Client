@@ -15,8 +15,7 @@ namespace FileworxObjects.DTOs
         public int LastModifier { get; set; }
 
         public UserDTO() 
-        {
-        
+        {       
         }
 
         public UserDTO(string name, string description, DateTime created, int id, string loginName, string password, int lastmodifier) : base(name, description, created, id, 3)

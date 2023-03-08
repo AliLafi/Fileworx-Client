@@ -5,21 +5,17 @@ namespace FileworxObjects.Objects
 {
     public partial class News
     {
-
         public override void DBUpdate()
         {
-
             if (ID > -1)
             {
                 base.DBUpdate();
                 q = $"UPDATE  dbo.T_News SET C_category =\'{Category}\' WHERE ID = \'{ID}\'; ";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
-
             }
             else
             {
-
                 base.DBUpdate();
                 q = $"INSERT INTO dbo.T_News (ID,C_CATEGORY) VALUES(\'{ID}\',\'{Category}\')";
                 cmd = new SqlCommand(q, conn);
@@ -35,7 +31,6 @@ namespace FileworxObjects.Objects
                 try
                 {
                     conn.Open();
-
                     q = $"DELETE FROM dbo.T_News WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
@@ -67,9 +62,6 @@ namespace FileworxObjects.Objects
 
             conn.Close();
             r.Close();
-
         }
-
     }
-
 }

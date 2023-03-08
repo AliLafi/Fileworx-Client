@@ -4,14 +4,12 @@
     {
         public void Update()
         {
-            this.DBUpdate();
+            DBUpdate();
         }
 
         public void Delete()
         {
-            this.DBDelete();
+            DBDelete();
         }
-
     }
-
 }

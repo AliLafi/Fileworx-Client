@@ -6,7 +6,6 @@ namespace FileworxObjects.Objects
 {
     public partial class Photo : File
     {
-
         public void UpdateDocument(ElasticClient elasticClient)
         {
             var response = elasticClient.Index<PhotoDTO>(PhotoMapper.PhotoToDto(this), i => i
@@ -20,7 +19,6 @@ namespace FileworxObjects.Objects
             var response = elasticClient.Delete<PhotoDTO>(ID, d => d
            .Index("files")
            .Refresh(Elasticsearch.Net.Refresh.True));
-
         }
     }
 }

@@ -8,10 +8,8 @@ using FileworxObjects.Connection;
 
 namespace FileworxAPI.Controllers
 {
-
     public class NewsController : Controller
     {
-
         ElasticClient elasticClient = ElasticConnection.GetESClient();
 
         [HttpGet("news/{id}")]
@@ -23,7 +21,6 @@ namespace FileworxAPI.Controllers
             };
 
             news = news.Read();
-            
             return Json(news);
         }
 
@@ -34,15 +31,12 @@ namespace FileworxAPI.Controllers
             NewsQuery newsQuery = new();
 
             list = newsQuery.Run(elasticClient, DateTime.MinValue, DateTime.MaxValue);
-
             return Json(list);
-
         }
 
         [HttpGet("/News/search")]
         public JsonResult SerachNews([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] string cat, [FromQuery] string query)
         {
-
             List<NewsDTO> list;
             NewsQuery newsQuery = new();
 
@@ -52,7 +46,6 @@ namespace FileworxAPI.Controllers
             }
 
             list = newsQuery.Run(elasticClient, start, end, cat, query);
-
             return Json(list);
         }
 

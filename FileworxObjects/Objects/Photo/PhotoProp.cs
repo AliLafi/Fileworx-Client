@@ -16,7 +16,9 @@ namespace FileworxObjects.Objects
             ImagePath = imgPath;
         }
 
-        public Photo() { }
+        public Photo() 
+        {
+        }
 
         public override string ToString()
         {

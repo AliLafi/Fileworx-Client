@@ -55,7 +55,6 @@ namespace Fileworx_Client
             AddText(sender, e);
         }
 
-
         private void SearchBar_MouseClick(object sender, MouseEventArgs e)
         {
             RemoveText(sender, e);
@@ -124,7 +123,6 @@ namespace Fileworx_Client
 
         public async void UpdateTable()
         {
-
             List<NewsDTO> list = await req.GetAll<NewsDTO>("News");
             List<PhotoDTO> list2 = await req.GetAll<PhotoDTO>("Photos");
 
@@ -146,9 +144,7 @@ namespace Fileworx_Client
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
 
-
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
             foreach (PropertyInfo prop in Props)
             {
 
@@ -171,13 +167,11 @@ namespace Fileworx_Client
 
         private async void GridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
             selectedRow = e.RowIndex;
             tabControlMain.TabPages.Remove(imageTab);
 
             if (selectedRow != -1)
             {
-
                 txtTitle.Text = GridView.Rows[selectedRow].Cells[3].Value.ToString();
                 txtCreated.Text = GridView.Rows[selectedRow].Cells[5].Value.ToString();
                 txtBody.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
@@ -185,11 +179,9 @@ namespace Fileworx_Client
 
                 if (string.IsNullOrEmpty(GridView.Rows[selectedRow].Cells[7].Value.ToString()))
                 {
-
                     txtCategory.Visible = true;
                     txtCategory.Text = GridView.Rows[selectedRow].Cells[0].Value.ToString();
                     lblCategory.Visible = true;
-
                 }
                 else
                 {
@@ -198,7 +190,6 @@ namespace Fileworx_Client
                     tabControlMain.TabPages.Add(imageTab);
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.ImageLocation = txtCategory.Text = GridView.Rows[selectedRow].Cells[7].Value.ToString();
-
                 }
 
                 if (e.Button == MouseButtons.Right)
@@ -210,20 +201,14 @@ namespace Fileworx_Client
                         {
                             await req.Delete("News", id);
                             UpdateTable();
-
                         }
                         else
                         {
                             await req.Delete("Photo", id);
-
                         }
-
                     }
-
                 }
-
             }
-
         }
 
         private void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -246,33 +231,25 @@ namespace Fileworx_Client
                 CreatePhotosWindow f1 = new CreatePhotosWindow(this, temp);
                 f1.Show();
             }
-
         }
-
-
 
         private void NewsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateNewsWindow f1 = new CreateNewsWindow(this, null);
             f1.Show();
-
         }
 
         private void PhotoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreatePhotosWindow f1 = new CreatePhotosWindow(this, null);
             f1.Show();
-
         }
 
         private void UserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateUserWindow f1 = new CreateUserWindow(this);
             f1.Show();
-
         }
-
-
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -284,6 +261,5 @@ namespace Fileworx_Client
             UpdateTable();
         }
     }
-
 }
 

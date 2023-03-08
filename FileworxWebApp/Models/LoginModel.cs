@@ -19,7 +19,6 @@ namespace FileworxWebApp.Models
         {
             UserName= userName;
             Password= password;
-        }
-    
+        }    
     }
 }

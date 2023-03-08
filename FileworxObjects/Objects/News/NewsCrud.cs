@@ -4,7 +4,6 @@ namespace FileworxObjects.Objects
 {
     public partial class News 
     {
-
         public  void  Update()
         {
             DBUpdate();
@@ -13,7 +12,7 @@ namespace FileworxObjects.Objects
 
         public  void Delete()
         {
-            this.DBDelete();
+            DBDelete();
 
             DeleteDocument(ElasticConnection.GetESClient());
 
@@ -21,9 +20,8 @@ namespace FileworxObjects.Objects
 
         public News Read()
         {
-            this.DBRead();
+            DBRead();
             return this;
         }
-        
     }
 }

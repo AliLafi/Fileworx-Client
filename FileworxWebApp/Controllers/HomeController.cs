@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Fileworx_Client;
 using FileworxObjects.Objects;
-using Microsoft.AspNetCore.Session;
 
 namespace FileworxWebApp.Controllers
 {
@@ -28,12 +27,10 @@ namespace FileworxWebApp.Controllers
         {
             int id = await req.GetLoginInfo(log.userName, log.password);
             if (id != -1)
-            {
-             
+            {          
                 HttpContext.Session.SetString("loggedIn", "in");
                 HttpContext.Session.SetInt32("modifier",id);
                 return RedirectToAction("index", "");
-
             }
             return View();
         }
@@ -55,14 +52,10 @@ namespace FileworxWebApp.Controllers
             search.Query = query;
             search.Categories = categories.ToList();
             
-
             List<FileModel> list = await req.GetSearch<FileModel>("News", search);
             List<FileModel> list2 = await req.GetSearch<FileModel>("Photos", search);
-
             List<FileModel> list3 = list.Concat(list2).ToList();
-
             return View(list3);
-
         }
 
         public IActionResult Privacy()

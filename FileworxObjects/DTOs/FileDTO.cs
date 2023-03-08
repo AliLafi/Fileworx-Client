@@ -22,7 +22,6 @@ namespace FileworxObjects.DTOs
 
         public FileDTO()
         {
-            
         }
     }
 }

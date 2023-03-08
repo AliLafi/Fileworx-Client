@@ -6,7 +6,6 @@ namespace FileworxObjects.Objects
 {
     public partial class News
     {
-
         public void UpdateDocument(ElasticClient elasticClient)
         {
             var response = elasticClient.Index(NewsMapper.NewsToDto(this), i => i
@@ -20,7 +19,6 @@ namespace FileworxObjects.Objects
             var response = elasticClient.Delete<NewsDTO>(ID, d => d
            .Index("files")
            .Refresh(Elasticsearch.Net.Refresh.True));
-
         }
     }
 }

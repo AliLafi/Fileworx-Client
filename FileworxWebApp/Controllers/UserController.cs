@@ -15,8 +15,8 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
-            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
 
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
             return View(exists);
         }
 
@@ -27,6 +27,7 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
+
             if (ModelState.IsValid)
             {
                 string x = await req.Create("User", user);
@@ -36,6 +37,7 @@ namespace FileworxWebApp.Controllers
                     return View(exists);
                 }
             }
+
             return RedirectToAction("Index", "");
         }
     }
