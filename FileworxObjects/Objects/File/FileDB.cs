@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects
 {
@@ -13,11 +9,10 @@ namespace FileworxObjects
         public override void DBUpdate()
         {
            
-
-                if (this.ID > -1)
+                if (ID > -1)
                 {
                     base.DBUpdate();
-                    q = $"UPDATE  dbo.T_File SET C_body =\'{this.Body}\' WHERE ID = \'{this.ID}\'; ";
+                    q = $"UPDATE  dbo.T_File SET C_body =\'{Body}\' WHERE ID = \'{ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -25,7 +20,7 @@ namespace FileworxObjects
                 {
                     base.DBUpdate();
 
-                    q = $"INSERT INTO dbo.T_File (C_body,ID) VALUES(\'{this.Body}\',\'{this.ID}\');";
+                    q = $"INSERT INTO dbo.T_File (C_body,ID) VALUES(\'{Body}\',\'{ID}\');";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -33,14 +28,11 @@ namespace FileworxObjects
           
         public override void DBDelete()
         {
-            if (this.ID > -1)
+            if (ID > -1)
             {
                 try
                 {
-
-
-
-                    q = $"DELETE FROM dbo.T_File WHERE ID =\'{this.ID}\'";
+                    q = $"DELETE FROM dbo.T_File WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                     base.DBDelete();
@@ -52,8 +44,6 @@ namespace FileworxObjects
                     Console.WriteLine(ex.Message);
                 }
 
-
-
             }
 
         }
@@ -61,19 +51,18 @@ namespace FileworxObjects
         public override void DBRead()
         {
             base.DBRead();
-            q = $"select * from dbo.T_File where ID = {this.ID}";
+            q = $"select * from dbo.T_File where ID = {ID}";
             cmd = new SqlCommand(q,conn);
 
             SqlDataReader r = cmd.ExecuteReader();
-
             while (r.Read())
             {
                 this.Body = r["C_body"].ToString();
 
             }
-        r.Close();
+
+            r.Close();
+
         }
-
     }
-
 }

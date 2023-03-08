@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects.Objects
 {
@@ -13,20 +9,18 @@ namespace FileworxObjects.Objects
         public override void DBUpdate()
         {
 
-            if (this.ID > -1)
+            if (ID > -1)
             {
                 base.DBUpdate();
-                q = $"UPDATE  dbo.T_Photo SET C_location =\'{this.ImagePath}\' WHERE ID = \'{this.ID}\'; ";
+                q = $"UPDATE  dbo.T_Photo SET C_location =\'{ImagePath}\' WHERE ID = \'{ID}\'; ";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
-
-
             }
             else
             {
 
                 base.DBUpdate();
-                q = $"INSERT INTO dbo.T_Photo (ID,C_location) VALUES(\'{this.ID}\',\'{this.ImagePath}\')";
+                q = $"INSERT INTO dbo.T_Photo (ID,C_location) VALUES(\'{ID}\',\'{ImagePath}\')";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -35,12 +29,12 @@ namespace FileworxObjects.Objects
 
         public override void DBDelete()
         {
-            if (this.ID > -1)
+            if (ID > -1)
             {
                 try
                 {
 
-                    q = $"DELETE FROM dbo.T_Photo WHERE ID =\'{this.ID}\'";
+                    q = $"DELETE FROM dbo.T_Photo WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                     base.DBDelete();
@@ -51,28 +45,26 @@ namespace FileworxObjects.Objects
                 {
                     Console.WriteLine(ex.Message);
                 }
+
                 conn.Close();
 
             }
-
         }
 
         public override void DBRead()
         {
             base.DBRead();
-            q = $"select * from dbo.T_Photo where ID = \'{this.ID}\'";
+            q = $"select * from dbo.T_Photo where ID = \'{ID}\'";
             cmd = new SqlCommand(q,conn);
+
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
-                this.ImagePath = r["C_location"].ToString();
-
+                ImagePath = r["C_location"].ToString();
             }
 
             conn.Close();
             r.Close();
         }
-
     }
-    
 }

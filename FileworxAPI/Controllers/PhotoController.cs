@@ -1,6 +1,5 @@
 ﻿using FileworxObjects;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
@@ -17,21 +16,24 @@ namespace FileworxAPI.Controllers
         [HttpGet("Photos/{id}")]
         public JsonResult GetNewsByID(int id)
         {
-            Photo p = new Photo();
-            p.ID = id;
-            p = p.Read();
+            Photo photo = new()
+            {
+                ID = id
+            };
+            photo = photo.Read();
 
-            return Json(p);
+            return Json(photo);
 
         }
+
         [HttpGet("/Photos")]
         public JsonResult GetPhotos()
         {
 
             List<PhotoDTO> list;
-            PhotoQuery pq = new PhotoQuery();
+            PhotoQuery photoQuery = new();
 
-            list = pq.Run(elasticClient, DateTime.MinValue,DateTime.MaxValue);
+            list = photoQuery.Run(elasticClient, DateTime.MinValue,DateTime.MaxValue);
 
             return Json(list);
 
@@ -43,22 +45,26 @@ namespace FileworxAPI.Controllers
 
 
             List<PhotoDTO> list;
-            PhotoQuery pq = new PhotoQuery();
+            PhotoQuery photoQuery = new();
+
             if (end == start && end == DateTime.MinValue)
             {
                 end = DateTime.MaxValue;
             }
-            list = pq.Run(elasticClient, start, end, query);
+
+            list = photoQuery.Run(elasticClient, start, end, query);
 
             return Json(list);
         }
 
-
         [HttpDelete("/Photo/{id}")]
         public string DeletePhoto(int id)
         {
-            Photo photo = new Photo();
-            photo.ID = id;
+            Photo photo = new()
+            {
+                ID = id
+            };
+
             photo.Delete();
             return "Deleted Successfully";
         }
@@ -67,6 +73,7 @@ namespace FileworxAPI.Controllers
         public string AddPhoto([FromBody] PhotoDTO dto)
         {
             Photo photo = PhotoMapper.DtoToPhoto(dto);
+
             photo.Update();
             return "Added Successfully";
         }
@@ -75,6 +82,7 @@ namespace FileworxAPI.Controllers
         public string UpdatePhoto([FromBody] PhotoDTO dto)
         {
             Photo photo = PhotoMapper.DtoToPhoto(dto);
+
             photo.Update();
             return "Updated Successfully";
         }

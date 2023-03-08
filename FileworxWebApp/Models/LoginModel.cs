@@ -6,16 +6,19 @@ namespace FileworxWebApp.Models
     {
         
         [Required(ErrorMessage ="Login Name is Required")]
-        public string userName { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public string Password { get; set; }
     
-        public LoginModel() { }
+        public LoginModel() 
+        {
+        }
+
         public LoginModel(string userName, string password)
         {
-            this.userName= userName;
-            this.Password= password;
+            UserName= userName;
+            Password= password;
         }
     
     }

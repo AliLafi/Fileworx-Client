@@ -1,5 +1,6 @@
 ﻿using FileworxObjects.DTOs;
 using FileworxWebApp.Models;
+
 namespace FileworxWebApp.Mappers
 {
     public class FileMapper
@@ -31,7 +32,6 @@ namespace FileworxWebApp.Mappers
             return file;
         }
 
-
         public static PhotoDTO FileToPhotoDto(FileModel f)
         {
             var photo = new PhotoDTO();
@@ -58,9 +58,5 @@ namespace FileworxWebApp.Mappers
             file.Body = p.Body;
             return file;
         }
-
-
-
-
     }
 }

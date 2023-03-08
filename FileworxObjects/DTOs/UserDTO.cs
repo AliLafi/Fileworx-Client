@@ -12,12 +12,14 @@ namespace FileworxObjects.DTOs
 
         public string LoginName { get; set; }
         public string Password { get; set; }
-        public string LastModifier { get; set; }
+        public int LastModifier { get; set; }
 
+        public UserDTO() 
+        {
+        
+        }
 
-
-        public UserDTO() { }
-        public UserDTO(string name, string description, DateTime created, int id, string loginName, string password, string lastmodifier) : base(name, description, created, id, 3)
+        public UserDTO(string name, string description, DateTime created, int id, string loginName, string password, int lastmodifier) : base(name, description, created, id, 3)
         {
             LoginName = loginName;
             Password = password;
@@ -25,7 +27,7 @@ namespace FileworxObjects.DTOs
 
         }
 
-        public UserDTO(string name, string description, DateTime created, string loginName, string password, string lastmodifier) : base(name, description, created, 3)
+        public UserDTO(string name, string description, DateTime created, string loginName, string password, int lastmodifier) : base(name, description, created, 3)
         {
             LoginName = loginName;
             Password = password;

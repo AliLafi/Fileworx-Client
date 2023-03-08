@@ -1,11 +1,4 @@
-﻿using FileworxObjects.Connection;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace FileworxObjects
 {
@@ -35,11 +28,9 @@ namespace FileworxObjects
             this.ID = -1;
             ClassID = classid;
         }
-        public BusinessObject() { }
-
-
+        public BusinessObject() 
+        { 
         
-  
+        }
     }
-
 }

@@ -114,12 +114,6 @@
     <Compile Include="CreateUserWindow.Designer.cs">
       <DependentUpon>CreateUserWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditPathWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditPathWindow.Designer.cs">
-      <DependentUpon>EditPathWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,9 +136,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateUserWindow.resx">
       <DependentUpon>CreateUserWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditPathWindow.resx">
-      <DependentUpon>EditPathWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>

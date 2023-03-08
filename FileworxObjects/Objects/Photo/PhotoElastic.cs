@@ -1,22 +1,11 @@
-﻿using Elasticsearch.Net;
-using FileworxObjects.DTOs;
+﻿using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
 using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects.Objects
 {
     public partial class Photo : File
     {
-
-
-
-
-
 
         public void UpdateDocument(ElasticClient elasticClient)
         {
@@ -28,7 +17,7 @@ namespace FileworxObjects.Objects
 
         public void DeleteDocument(ElasticClient elasticClient)
         {
-            var response = elasticClient.Delete<PhotoDTO>(this.ID, d => d
+            var response = elasticClient.Delete<PhotoDTO>(ID, d => d
            .Index("files")
            .Refresh(Elasticsearch.Net.Refresh.True));
 

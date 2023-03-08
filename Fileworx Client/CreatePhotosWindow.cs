@@ -1,8 +1,5 @@
-﻿using FileworxObjects;
-using FileworxObjects.DTOs;
+﻿using FileworxObjects.DTOs;
 using System;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fileworx_Client
@@ -11,19 +8,16 @@ namespace Fileworx_Client
 
     public partial class CreatePhotosWindow : Form
     {
-
-        PhotoDTO photoItem;
-
+        readonly PhotoDTO photoItem;
         bool imageChange = false;
-
-        ApiRequests req = new ApiRequests();
-        MainWindow main;
+        readonly ApiRequests req = new ApiRequests();
+        readonly MainWindow mainWindow;
 
 
         public CreatePhotosWindow(MainWindow m, PhotoDTO photoFromMain = null)
         {
             InitializeComponent();
-            main = m;
+            mainWindow = m;
 
             if (photoFromMain != null)
             {
@@ -46,7 +40,7 @@ namespace Fileworx_Client
 
         }
 
-        private bool hasChanged()
+        private bool HasChanged()
         {
             if (txtTitle.Modified || txtBody.Modified || txtDescription.Modified || imageChange)
             {
@@ -58,15 +52,17 @@ namespace Fileworx_Client
             return false;
 
         }
-        private bool isEmpty()
+
+        private bool IsEmpty()
         {
-            if (txtTitle.Text == string.Empty || txtBody.Text == string.Empty || txtDescription.Text == string.Empty)
+            if (string.IsNullOrEmpty(txtTitle.Text) || string.IsNullOrEmpty(txtBody.Text) || string.IsNullOrEmpty(txtDescription.Text) )
             {
                 return true;
             }
             return false;
         }
-        private void openBtn_Click(object sender, EventArgs e)
+
+        private void OpenButton_Click(object sender, EventArgs e)
         {
             this.openFile.Filter = "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
             "|PNG Portable Network Graphics (*.png)|*.png" +
@@ -75,9 +71,10 @@ namespace Fileworx_Client
             "|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
             "|GIF Graphics Interchange Format (*.gif)|*.gif";
 
-            this.openFile.Title = "Select Image";
+            openFile.Title = "Select Image";
 
-            DialogResult res = this.openFile.ShowDialog();
+            DialogResult res = openFile.ShowDialog();
+
             if (res == DialogResult.OK)
             {
                 pictureBox.ImageLocation = openFile.FileName;
@@ -88,17 +85,16 @@ namespace Fileworx_Client
             }
 
         }
-        private void btnSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
                     UpdateOrCreate();
-                    this.Hide();
+                    Hide();
 
                 }
-
                 else
                 {
                     MessageBox.Show("A field cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -109,11 +105,11 @@ namespace Fileworx_Client
 
         }
 
-        private void btnCancel_ClickAsync(object sender, EventArgs e)
+        private void ButtonCancel_ClickAsync(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
 
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -122,23 +118,24 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
 
                             UpdateOrCreate();
-                            this.Hide();
+                            Hide();
 
                             break;
 
                         case DialogResult.No:
 
-                            this.Hide();
+                            Hide();
                             break;
 
                     }
+
                 }
                 else
                 {
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }
@@ -146,9 +143,8 @@ namespace Fileworx_Client
             }
             else
             {
-                this.Hide();
+                Hide();
             }
-
 
         }
 
@@ -170,17 +166,18 @@ namespace Fileworx_Client
                 await req.Update("Photo", photoItem);
 
             }
-            main.updateTable();
+
+            mainWindow.UpdateTable();
 
         }
 
         private void CreatePhotosWindow_FormClosingAsync(object sender, FormClosingEventArgs e)
         {
-            if (hasChanged() && this.Visible == true)
+            if (HasChanged() && this.Visible == true)
             {
                 e.Cancel = true;
 
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
 
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -195,7 +192,7 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
 
                             UpdateOrCreate();
-                            main.Show();
+                            mainWindow.Show();
                             e.Cancel = false;
 
                             break;
@@ -212,7 +209,7 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }

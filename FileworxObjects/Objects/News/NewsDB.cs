@@ -1,12 +1,6 @@
-﻿
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FileworxObjects.Connection;
+﻿using System.Data.SqlClient;
 using System;
+
 namespace FileworxObjects.Objects
 {
     public partial class News
@@ -15,10 +9,10 @@ namespace FileworxObjects.Objects
         public override void DBUpdate()
         {
 
-            if (this.ID > -1)
+            if (ID > -1)
             {
                 base.DBUpdate();
-                q = $"UPDATE  dbo.T_News SET C_category =\'{this.Category}\' WHERE ID = \'{this.ID}\'; ";
+                q = $"UPDATE  dbo.T_News SET C_category =\'{Category}\' WHERE ID = \'{ID}\'; ";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
 
@@ -27,7 +21,7 @@ namespace FileworxObjects.Objects
             {
 
                 base.DBUpdate();
-                q = $"INSERT INTO dbo.T_News (ID,C_CATEGORY) VALUES(\'{this.ID}\',\'{this.Category}\')";
+                q = $"INSERT INTO dbo.T_News (ID,C_CATEGORY) VALUES(\'{ID}\',\'{Category}\')";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -36,41 +30,38 @@ namespace FileworxObjects.Objects
 
         public override void DBDelete()
         {
-            if (this.ID > -1)
+            if (ID > -1)
             {
                 try
                 {
                     conn.Open();
 
-                    q = $"DELETE FROM dbo.T_News WHERE ID =\'{this.ID}\'";
+                    q = $"DELETE FROM dbo.T_News WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                     base.DBDelete();
                 }
-
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
                 finally
                 {
                     conn.Close();
                 }
-
             }
-
         }
 
         public override void DBRead()
         {
             base.DBRead();
-            q = $"select * from dbo.T_News where ID = {this.ID}";
+            q = $"select * from dbo.T_News where ID = {ID}";
             cmd = new SqlCommand(q, conn);
+
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
-                this.Category = r["C_category"].ToString();
+                Category = r["C_category"].ToString();
 
             }
 

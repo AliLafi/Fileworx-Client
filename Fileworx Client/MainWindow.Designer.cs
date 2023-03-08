@@ -148,21 +148,21 @@ namespace Fileworx_Client
             this.newsToolStripMenuItem.Name = "newsToolStripMenuItem";
             this.newsToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.newsToolStripMenuItem.Text = "News";
-            this.newsToolStripMenuItem.Click += new System.EventHandler(this.newsToolStripMenuItem_Click);
+            this.newsToolStripMenuItem.Click += new System.EventHandler(this.NewsToolStripMenuItem_Click);
             // 
             // photoToolStripMenuItem
             // 
             this.photoToolStripMenuItem.Name = "photoToolStripMenuItem";
             this.photoToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.photoToolStripMenuItem.Text = "Photo";
-            this.photoToolStripMenuItem.Click += new System.EventHandler(this.photoToolStripMenuItem_Click);
+            this.photoToolStripMenuItem.Click += new System.EventHandler(this.PhotoToolStripMenuItem_Click);
             // 
             // userToolStripMenuItem
             // 
             this.userToolStripMenuItem.Name = "userToolStripMenuItem";
             this.userToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.userToolStripMenuItem.Text = "User";
-            this.userToolStripMenuItem.Click += new System.EventHandler(this.userToolStripMenuItem_Click);
+            this.userToolStripMenuItem.Click += new System.EventHandler(this.UserToolStripMenuItem_Click);
             // 
             // tabControlMain
             // 
@@ -277,8 +277,8 @@ namespace Fileworx_Client
             this.searchBar.TabIndex = 13;
             this.searchBar.Text = "Enter Keyword";
             this.searchBar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.searchBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.searchBar_MouseClick);
-            this.searchBar.Leave += new System.EventHandler(this.searchBar_Leave);
+            this.searchBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SearchBar_MouseClick);
+            this.searchBar.Leave += new System.EventHandler(this.SearchBar_Leave);
             // 
             // btnSearch
             // 
@@ -289,7 +289,7 @@ namespace Fileworx_Client
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSearch.Click += new System.EventHandler(this.ButtonSearch_Click);
             // 
             // btnReset
             // 
@@ -300,7 +300,7 @@ namespace Fileworx_Client
             this.btnReset.TabIndex = 15;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
             // startDate
             // 
@@ -350,6 +350,7 @@ namespace Fileworx_Client
             // 
             // MainWindow
             // 
+            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 526);
@@ -373,6 +374,7 @@ namespace Fileworx_Client
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Fileworx";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

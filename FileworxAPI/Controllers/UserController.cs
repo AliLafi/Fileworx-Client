@@ -1,7 +1,5 @@
 ﻿using FileworxObjects;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Data;
 using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
@@ -10,19 +8,22 @@ namespace FileworxAPI.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        [HttpPost("/login")]
-        public bool ValidateLogin([FromBody]LoginCredentials login)
-        {
-            User u = new User();
-            u.LoginName = login.userName; 
-            u.Password = login.password;
-            
 
-            return u.Validate();
+
+        [HttpPost("/login")]
+        public int ValidateLogin([FromBody]LoginCredentials login)
+        {
+            User u = new()
+            {
+                LoginName = login.userName,
+                Password = login.password
+            };
+
+            if(u.Validate())
+            {
+               return u.GetID();
+            }
+            return -1;
 
         }
 
@@ -31,6 +32,7 @@ namespace FileworxAPI.Controllers
         {
             User user = UserMapper.DtoToUser(dto);
             user.Delete();
+
             return "Deleted Successfully";
         }
 
@@ -41,11 +43,11 @@ namespace FileworxAPI.Controllers
 
             if (user.UserExists())
             {
-
                 user.Update();
                 return "Added Successfully";
 
             }
+
             return "User Exists";
         }
 
@@ -54,6 +56,7 @@ namespace FileworxAPI.Controllers
         {
             User user = UserMapper.DtoToUser(dto);
             user.Update();
+
             return "Updated Successfully";
         }
 

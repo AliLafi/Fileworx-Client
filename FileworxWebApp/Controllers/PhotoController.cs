@@ -10,13 +10,13 @@ namespace FileworxWebApp.Controllers
     {
         ApiRequests req = new ApiRequests();
 
-
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("loggedIn") != "in")
             {
                 return RedirectToAction("login", "home");
             }
+
             return View();
         }
 
@@ -27,11 +27,13 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
+
             if (ModelState.IsValid)
             {
                 PhotoDTO photo = FileMapper.FileToPhotoDto(f);
                 await req.Create("Photo", photo);
             }
+
             return RedirectToAction("Index", "");
         }
 
@@ -79,7 +81,6 @@ namespace FileworxWebApp.Controllers
                 await req.Update<PhotoDTO>("photo", photo);
 
             }
-
 
             return RedirectToAction("Index", "");
 

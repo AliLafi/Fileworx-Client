@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FileworxObjects
 {
@@ -22,7 +16,9 @@ namespace FileworxObjects
             Body = body;
         }
 
-        public File() { }
+        public File() 
+        {
 
+        }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using FileworxObjects.Connection;
+﻿using System.Data.SqlClient;
 
 namespace FileworxObjects
 {
@@ -14,7 +8,7 @@ namespace FileworxObjects
         {
             bool valid = false;
             conn.Open();
-            q = $"Select C_password from dbo.T_Users where C_login_name = \'{this.LoginName}\' ;";
+            q = $"Select C_password from dbo.T_Users where C_login_name = \'{LoginName}\' ;";
             cmd = new SqlCommand(q, conn);
             SqlDataReader r = cmd.ExecuteReader();
 
@@ -24,7 +18,7 @@ namespace FileworxObjects
                 {
 
                     string hash = r["C_password"].ToString();
-                    valid = BCrypt.Net.BCrypt.Verify(this.Password, hash);
+                    valid = BCrypt.Net.BCrypt.Verify(Password, hash);
                 }
                 catch
                 {
@@ -32,7 +26,6 @@ namespace FileworxObjects
                 }
 
             }
-
 
             conn.Close();
             if (valid)

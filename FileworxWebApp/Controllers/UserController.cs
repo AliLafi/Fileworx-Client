@@ -1,7 +1,5 @@
 ﻿using Fileworx_Client;
 using FileworxObjects.DTOs;
-using FileworxWebApp.Mappers;
-using FileworxWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileworxWebApp.Controllers
@@ -17,6 +15,7 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
 
             return View(exists);
         }

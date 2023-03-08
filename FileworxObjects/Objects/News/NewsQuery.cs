@@ -2,19 +2,12 @@
 using Nest;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects
 {
     public class NewsQuery
     {
-
 
         public List<NewsDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string cat = "", string query = "*")
         {
@@ -49,7 +42,7 @@ namespace FileworxObjects
 
             queries.Add(classidQuery);
 
-            DateRangeQuery DateQuery = new DateRangeQuery
+            DateRangeQuery dateQuery = new DateRangeQuery
             {
                 Field = Infer.Field<NewsDTO>(p => p.Created),
                 GreaterThan = lower,
@@ -57,7 +50,7 @@ namespace FileworxObjects
 
             };
 
-            queries.Add(DateQuery);
+            queries.Add(dateQuery);
 
             var searchRequest = new SearchRequest<NewsDTO>
             {
@@ -75,7 +68,5 @@ namespace FileworxObjects
             return response.Documents.ToList();
 
         }
-
     }
-
 }

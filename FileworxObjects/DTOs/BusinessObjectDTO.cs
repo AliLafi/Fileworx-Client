@@ -14,7 +14,6 @@ namespace FileworxObjects.DTOs
         public DateTime Created { get; set; }
         public int ClassID { get; set; }
 
-
         public BusinessObjectDTO(string name, string description, DateTime created, int id, int classid)
         {
             Name = name;
@@ -24,7 +23,6 @@ namespace FileworxObjects.DTOs
             ClassID = classid;
         }
 
-
         public BusinessObjectDTO(string name, string description, DateTime created, int classid)
         {
             Name = name;
@@ -33,6 +31,11 @@ namespace FileworxObjects.DTOs
             this.ID = -1;
             ClassID = classid;
         }
-        public BusinessObjectDTO() { }
+
+        public BusinessObjectDTO() 
+        { 
+
+        }
+
     }
 }

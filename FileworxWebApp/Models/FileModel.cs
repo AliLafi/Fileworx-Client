@@ -5,7 +5,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public int ClassID { get; set; }
-
         public string Body { get; set; }
         public int ID { get; set; }
         public string? Category { get; set; }
@@ -18,6 +17,7 @@
             "General",
             "Sports"
         };
+
         public FileModel(string name, string description, int classID, string body, int iD, string category, DateTime created, string imagePath)
         {
             Name = name;
@@ -34,5 +34,6 @@
         {
 
         }
+
     }
 }

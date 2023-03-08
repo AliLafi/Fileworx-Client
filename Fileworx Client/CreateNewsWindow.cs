@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-using FileworxObjects;
 using FileworxObjects.DTOs;
 
 namespace Fileworx_Client
@@ -9,13 +7,13 @@ namespace Fileworx_Client
 
     public partial class CreateNewsWindow : Form
     {
-        MainWindow main;
-        NewsDTO newsItem;
-        ApiRequests req = new ApiRequests();
+        readonly MainWindow main;
+        readonly NewsDTO newsItem;
+        readonly ApiRequests req = new ApiRequests();
 
 
         bool categoryChanged = false;
-        public enum categories
+        public enum Categories
         {
             General,
             Politics,
@@ -28,7 +26,7 @@ namespace Fileworx_Client
         {
             InitializeComponent();
 
-            foreach (categories cat in Enum.GetValues(typeof(categories)))
+            foreach (Categories cat in Enum.GetValues(typeof(Categories)))
             {
                 listCategory.Items.Add(cat.ToString());
 
@@ -42,9 +40,7 @@ namespace Fileworx_Client
                 FillTxt();
             }
 
-
         }
-
 
         private void FillTxt()
         {
@@ -56,9 +52,7 @@ namespace Fileworx_Client
 
         }
 
-
-
-        private bool hasChanged()
+        private bool HasChanged()
         {
             if (txtTitle.Modified || txtBody.Modified || categoryChanged || txtDescription.Modified)
             {
@@ -71,7 +65,7 @@ namespace Fileworx_Client
 
         }
 
-        private bool isEmpty()
+        private bool IsEmpty()
         {
             if (txtTitle.Text == string.Empty || listCategory.Text == string.Empty || txtBody.Text == string.Empty || txtDescription.Text == string.Empty)
             {
@@ -81,7 +75,7 @@ namespace Fileworx_Client
 
         }
 
-        private void listCategory_TextChanged(object sender, EventArgs e)
+        private void ListCategory_TextChanged(object sender, EventArgs e)
         {
             if (newsItem != null)
             {
@@ -91,7 +85,6 @@ namespace Fileworx_Client
 
                 }
             }
-
 
         }
 
@@ -113,16 +106,15 @@ namespace Fileworx_Client
                 await req.Update("News", newsItem);
 
             }
-            main.updateTable();
+            main.UpdateTable();
 
         }
 
-
-        private void btnSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
                     UpdateOrCreate();
                     this.Hide();
@@ -139,11 +131,11 @@ namespace Fileworx_Client
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     switch (res)
@@ -151,7 +143,7 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
 
                             UpdateOrCreate();
-                            main.updateTable();
+                            main.UpdateTable();
                             this.Hide();
 
                             break;
@@ -170,28 +162,24 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }
             }
             else
             {
-                this.Hide();
+                Hide();
             }
 
         }
 
-
-
-
-
         private void CreateNewsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (hasChanged() && this.Visible == true)
+            if (HasChanged() && Visible == true)
             {
                 e.Cancel = true;
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
 
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -224,13 +212,12 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }
 
             }
-
 
         }
 

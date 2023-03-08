@@ -2,12 +2,7 @@
 using Nest;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects
 {
@@ -37,7 +32,7 @@ namespace FileworxObjects
 
             queries.Add(classidQuery);
 
-            DateRangeQuery DateQuery = new DateRangeQuery
+            DateRangeQuery dateQuery = new DateRangeQuery
             {
                 Field = Infer.Field<PhotoDTO>(p => p.Created),
                 GreaterThan = lower,
@@ -45,7 +40,7 @@ namespace FileworxObjects
 
             };
 
-            queries.Add(DateQuery);
+            queries.Add(dateQuery);
 
             var searchRequest = new SearchRequest<PhotoDTO>
             {

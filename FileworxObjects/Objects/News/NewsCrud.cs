@@ -1,11 +1,4 @@
-﻿using Elasticsearch.Net;
-using FileworxObjects.Connection;
-using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileworxObjects.Connection;
 
 namespace FileworxObjects.Objects
 {

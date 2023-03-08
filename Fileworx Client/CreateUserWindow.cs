@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FileworxObjects;
 using FileworxObjects.DTOs;
@@ -15,61 +7,52 @@ namespace Fileworx_Client
 {
     public partial class CreateUserWindow : Form
     {
+        readonly MainWindow main;
+        readonly ApiRequests req = new ApiRequests();
 
-        MainWindow main;
-        User userItem;
-        string LastMod;
-        ApiRequests req = new ApiRequests();
-        public CreateUserWindow(MainWindow m ,string mod, User u=null)
+        public CreateUserWindow(MainWindow main )
         {
             
             InitializeComponent();
-            this.main = m;
-            LastMod= mod;
-            if(u != null)
-            {
-                this.userItem= u;
-                
-            }
+
+            this.main = main;
+ 
         }
 
-        private bool hasChanged()
+        private bool HasChanged()
         {
             if (txtName.Modified || txtName.Modified  || txtPassword.Modified)
             {
 
                 return true;
-
             }
 
             return false;
-
         }
-        private bool isEmpty()
+        private bool IsEmpty()
         {
-            if (txtName.Text == string.Empty || txtLogin.Text == string.Empty || txtPassword.Text == string.Empty)
+            if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtLogin.Text)|| string.IsNullOrEmpty(txtPassword.Text))
             {
                 return true;
             }
-            return false;
 
+            return false;
         }
 
 
-        private async void btnSave_Click(object sender, EventArgs e)
+        private async void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
-                    UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,main.mod);
+                    UserDTO temp = new UserDTO(txtName.Text,"",DateTime.Now,txtLogin.Text,txtPassword.Text,main.modifier);
                     string x = await req.Create("user", temp);
                     MessageBox.Show(x);
-                    main.updateTable();
-                    this.Hide();
+                    main.UpdateTable();
+                    Hide();
 
                 }
-
                 else
                 {
                     MessageBox.Show("A field cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -80,35 +63,30 @@ namespace Fileworx_Client
 
         }
 
-        private async void   btnCancel_Click(object sender, EventArgs e)
+        private async void   ButtonCancel_Click(object sender, EventArgs e)
         {
-            if (hasChanged())
+            if (HasChanged())
             {
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     switch (res)
                     {
                         case DialogResult.Yes:
 
-                            if (userItem == null)
-                            {
-                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.mod);
+                          
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
                                 await req.Create("user", temp);   
-                            }
-                            else
-                            {
-                                //userItem.Update();
+                            
 
-                            }
-                            main.updateTable();
-                            this.Hide();
+                            main.UpdateTable();
+                            Hide();
 
                             break;
 
                         case DialogResult.No:
 
-                            this.Hide();
+                            Hide();
                             break;
 
                     }
@@ -120,23 +98,23 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }
             }
             else
             {
-                this.Hide();
+                Hide();
             }
         }
 
         private async void CreateUserWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (hasChanged() && this.Visible == true)
+            if (HasChanged() && Visible == true)
             {
                 e.Cancel = true;
-                if (!isEmpty())
+                if (!IsEmpty())
                 {
 
                     DialogResult res = MessageBox.Show("Do you want to save the edit?", "Changes not saved", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -149,18 +127,13 @@ namespace Fileworx_Client
                             break;
 
                         case DialogResult.Yes:
-                            if (userItem == null)
-                            {
-                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.mod);
+                            
+                            
+                                UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
                                 await req.Create("user", temp);
-                            }
-                            else
-                            {
-                                //userItem.Update()
+                            
 
-                            }
-
-                            main.updateTable();
+                            main.UpdateTable();
                             e.Cancel = false;
 
                             break;
@@ -172,13 +145,12 @@ namespace Fileworx_Client
                     }
 
                 }
-
                 else
                 {
                     DialogResult res = MessageBox.Show("Not all fields are filled, do you want to exit without change??", "Fields Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        this.Hide();
+                        Hide();
                     }
 
                 }

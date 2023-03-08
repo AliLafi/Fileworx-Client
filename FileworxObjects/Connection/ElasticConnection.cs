@@ -11,6 +11,7 @@ namespace FileworxObjects.Connection
             ConnectionSettings connectionSettings;
             ElasticClient elasticClient;
             StaticConnectionPool connectionPool;
+
             var nodes = new Uri[] {
                 new Uri("http://localhost:9200/")
             };

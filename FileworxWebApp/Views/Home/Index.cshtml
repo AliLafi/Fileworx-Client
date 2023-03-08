@@ -13,7 +13,7 @@
 
         <div class="">
             <div>
-                @using (Html.BeginForm("Index", "home", FormMethod.Post, new { @class = "row",id="searchForm"}))
+                @using (Html.BeginForm("Index", "home", FormMethod.Post, new { @class = "row", id = "searchForm" }))
                 {
 
                     <div class="mb-3">
@@ -34,11 +34,17 @@
 
 
                     <div class="mb-3">
+                        @foreach (string cat in FileModel.Categories)
+                        {
 
-                        @Html.Label("cat","Categories")
-                        @Html.DropDownList("cat",
-                    new SelectList(FileModel.Categories),"",
-                    new { @class = "form-control",multiple="true" })
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@cat" id="@cat" name="categories">
+                                <label class="form-check-label" for="@cat">
+                                    @cat
+                                </label>
+                            </div>
+
+                        }            
 
                     </div>
 
@@ -47,12 +53,12 @@
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
-                                    <div class="col-auto mb-3">
-                        <button type="reset" class="btn btn-danger " id="btn_reset" >
-                        <i class="bi bi-backspace"></i>
+                    <div class="col-auto mb-3">
+                        <button type="reset" class="btn btn-danger " id="btn_reset">
+                            <i class="bi bi-backspace"></i>
 
-                    </button>
-                </div>
+                        </button>
+                    </div>
 
                 }
 

@@ -20,6 +20,9 @@ namespace FileworxObjects.DTOs
             Body = body;
         }
 
-        public FileDTO() { }
+        public FileDTO()
+        {
+            
+        }
     }
 }
