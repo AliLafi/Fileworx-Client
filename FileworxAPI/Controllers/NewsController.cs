@@ -35,17 +35,21 @@ namespace FileworxAPI.Controllers
         }
 
         [HttpGet("/News/search")]
-        public JsonResult SerachNews([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] string cat, [FromQuery] string query)
+        public JsonResult SearchNews([FromQuery] DateTime? before, [FromQuery] DateTime? after, [FromQuery] string cat, [FromQuery] string query)
         {
             List<NewsDTO> list;
             NewsQuery newsQuery = new();
 
-            if (end == start && end == DateTime.MinValue)
+            if (after == null)
             {
-                end = DateTime.MaxValue;
+                after = DateTime.MinValue;
+            }
+            if (before == null)
+            {
+                before = DateTime.MaxValue;
             }
 
-            list = newsQuery.Run(elasticClient, start, end, cat, query);
+            list = newsQuery.Run(elasticClient, after, before, cat, query);
             return Json(list);
         }
 

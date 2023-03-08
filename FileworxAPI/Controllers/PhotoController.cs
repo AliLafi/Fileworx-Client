@@ -5,6 +5,7 @@ using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
 using Nest;
 using FileworxObjects.Connection;
+using Microsoft.Extensions.Logging;
 
 namespace FileworxAPI.Controllers
 {
@@ -36,17 +37,19 @@ namespace FileworxAPI.Controllers
         }
 
         [HttpGet("/Photos/search")]
-        public JsonResult SearchPhotos([FromQuery] DateTime start, [FromQuery] DateTime end,  [FromQuery] string query)
+        public JsonResult SearchPhotos([FromQuery] DateTime? before, [FromQuery] DateTime? after,  [FromQuery] string query)
         {
             List<PhotoDTO> list;
             PhotoQuery photoQuery = new();
-
-            if (end == start && end == DateTime.MinValue)
+            if (after == null)
             {
-                end = DateTime.MaxValue;
+                after = DateTime.MinValue;
             }
-
-            list = photoQuery.Run(elasticClient, start, end, query);
+            if (before == null)
+            {
+                before = DateTime.MaxValue;
+            }
+            list = photoQuery.Run(elasticClient, after, before, query);
             return Json(list);
         }
 

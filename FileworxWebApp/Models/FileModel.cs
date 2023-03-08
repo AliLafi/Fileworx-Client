@@ -11,11 +11,12 @@
         public DateTime Created { get; set; }
         public string? ImagePath { get; set; }
 
-        public static List<string> Categories = new List<string>
+        public static List<string> Categories = new()
         {
             "Politics",
             "General",
-            "Sports"
+            "Sports",
+            "Health"
         };
 
         public FileModel(string name, string description, int classID, string body, int iD, string category, DateTime created, string imagePath)

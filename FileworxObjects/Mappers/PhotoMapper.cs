@@ -28,5 +28,15 @@ namespace FileworxObjects.Mappers
                 return new PhotoDTO(photo.Name, photo.Description, photo.Created, photo.ID, photo.Body, photo.ImagePath, photo.ClassID);
             }
         }
+        public static GridViewRows DtoToGridViewRows(PhotoDTO dto)
+        {
+            GridViewRows rows = new GridViewRows();
+            rows.Created = dto.Created;
+            rows.Name = dto.Name;
+            rows.Description = dto.Description;
+            rows.ID = dto.ID;
+            rows.ClassId = dto.ClassID;
+            return rows;
+        }
     }
 }

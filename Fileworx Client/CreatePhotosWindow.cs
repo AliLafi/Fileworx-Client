@@ -75,7 +75,7 @@ namespace Fileworx_Client
             }
         }
 
-        private void ButtonSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             if (HasChanged())
             {
@@ -92,7 +92,7 @@ namespace Fileworx_Client
             }
         }
 
-        private void ButtonCancel_ClickAsync(object sender, EventArgs e)
+        private void BtnCancel_ClickAsync(object sender, EventArgs e)
         {
             if (HasChanged())
             {

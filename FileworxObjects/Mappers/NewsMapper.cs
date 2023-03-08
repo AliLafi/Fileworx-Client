@@ -28,5 +28,16 @@ namespace FileworxObjects.Mappers
                 return new NewsDTO(news.Name,news.Description,news.Created,news.ID,news.Body,news.Category);
             }
         }
+
+        public static GridViewRows DtoToGridViewRows(NewsDTO dto)
+        {
+            GridViewRows rows = new GridViewRows();
+            rows.Created = dto.Created;
+            rows.Name= dto.Name;
+            rows.Description= dto.Description;
+            rows.ID= dto.ID;
+            rows.ClassId = dto.ClassID;
+            return rows;
+        }
     }
 }

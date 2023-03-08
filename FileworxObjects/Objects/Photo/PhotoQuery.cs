@@ -8,7 +8,7 @@ namespace FileworxObjects
 {
     public class PhotoQuery
     {
-        public List<PhotoDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string query = "*")
+        public List<PhotoDTO> Run(ElasticClient elasticClient, DateTime? lower, DateTime? upper, string query = "*")
         {
             var queries = new List<QueryContainer>();
 
@@ -32,7 +32,7 @@ namespace FileworxObjects
             DateRangeQuery dateQuery = new DateRangeQuery
             {
                 Field = Infer.Field<PhotoDTO>(p => p.Created),
-                GreaterThan = lower,
+                GreaterThan= lower,
                 LessThan = upper
 
             };

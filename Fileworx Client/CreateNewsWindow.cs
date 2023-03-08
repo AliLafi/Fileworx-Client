@@ -96,7 +96,7 @@ namespace Fileworx_Client
             main.UpdateTable();
         }
 
-        private void ButtonSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             if (HasChanged())
             {
@@ -113,7 +113,7 @@ namespace Fileworx_Client
             }
         }
 
-        private void ButtonCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             if (HasChanged())
             {

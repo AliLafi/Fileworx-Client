@@ -51,11 +51,12 @@ namespace Fileworx_Client
             this.searchBar = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
-            this.startDate = new System.Windows.Forms.DateTimePicker();
-            this.endDate = new System.Windows.Forms.DateTimePicker();
+            this.afterDate = new System.Windows.Forms.DateTimePicker();
+            this.beforeDate = new System.Windows.Forms.DateTimePicker();
             this.lblStart = new System.Windows.Forms.Label();
             this.lblEnd = new System.Windows.Forms.Label();
             this.catList = new System.Windows.Forms.CheckedListBox();
+            this.lblSearch = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.previewTab.SuspendLayout();
@@ -70,7 +71,7 @@ namespace Fileworx_Client
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(15, 305);
+            this.lblTitle.Location = new System.Drawing.Point(19, 406);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(40, 17);
             this.lblTitle.TabIndex = 1;
@@ -83,7 +84,7 @@ namespace Fileworx_Client
             this.lblCreated.AutoSize = true;
             this.lblCreated.BackColor = System.Drawing.SystemColors.Control;
             this.lblCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreated.Location = new System.Drawing.Point(15, 334);
+            this.lblCreated.Location = new System.Drawing.Point(18, 448);
             this.lblCreated.Name = "lblCreated";
             this.lblCreated.Size = new System.Drawing.Size(108, 17);
             this.lblCreated.TabIndex = 2;
@@ -95,7 +96,7 @@ namespace Fileworx_Client
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lblCategory.AutoSize = true;
             this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategory.Location = new System.Drawing.Point(15, 363);
+            this.lblCategory.Location = new System.Drawing.Point(19, 483);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(73, 17);
             this.lblCategory.TabIndex = 3;
@@ -108,7 +109,7 @@ namespace Fileworx_Client
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Enabled = false;
             this.txtTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTitle.Location = new System.Drawing.Point(153, 299);
+            this.txtTitle.Location = new System.Drawing.Point(153, 406);
             this.txtTitle.MaxLength = 255;
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.ReadOnly = true;
@@ -171,10 +172,10 @@ namespace Fileworx_Client
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.previewTab);
             this.tabControlMain.Controls.Add(this.imageTab);
-            this.tabControlMain.Location = new System.Drawing.Point(18, 393);
+            this.tabControlMain.Location = new System.Drawing.Point(18, 522);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(865, 121);
+            this.tabControlMain.Size = new System.Drawing.Size(865, 227);
             this.tabControlMain.TabIndex = 8;
             // 
             // previewTab
@@ -184,7 +185,7 @@ namespace Fileworx_Client
             this.previewTab.Location = new System.Drawing.Point(4, 22);
             this.previewTab.Name = "previewTab";
             this.previewTab.Padding = new System.Windows.Forms.Padding(3);
-            this.previewTab.Size = new System.Drawing.Size(857, 95);
+            this.previewTab.Size = new System.Drawing.Size(857, 201);
             this.previewTab.TabIndex = 0;
             this.previewTab.Text = "Preview";
             this.previewTab.UseVisualStyleBackColor = true;
@@ -198,7 +199,7 @@ namespace Fileworx_Client
             this.txtBody.MaxLength = 10000;
             this.txtBody.Name = "txtBody";
             this.txtBody.ReadOnly = true;
-            this.txtBody.Size = new System.Drawing.Size(847, 85);
+            this.txtBody.Size = new System.Drawing.Size(847, 191);
             this.txtBody.TabIndex = 0;
             this.txtBody.Text = "";
             // 
@@ -208,7 +209,7 @@ namespace Fileworx_Client
             this.imageTab.Location = new System.Drawing.Point(4, 22);
             this.imageTab.Name = "imageTab";
             this.imageTab.Padding = new System.Windows.Forms.Padding(3);
-            this.imageTab.Size = new System.Drawing.Size(857, 95);
+            this.imageTab.Size = new System.Drawing.Size(857, 201);
             this.imageTab.TabIndex = 1;
             this.imageTab.Text = "Image";
             this.imageTab.UseVisualStyleBackColor = true;
@@ -219,7 +220,7 @@ namespace Fileworx_Client
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(3, 3);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(851, 89);
+            this.pictureBox.Size = new System.Drawing.Size(851, 195);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -231,7 +232,7 @@ namespace Fileworx_Client
             this.txtCategory.Enabled = false;
             this.txtCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCategory.FormattingEnabled = true;
-            this.txtCategory.Location = new System.Drawing.Point(153, 363);
+            this.txtCategory.Location = new System.Drawing.Point(153, 483);
             this.txtCategory.MaxLength = 255;
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(730, 24);
@@ -242,12 +243,15 @@ namespace Fileworx_Client
             // 
             this.txtCreated.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCreated.CustomFormat = "MM/dd/yyyy hh:mm:ss";
             this.txtCreated.Enabled = false;
             this.txtCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCreated.Location = new System.Drawing.Point(153, 328);
+            this.txtCreated.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.txtCreated.Location = new System.Drawing.Point(153, 448);
             this.txtCreated.Name = "txtCreated";
             this.txtCreated.Size = new System.Drawing.Size(730, 23);
             this.txtCreated.TabIndex = 11;
+            this.txtCreated.Value = new System.DateTime(2023, 3, 8, 0, 0, 0, 0);
             // 
             // GridView
             // 
@@ -257,10 +261,10 @@ namespace Fileworx_Client
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridView.Location = new System.Drawing.Point(18, 154);
+            this.GridView.Location = new System.Drawing.Point(18, 198);
             this.GridView.Name = "GridView";
             this.GridView.ReadOnly = true;
-            this.GridView.Size = new System.Drawing.Size(865, 142);
+            this.GridView.Size = new System.Drawing.Size(865, 184);
             this.GridView.TabIndex = 12;
             this.GridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellDoubleClick);
             this.GridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridView_CellMouseClick);
@@ -270,69 +274,72 @@ namespace Fileworx_Client
             this.searchBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBar.Location = new System.Drawing.Point(18, 57);
+            this.searchBar.Location = new System.Drawing.Point(153, 51);
             this.searchBar.MaxLength = 255;
             this.searchBar.Name = "searchBar";
-            this.searchBar.Size = new System.Drawing.Size(641, 26);
+            this.searchBar.Size = new System.Drawing.Size(730, 26);
             this.searchBar.TabIndex = 13;
-            this.searchBar.Text = "Enter Keyword";
             this.searchBar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.searchBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SearchBar_MouseClick);
-            this.searchBar.Leave += new System.EventHandler(this.SearchBar_Leave);
             // 
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(665, 58);
+            this.btnSearch.Location = new System.Drawing.Point(665, 166);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(106, 26);
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.ButtonSearch_Click);
+            this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Location = new System.Drawing.Point(777, 59);
+            this.btnReset.Location = new System.Drawing.Point(777, 166);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(106, 26);
             this.btnReset.TabIndex = 15;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.ButtonReset_Click);
+            this.btnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
-            // startDate
+            // afterDate
             // 
-            this.startDate.Location = new System.Drawing.Point(79, 89);
-            this.startDate.Name = "startDate";
-            this.startDate.Size = new System.Drawing.Size(200, 20);
-            this.startDate.TabIndex = 16;
+            this.afterDate.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.afterDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.afterDate.Location = new System.Drawing.Point(153, 96);
+            this.afterDate.Name = "afterDate";
+            this.afterDate.Size = new System.Drawing.Size(200, 20);
+            this.afterDate.TabIndex = 16;
             // 
-            // endDate
+            // beforeDate
             // 
-            this.endDate.Location = new System.Drawing.Point(79, 128);
-            this.endDate.Name = "endDate";
-            this.endDate.Size = new System.Drawing.Size(200, 20);
-            this.endDate.TabIndex = 17;
+            this.beforeDate.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.beforeDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.beforeDate.Location = new System.Drawing.Point(153, 140);
+            this.beforeDate.Name = "beforeDate";
+            this.beforeDate.Size = new System.Drawing.Size(200, 20);
+            this.beforeDate.TabIndex = 17;
             // 
             // lblStart
             // 
             this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(18, 90);
+            this.lblStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStart.Location = new System.Drawing.Point(15, 96);
             this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(55, 13);
+            this.lblStart.Size = new System.Drawing.Size(43, 17);
             this.lblStart.TabIndex = 18;
-            this.lblStart.Text = "Start Date";
+            this.lblStart.Text = "After";
             // 
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(18, 128);
+            this.lblEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnd.Location = new System.Drawing.Point(15, 140);
             this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(52, 13);
+            this.lblEnd.Size = new System.Drawing.Size(56, 17);
             this.lblEnd.TabIndex = 19;
-            this.lblEnd.Text = "End Date";
+            this.lblEnd.Text = "Before";
             // 
             // catList
             // 
@@ -343,22 +350,33 @@ namespace Fileworx_Client
             "Politics",
             "Sports",
             "Health"});
-            this.catList.Location = new System.Drawing.Point(665, 90);
+            this.catList.Location = new System.Drawing.Point(595, 96);
             this.catList.Name = "catList";
-            this.catList.Size = new System.Drawing.Size(218, 49);
+            this.catList.Size = new System.Drawing.Size(288, 64);
             this.catList.TabIndex = 20;
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearch.Location = new System.Drawing.Point(15, 51);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(101, 17);
+            this.lblSearch.TabIndex = 21;
+            this.lblSearch.Text = "Search Term";
             // 
             // MainWindow
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 526);
+            this.ClientSize = new System.Drawing.Size(904, 761);
+            this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.catList);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.lblStart);
-            this.Controls.Add(this.endDate);
-            this.Controls.Add(this.startDate);
+            this.Controls.Add(this.beforeDate);
+            this.Controls.Add(this.afterDate);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.searchBar);
@@ -372,6 +390,7 @@ namespace Fileworx_Client
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "MainWindow";
             this.Text = "Fileworx";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -412,11 +431,12 @@ namespace Fileworx_Client
         private System.Windows.Forms.TextBox searchBar;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.DateTimePicker startDate;
-        private System.Windows.Forms.DateTimePicker endDate;
+        private System.Windows.Forms.DateTimePicker afterDate;
+        private System.Windows.Forms.DateTimePicker beforeDate;
         private System.Windows.Forms.Label lblStart;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.CheckedListBox catList;
+        private System.Windows.Forms.Label lblSearch;
     }
 }
 

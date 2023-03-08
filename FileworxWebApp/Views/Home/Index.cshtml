@@ -23,13 +23,13 @@
                     </div>
 
                     <div class="col-6 mb-3">
-                        @Html.Label("start","From")
-                        @Html.Editor("start",new {  htmlAttributes = new {@class = "form-control" ,type = "date" }})
+                        @Html.Label("after","After")
+                        @Html.Editor("after",new {  htmlAttributes = new {@class = "form-control" ,type = "datetime-local" }})
                     </div>
 
                     <div class="col-6 mb-3">
-                        @Html.Label("end","To")
-                        @Html.Editor("end",new {  htmlAttributes = new {@class = "form-control" ,type = "date"}})
+                        @Html.Label("before","Before")
+                        @Html.Editor("before",new {  htmlAttributes = new {@class = "form-control" ,type = "datetime-local"}})
                     </div>
 
 

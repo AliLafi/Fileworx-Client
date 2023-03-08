@@ -1,4 +1,5 @@
 ﻿using FileworxObjects.DTOs;
+using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
 using System;
 using System.Collections.Generic;
@@ -21,19 +22,6 @@ namespace Fileworx_Client
             Politics,
             Sports,
             Health
-
-        }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            foreach (Categories cat in Enum.GetValues(typeof(Categories)))
-            {
-                txtCategory.Items.Add(cat.ToString());
-
-            }
-
         }
 
         public MainWindow(int modifier)
@@ -45,80 +33,31 @@ namespace Fileworx_Client
                 txtCategory.Items.Add(cat.ToString());
 
             }
+
             this.modifier = modifier;
             UpdateTable();
-
         }
 
-        private void SearchBar_Leave(object sender, EventArgs e)
+        private async void BtnSearch_Click(object sender, EventArgs e)
         {
-            AddText(sender, e);
-        }
-
-        private void SearchBar_MouseClick(object sender, MouseEventArgs e)
-        {
-            RemoveText(sender, e);
-
-        }
-
-        public void RemoveText(object sender, EventArgs e)
-        {
-            if (searchBar.Text == "Enter Keyword")
-            {
-                searchBar.Text = "";
-            }
-        }
-
-        public void AddText(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(searchBar.Text))
-                searchBar.Text = "Enter Keyword";
-        }
-
-        private async void ButtonSearch_Click(object sender, EventArgs e)
-        {
-            DateTime start = DateTime.Parse(startDate.Text);
-            DateTime end = DateTime.Parse(endDate.Text);
+            DateTime after = DateTime.Parse(afterDate.Text);
+            DateTime before = DateTime.Parse(beforeDate.Text);
             List<string> categories = new List<string>();
-
-            RemoveText(sender, e);
 
             foreach (object item in catList.CheckedItems)
             {
                 categories.Add(item.ToString());
             }
+            
+            SearchObject searchObject = new SearchObject(after, before, categories, searchBar.Text);
+            searchObject.After= after;
+            searchObject.Before= before;
+            searchObject.Categories = categories;
+            searchObject.Query= searchBar.Text;
 
-            bool valid = true;
-
-            if (start > end)
-            {
-                MessageBox.Show("The start Date Cannot be after end Date");
-                valid = false;
-            }
-
-            if (start > DateTime.Now || end > DateTime.Now)
-            {
-                MessageBox.Show("The Date Cannot be in the future");
-                valid = false;
-            }
-
-            if (start.Date == DateTime.Now.Date)
-            {
-                start = DateTime.MinValue;
-            }
-            if (end.Date == DateTime.Now.Date)
-            {
-                end = DateTime.MaxValue;
-            }
-
-            if (valid)
-            {
-
-                SearchObject s = new SearchObject(start, end, categories, searchBar.Text);
-                List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News", s));
-                List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos", s));
-                FillTable(list, list2);
-            }
+            List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News", searchObject));
+            List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos", searchObject));
+            FillTable(list, list2);
         }
 
         public async void UpdateTable()
@@ -131,13 +70,19 @@ namespace Fileworx_Client
 
         private void FillTable(List<NewsDTO> list, List<PhotoDTO> list2)
         {
-            DataTable dt1 = ToDataTable<NewsDTO>(list);
-            dt1.Merge(ToDataTable<PhotoDTO>(list2));
-            GridView.DataSource = dt1;
-            GridView.Columns[0].Visible = false;
-            GridView.Columns[6].Visible = false;
-            GridView.Columns[7].Visible = false;
-            GridView.Columns[1].Visible = false;
+            List<GridViewRows> rows = new List<GridViewRows>();
+            foreach (NewsDTO item in list)
+            {
+                rows.Add(NewsMapper.DtoToGridViewRows(item));
+            }
+
+            foreach (PhotoDTO item in list2)
+            {
+                rows.Add(PhotoMapper.DtoToGridViewRows(item));
+            }
+
+            DataTable datatTable = ToDataTable(rows);
+            GridView.DataSource = datatTable;
         }
 
         public static DataTable ToDataTable<T>(List<T> items)
@@ -147,7 +92,6 @@ namespace Fileworx_Client
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (PropertyInfo prop in Props)
             {
-
                 dataTable.Columns.Add(prop.Name);
             }
 
@@ -156,7 +100,6 @@ namespace Fileworx_Client
                 var values = new object[Props.Length];
                 for (int i = 0; i < Props.Length; i++)
                 {
-
                     values[i] = Props[i].GetValue(item, null);
                 }
                 dataTable.Rows.Add(values);
@@ -172,24 +115,29 @@ namespace Fileworx_Client
 
             if (selectedRow != -1)
             {
-                txtTitle.Text = GridView.Rows[selectedRow].Cells[3].Value.ToString();
-                txtCreated.Text = GridView.Rows[selectedRow].Cells[5].Value.ToString();
-                txtBody.Text = GridView.Rows[selectedRow].Cells[1].Value.ToString();
-                int id = int.Parse(GridView.Rows[selectedRow].Cells[2].Value.ToString());
+                int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
+                int classId = int.Parse(GridView.Rows[selectedRow].Cells[4].Value.ToString());
 
-                if (string.IsNullOrEmpty(GridView.Rows[selectedRow].Cells[7].Value.ToString()))
+                if (classId == 1)
                 {
+                    NewsDTO temp = await req.GetByID<NewsDTO>("news", id);
                     txtCategory.Visible = true;
-                    txtCategory.Text = GridView.Rows[selectedRow].Cells[0].Value.ToString();
+                    txtCategory.Text = temp.Category;
                     lblCategory.Visible = true;
+                    txtCreated.Text = temp.Created.ToString();
+                    txtTitle.Text = temp.Name;
+
                 }
                 else
                 {
+                    PhotoDTO temp = await req.GetByID<PhotoDTO>("Photos", id);
                     txtCategory.Visible = false;
                     lblCategory.Visible = false;
+                    txtCreated.Text = temp.Created.ToString();
+                    txtTitle.Text = temp.Name;
                     tabControlMain.TabPages.Add(imageTab);
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox.ImageLocation = txtCategory.Text = GridView.Rows[selectedRow].Cells[7].Value.ToString();
+                    pictureBox.ImageLocation = temp.ImagePath;
                 }
 
                 if (e.Button == MouseButtons.Right)
@@ -211,23 +159,22 @@ namespace Fileworx_Client
             }
         }
 
-        private void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedRow = GridView.CurrentCell.RowIndex;
 
-            int id = int.Parse(GridView.Rows[selectedRow].Cells[2].Value.ToString());
-            string desc = GridView.Rows[selectedRow].Cells[4].Value.ToString();
+            int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
+            int classId = int.Parse(GridView.Rows[selectedRow].Cells[4].Value.ToString());
 
-            if (string.IsNullOrEmpty(GridView.Rows[selectedRow].Cells[7].Value.ToString()))
+            if (classId == 1)
             {
-                NewsDTO temp = new NewsDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, txtCategory.Text);
+                NewsDTO temp = await req.GetByID<NewsDTO>("News", id);
                 CreateNewsWindow f1 = new CreateNewsWindow(this, temp);
                 f1.Show();
-
             }
             else
             {
-                PhotoDTO temp = new PhotoDTO(txtTitle.Text, desc, DateTime.Parse(txtCreated.Text), id, txtBody.Text, pictureBox.ImageLocation);
+                PhotoDTO temp = await req.GetByID<PhotoDTO>("Photos", id);
                 CreatePhotosWindow f1 = new CreatePhotosWindow(this, temp);
                 f1.Show();
             }
@@ -256,7 +203,7 @@ namespace Fileworx_Client
             Application.Exit();
         }
 
-        private void ButtonReset_Click(object sender, EventArgs e)
+        private void BtnReset_Click(object sender, EventArgs e)
         {
             UpdateTable();
         }

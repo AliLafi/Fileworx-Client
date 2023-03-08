@@ -5,16 +5,16 @@ namespace FileworxObjects.Objects
 {
     public class SearchObject
     {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime? Before { get; set; }
+        public DateTime? After { get; set; }
         public List<string> Categories { get; set; }
         public string Query { get; set; }
 
         public SearchObject() { }
-        public SearchObject(DateTime start, DateTime end, List<string> categories, string query)
+        public SearchObject(DateTime? after, DateTime? before, List<string> categories, string query)
         {
-            Start = start;
-            End = end;
+            Before = before;
+            After = after;
             Categories = categories;
             Query = query;
         }

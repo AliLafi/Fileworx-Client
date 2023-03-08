@@ -50,7 +50,7 @@ namespace Fileworx_Client
                 cat.Append(" ");
             }
 
-            string u = url + "\\search?" + $"start={search.Start}&" + $"end={search.End}&" + $"cat={cat}&" + $"query={search.Query}";
+            string u = url + "\\search?" + $"before={search.Before}&" + $"after={search.After}&" + $"cat={cat}&" + $"query={search.Query}";
 
             var response = await _httpClient.GetAsync(u);
             response.EnsureSuccessStatusCode();

@@ -85,6 +85,7 @@
     <Compile Include="Objects\File\File.cs" />
     <Compile Include="Mappers\NewsMapper.cs" />
     <Compile Include="Objects\File\FileDB.cs" />
+    <Compile Include="Objects\GridViewRows.cs" />
     <Compile Include="Objects\LoginCredentials.cs" />
     <Compile Include="Objects\News\NewsCrud.cs" />
     <Compile Include="Objects\News\NewsDB.cs" />

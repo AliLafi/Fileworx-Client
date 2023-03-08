@@ -87,7 +87,7 @@
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnCancel
             // 
@@ -98,7 +98,7 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.ButtonCancel_ClickAsync);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_ClickAsync);
             // 
             // txtBody
             // 
@@ -221,6 +221,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Tabs);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "CreatePhotosWindow";
             this.Text = "Photos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreatePhotosWindow_FormClosingAsync);

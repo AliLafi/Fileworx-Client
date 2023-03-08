@@ -35,7 +35,7 @@ namespace FileworxWebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Index(string query, string [] categories , DateTime start, DateTime end)
+        public async Task<IActionResult> Index(string query, string [] categories , DateTime? before, DateTime? after)
         {
             if (HttpContext.Session.GetString("loggedIn") != "in")
             {
@@ -43,12 +43,18 @@ namespace FileworxWebApp.Controllers
             }
 
             SearchObject search = new();
+            if (before == null)
+            {
+                before = DateTime.MaxValue;
+            }
+            if(after == null)
+            {
+                after = DateTime.MinValue;
+            }
 
-            if (end == DateTime.MinValue)
-                end = DateTime.MaxValue;
 
-            search.Start = start;
-            search.End = end;
+            search.Before = before;
+            search.After = after;
             search.Query = query;
             search.Categories = categories.ToList();
             

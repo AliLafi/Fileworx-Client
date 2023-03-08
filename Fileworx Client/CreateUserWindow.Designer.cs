@@ -109,7 +109,7 @@
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnSave
             // 
@@ -120,7 +120,7 @@
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // CreateUserWindow
             // 
@@ -136,6 +136,7 @@
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblLogin);
             this.Controls.Add(this.lblName);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "CreateUserWindow";
             this.Text = "User";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateUserWindow_FormClosing);

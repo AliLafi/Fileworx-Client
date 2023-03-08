@@ -13,9 +13,9 @@ namespace Fileworx_Client
             InitializeComponent();
         }
 
-        private async void ButtonLogin_Click(object sender, EventArgs e)
+        private async void BtnLogin_Click(object sender, EventArgs e)
         {
-            if (!(string.IsNullOrEmpty(txtLogin.Text) && string.IsNullOrEmpty(txtPassword.Text)))
+            if (!(string.IsNullOrEmpty(txtLogin.Text) && !string.IsNullOrEmpty(txtPassword.Text)))
             {
                 int id = await apiRequests.GetLoginInfo(txtLogin.Text, txtPassword.Text);
                 if (id != -1)
