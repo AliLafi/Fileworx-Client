@@ -10,7 +10,7 @@ namespace FileworxAPI.Controllers
 {
     public class NewsController : Controller
     {
-        ElasticClient elasticClient = ElasticConnection.GetESClient();
+        readonly ElasticClient elasticClient = ElasticConnection.GetESClient();
 
         [HttpGet("news/{id}")]
         public JsonResult GetNewsByID(int id)
@@ -27,11 +27,11 @@ namespace FileworxAPI.Controllers
         [HttpGet("/News")]
         public JsonResult GetNews()
         {
-            List<NewsDTO> list;
+            List<NewsDTO> newsList;
             NewsQuery newsQuery = new();
 
-            list = newsQuery.Run(elasticClient, DateTime.MinValue, DateTime.MaxValue);
-            return Json(list);
+            newsList = newsQuery.Run(elasticClient, DateTime.MinValue, DateTime.MaxValue);
+            return Json(newsList);
         }
 
         [HttpGet("/News/search")]
@@ -49,7 +49,7 @@ namespace FileworxAPI.Controllers
                 before = DateTime.MaxValue;
             }
 
-            list = newsQuery.Run(elasticClient, after, before, cat, query);
+            list = newsQuery.Run(elasticClient, after.Value, before.Value, cat, query);
             return Json(list);
         }
 

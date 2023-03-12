@@ -9,7 +9,7 @@ namespace FileworxWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        ApiRequests req = new ApiRequests();
+        readonly ApiRequests req = new();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -58,10 +58,10 @@ namespace FileworxWebApp.Controllers
             search.Query = query;
             search.Categories = categories.ToList();
             
-            List<FileModel> list = await req.GetSearch<FileModel>("News", search);
-            List<FileModel> list2 = await req.GetSearch<FileModel>("Photos", search);
-            List<FileModel> list3 = list.Concat(list2).ToList();
-            return View(list3);
+            List<FileModel> newsList = await req.GetSearch<FileModel>("News", search);
+            List<FileModel> photoList = await req.GetSearch<FileModel>("Photos", search);
+            List<FileModel> fileList = newsList.Concat(photoList).ToList();
+            return View(fileList);
         }
 
         public IActionResult Privacy()

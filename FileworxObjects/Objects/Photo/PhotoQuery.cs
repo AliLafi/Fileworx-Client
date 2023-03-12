@@ -8,7 +8,7 @@ namespace FileworxObjects
 {
     public class PhotoQuery
     {
-        public List<PhotoDTO> Run(ElasticClient elasticClient, DateTime? lower, DateTime? upper, string query = "*")
+        public List<PhotoDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string query = "*")
         {
             var queries = new List<QueryContainer>();
 

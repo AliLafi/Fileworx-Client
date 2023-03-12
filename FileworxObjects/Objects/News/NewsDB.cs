@@ -7,21 +7,29 @@ namespace FileworxObjects.Objects
     {
         public override void DBUpdate()
         {
-            if (ID > -1)
+            try
             {
-                base.DBUpdate();
-                q = $"UPDATE  dbo.T_News SET C_category =\'{Category}\' WHERE ID = \'{ID}\'; ";
-                cmd = new SqlCommand(q, conn);
-                cmd.ExecuteNonQuery();
+
+                if (ID > -1)
+                {
+                    base.DBUpdate();
+                    q = $"UPDATE  dbo.T_News SET C_category =\'{Category}\' WHERE ID = \'{ID}\'; ";
+                    cmd = new SqlCommand(q, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    base.DBUpdate();
+                    q = $"INSERT INTO dbo.T_News (ID,C_CATEGORY) VALUES(\'{ID}\',\'{Category}\')";
+                    cmd = new SqlCommand(q, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
             }
-            else
+            catch(Exception ex)
             {
-                base.DBUpdate();
-                q = $"INSERT INTO dbo.T_News (ID,C_CATEGORY) VALUES(\'{ID}\',\'{Category}\')";
-                cmd = new SqlCommand(q, conn);
-                cmd.ExecuteNonQuery();
+                Console.WriteLine(ex.ToString());
             }
-            conn.Close();
         }
 
         public override void DBDelete()
@@ -52,16 +60,23 @@ namespace FileworxObjects.Objects
             base.DBRead();
             q = $"select * from dbo.T_News where ID = {ID}";
             cmd = new SqlCommand(q, conn);
-
-            SqlDataReader r = cmd.ExecuteReader();
-            while (r.Read())
+            try
             {
-                Category = r["C_category"].ToString();
 
+                SqlDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    Category = r["C_category"].ToString();
+
+                }
+
+                conn.Close();
+                r.Close();
             }
-
-            conn.Close();
-            r.Close();
+            catch(Exception ex )
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

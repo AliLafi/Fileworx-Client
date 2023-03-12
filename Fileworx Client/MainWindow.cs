@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fileworx_Client
 {
@@ -28,10 +30,9 @@ namespace Fileworx_Client
         {
             InitializeComponent();
 
-            foreach (Categories cat in Enum.GetValues(typeof(Categories)))
+            foreach (Categories category in Enum.GetValues(typeof(Categories)))
             {
-                txtCategory.Items.Add(cat.ToString());
-
+                txtCategory.Items.Add(category.ToString());
             }
 
             this.modifier = modifier;
@@ -55,34 +56,26 @@ namespace Fileworx_Client
             searchObject.Categories = categories;
             searchObject.Query= searchBar.Text;
 
-            List<NewsDTO> list = (await req.GetSearch<NewsDTO>("News", searchObject));
-            List<PhotoDTO> list2 = (await req.GetSearch<PhotoDTO>("Photos", searchObject));
-            FillTable(list, list2);
+            List<NewsDTO> newsList = (await req.GetSearch<NewsDTO>("News", searchObject));
+            List<PhotoDTO> PhotoList = (await req.GetSearch<PhotoDTO>("Photos", searchObject));
+            FillTable(newsList, PhotoList);
         }
 
         public async void UpdateTable()
         {
-            List<NewsDTO> list = await req.GetAll<NewsDTO>("News");
-            List<PhotoDTO> list2 = await req.GetAll<PhotoDTO>("Photos");
+            List<NewsDTO> newsList = await req.GetAll<NewsDTO>("News");
+            List<PhotoDTO> photoList = await req.GetAll<PhotoDTO>("Photos");
 
-            FillTable(list, list2);
+            FillTable(newsList, photoList);
         }
 
-        private void FillTable(List<NewsDTO> list, List<PhotoDTO> list2)
+        private void FillTable(List<NewsDTO> newsList, List<PhotoDTO> photoList)
         {
-            List<GridViewRows> rows = new List<GridViewRows>();
-            foreach (NewsDTO item in list)
-            {
-                rows.Add(NewsMapper.DtoToGridViewRows(item));
-            }
+            List<GridViewRows> rows = (newsList.Select(item => NewsMapper.DtoToGridViewRows(item))).ToList();
+            rows.AddRange(photoList.Select(item => PhotoMapper.DtoToGridViewRows(item)));
 
-            foreach (PhotoDTO item in list2)
-            {
-                rows.Add(PhotoMapper.DtoToGridViewRows(item));
-            }
-
-            DataTable datatTable = ToDataTable(rows);
-            GridView.DataSource = datatTable;
+            DataTable dataTable = ToDataTable(rows);
+            GridView.DataSource = dataTable;
         }
 
         public static DataTable ToDataTable<T>(List<T> items)
@@ -120,24 +113,12 @@ namespace Fileworx_Client
 
                 if (classId == 1)
                 {
-                    NewsDTO temp = await req.GetByID<NewsDTO>("news", id);
-                    txtCategory.Visible = true;
-                    txtCategory.Text = temp.Category;
-                    lblCategory.Visible = true;
-                    txtCreated.Text = temp.Created.ToString();
-                    txtTitle.Text = temp.Name;
+                    await FillNewsData(id);
 
                 }
                 else
                 {
-                    PhotoDTO temp = await req.GetByID<PhotoDTO>("Photos", id);
-                    txtCategory.Visible = false;
-                    lblCategory.Visible = false;
-                    txtCreated.Text = temp.Created.ToString();
-                    txtTitle.Text = temp.Name;
-                    tabControlMain.TabPages.Add(imageTab);
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox.ImageLocation = temp.ImagePath;
+                    await FillPhotoData(id);
                 }
 
                 if (e.Button == MouseButtons.Right)
@@ -157,6 +138,28 @@ namespace Fileworx_Client
                     }
                 }
             }
+        }
+
+        private async Task FillPhotoData(int id)
+        {
+            PhotoDTO temp = await req.GetByID<PhotoDTO>("Photos", id);
+            txtCategory.Visible = false;
+            lblCategory.Visible = false;
+            txtCreated.Text = temp.Created.ToString();
+            txtTitle.Text = temp.Name;
+            tabControlMain.TabPages.Add(imageTab);
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox.ImageLocation = temp.ImagePath;
+        }
+
+        private async Task FillNewsData(int id)
+        {
+            NewsDTO temp = await req.GetByID<NewsDTO>("news", id);
+            txtCategory.Visible = true;
+            txtCategory.Text = temp.Category;
+            lblCategory.Visible = true;
+            txtCreated.Text = temp.Created.ToString();
+            txtTitle.Text = temp.Name;
         }
 
         private async void GridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

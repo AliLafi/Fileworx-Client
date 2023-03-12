@@ -28,7 +28,6 @@ namespace Fileworx_Client
                 }
                 else
                 {
-
                     MessageBox.Show("Login Name or Password is incorrect");
                 }
             }

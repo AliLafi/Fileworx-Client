@@ -7,21 +7,29 @@ namespace FileworxObjects.Objects
     {
         public override void DBUpdate()
         {
-            if (ID > -1)
+            try
             {
-                base.DBUpdate();
-                q = $"UPDATE  dbo.T_Photo SET C_location =\'{ImagePath}\' WHERE ID = \'{ID}\'; ";
-                cmd = new SqlCommand(q, conn);
-                cmd.ExecuteNonQuery();
+
+                if (ID > -1)
+                {
+                    base.DBUpdate();
+                    q = $"UPDATE  dbo.T_Photo SET C_location =\'{ImagePath}\' WHERE ID = \'{ID}\'; ";
+                    cmd = new SqlCommand(q, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    base.DBUpdate();
+                    q = $"INSERT INTO dbo.T_Photo (ID,C_location) VALUES(\'{ID}\',\'{ImagePath}\')";
+                    cmd = new SqlCommand(q, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
             }
-            else
+            catch(Exception ex)
             {
-                base.DBUpdate();
-                q = $"INSERT INTO dbo.T_Photo (ID,C_location) VALUES(\'{ID}\',\'{ImagePath}\')";
-                cmd = new SqlCommand(q, conn);
-                cmd.ExecuteNonQuery();
+                Console.WriteLine(ex.Message);
             }
-            conn.Close();
         }
 
         public override void DBDelete()
@@ -50,14 +58,21 @@ namespace FileworxObjects.Objects
             q = $"select * from dbo.T_Photo where ID = \'{ID}\'";
             cmd = new SqlCommand(q,conn);
 
-            SqlDataReader r = cmd.ExecuteReader();
-            while (r.Read())
+            try
             {
-                ImagePath = r["C_location"].ToString();
-            }
 
-            conn.Close();
-            r.Close();
+                SqlDataReader r = cmd.ExecuteReader();
+                while (r.Read())
+                {
+                    ImagePath = r["C_location"].ToString();
+                }
+
+                conn.Close();
+                r.Close();
+            }
+            catch(Exception ex){
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

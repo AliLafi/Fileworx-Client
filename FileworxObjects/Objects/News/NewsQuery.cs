@@ -8,7 +8,7 @@ namespace FileworxObjects
 {
     public class NewsQuery
     {
-        public List<NewsDTO> Run(ElasticClient elasticClient, DateTime? lower, DateTime? upper, string cat = "", string query = "*")
+        public List<NewsDTO> Run(ElasticClient elasticClient, DateTime lower, DateTime upper, string cat = "", string query = "*")
         {
             var queries = new List<QueryContainer>();
 

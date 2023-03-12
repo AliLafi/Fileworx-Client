@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 
 namespace FileworxObjects
 {
@@ -8,15 +7,21 @@ namespace FileworxObjects
     {
         public bool UserExists()
         {
-            if (conn.State == System.Data.ConnectionState.Closed)
-            {
-                conn.Open();
-            }
+           CheckConnection();
 
             q = $"select Count(C_login_name) from dbo.T_Users where C_login_name = \'{LoginName}\'";
             cmd = new SqlCommand(q, conn);
-            int count = int.Parse(cmd.ExecuteScalar().ToString());
-            return count < 1;
+            try
+            {
+                int count = int.Parse(cmd.ExecuteScalar().ToString());
+                return count < 1;
+            }
+            catch (Exception ex)   
+            {
+                Console.WriteLine(ex.Message);
+                return true;
+            }
+
         }
 
         public override void DBUpdate()
@@ -76,8 +81,17 @@ namespace FileworxObjects
         {
             conn.Open();
             q = $"select ID from dbo.T_Users where C_login_name = \'{LoginName}\'";
-            cmd = new SqlCommand(q, conn);
-            return int.Parse(cmd.ExecuteScalar().ToString()); ;
+            try
+            {
+
+                cmd = new SqlCommand(q, conn);
+                return int.Parse(cmd.ExecuteScalar().ToString());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
         }
     }
 }

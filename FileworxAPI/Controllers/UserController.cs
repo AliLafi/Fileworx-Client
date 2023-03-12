@@ -11,15 +11,15 @@ namespace FileworxAPI.Controllers
         [HttpPost("/login")]
         public int ValidateLogin([FromBody]LoginCredentials login)
         {
-            User u = new()
+            User newUser = new()
             {
                 LoginName = login.userName,
                 Password = login.password
             };
 
-            if(u.Validate())
+            if(newUser.Validate())
             {
-               return u.GetID();
+               return newUser.GetID();
             }
 
             return -1;

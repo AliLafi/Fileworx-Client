@@ -41,9 +41,8 @@ namespace Fileworx_Client
                 if (!IsEmpty())
                 {
                     UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
-                    string x = await req.Create("user", temp);
-                    MessageBox.Show(x);
-                    main.UpdateTable();
+                    string resMessage = await req.Create("user", temp);
+                    MessageBox.Show(resMessage);
                     Hide();
                 }
                 else
@@ -65,8 +64,8 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
 
                             UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
-                            await req.Create("user", temp);
-                            main.UpdateTable();
+                            string resMessage = await req.Create("user", temp);
+                            MessageBox.Show(resMessage);
                             Hide();
                             break;
 
@@ -109,8 +108,8 @@ namespace Fileworx_Client
                         case DialogResult.Yes:
 
                             UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
-                            await req.Create("user", temp);
-                            main.UpdateTable();
+                            string resMessage = await req.Create("user", temp);
+                            MessageBox.Show(resMessage);
                             e.Cancel = false;
                             break;
 

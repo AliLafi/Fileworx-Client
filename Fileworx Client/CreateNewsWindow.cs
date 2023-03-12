@@ -24,17 +24,16 @@ namespace Fileworx_Client
         {
             InitializeComponent();
 
-            foreach (Categories cat in Enum.GetValues(typeof(Categories)))
+            foreach (Categories category in Enum.GetValues(typeof(Categories)))
             {
-                listCategory.Items.Add(cat.ToString());
-
+                listCategory.Items.Add(category.ToString());
             }
 
             this.main = main;
 
-            if (newsFromMain != null)
+            if (!(newsFromMain is null))
             {
-                this.newsItem = newsFromMain;
+                newsItem = newsFromMain;
                 FillTxt();
             }
         }
@@ -52,9 +51,7 @@ namespace Fileworx_Client
             if (txtTitle.Modified || txtBody.Modified || categoryChanged || txtDescription.Modified)
             {
                 return true;
-
             }
-
             return false;
         }
 
@@ -80,20 +77,25 @@ namespace Fileworx_Client
 
         private async void UpdateOrCreate()
         {
-            if (newsItem == null)
+            if (newsItem is null)
             {
                 NewsDTO temp = new NewsDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, listCategory.Text);
                 await req.Create("News", temp);
             }
             else
             {
-                newsItem.Name = txtTitle.Text;
-                newsItem.Description = txtDescription.Text;
-                newsItem.Body = txtBody.Text;
-                newsItem.Category = listCategory.Text;
+                AddProperties();
                 await req.Update("News", newsItem);
             }
             main.UpdateTable();
+        }
+
+        private void AddProperties()
+        {
+            newsItem.Name = txtTitle.Text;
+            newsItem.Description = txtDescription.Text;
+            newsItem.Body = txtBody.Text;
+            newsItem.Category = listCategory.Text;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -108,7 +110,6 @@ namespace Fileworx_Client
                 else
                 {
                     MessageBox.Show("A field cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
                 }
             }
         }
@@ -126,11 +127,9 @@ namespace Fileworx_Client
                             UpdateOrCreate();
                             main.UpdateTable();
                             Hide();
-
                             break;
 
                         case DialogResult.No:
-
                             Hide();
                             break;
                     }
@@ -162,13 +161,10 @@ namespace Fileworx_Client
                     switch (res)
                     {
                         case DialogResult.No:
-
                             e.Cancel = false;
                             break;
 
                         case DialogResult.Yes:
-
-
                             UpdateOrCreate();
                             e.Cancel = false;
                             break;

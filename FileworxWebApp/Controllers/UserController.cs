@@ -6,7 +6,7 @@ namespace FileworxWebApp.Controllers
 {
     public class UserController : Controller
     {
-        ApiRequests req = new ApiRequests();
+        readonly ApiRequests req = new ApiRequests();
         bool exists = false;
 
         public IActionResult Create()

@@ -11,7 +11,7 @@
         public DateTime Created { get; set; }
         public string? ImagePath { get; set; }
 
-        public static List<string> Categories = new()
+        public static readonly List<string> Categories = new()
         {
             "Politics",
             "General",

@@ -11,7 +11,7 @@ namespace FileworxAPI.Controllers
 {
     public class PhotoController : Controller
     {
-        ElasticClient elasticClient = ElasticConnection.GetESClient();
+        readonly ElasticClient elasticClient = ElasticConnection.GetESClient();
 
         [HttpGet("Photos/{id}")]
         public JsonResult GetNewsByID(int id)
@@ -28,18 +28,18 @@ namespace FileworxAPI.Controllers
         [HttpGet("/Photos")]
         public JsonResult GetPhotos()
         {
-            List<PhotoDTO> list;
+            List<PhotoDTO> photoList;
             PhotoQuery photoQuery = new();
 
-            list = photoQuery.Run(elasticClient, DateTime.MinValue,DateTime.MaxValue);
-            return Json(list);
+            photoList = photoQuery.Run(elasticClient, DateTime.MinValue,DateTime.MaxValue);
+            return Json(photoList);
 
         }
 
         [HttpGet("/Photos/search")]
         public JsonResult SearchPhotos([FromQuery] DateTime? before, [FromQuery] DateTime? after,  [FromQuery] string query)
         {
-            List<PhotoDTO> list;
+            List<PhotoDTO> photoList;
             PhotoQuery photoQuery = new();
             if (after == null)
             {
@@ -49,8 +49,8 @@ namespace FileworxAPI.Controllers
             {
                 before = DateTime.MaxValue;
             }
-            list = photoQuery.Run(elasticClient, after, before, query);
-            return Json(list);
+            photoList = photoQuery.Run(elasticClient, after.Value, before.Value, query);
+            return Json(photoList);
         }
 
         [HttpDelete("/Photo/{id}")]

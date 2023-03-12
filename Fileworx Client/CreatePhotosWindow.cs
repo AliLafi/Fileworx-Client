@@ -130,24 +130,29 @@ namespace Fileworx_Client
 
         private async void UpdateOrCreate()
         {
-            if (photoItem == null)
+            if (photoItem is null)
             {
-                pictureBox.ImageLocation = (pictureBox.ImageLocation == null) ? "abc" : pictureBox.ImageLocation;
+                pictureBox.ImageLocation = (pictureBox.ImageLocation is null) ? "" : pictureBox.ImageLocation;
                 PhotoDTO temp = new PhotoDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, pictureBox.ImageLocation);
                 await req.Create("Photo", temp);
 
             }
             else
             {
-                photoItem.Name = txtTitle.Text;
-                photoItem.Description = txtDescription.Text;
-                photoItem.Body = txtBody.Text;
-                photoItem.ImagePath = lblImage.Text;
+                AddProperties();
                 await req.Update("Photo", photoItem);
 
             }
 
             mainWindow.UpdateTable();
+        }
+
+        private void AddProperties()
+        {
+            photoItem.Name = txtTitle.Text;
+            photoItem.Description = txtDescription.Text;
+            photoItem.Body = txtBody.Text;
+            photoItem.ImagePath = lblImage.Text;
         }
 
         private void CreatePhotosWindow_FormClosingAsync(object sender, FormClosingEventArgs e)
@@ -162,12 +167,10 @@ namespace Fileworx_Client
                     switch (res)
                     {
                         case DialogResult.No:
-
                             e.Cancel = false;
                             break;
 
                         case DialogResult.Yes:
-
                             UpdateOrCreate();
                             mainWindow.Show();
                             e.Cancel = false;
