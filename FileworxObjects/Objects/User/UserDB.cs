@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace FileworxObjects
+namespace FileworxObjects.Objects
 {
     public partial class User
     {
         public bool UserExists()
         {
-           CheckConnection();
+            CheckConnection();
 
             q = $"select Count(C_login_name) from dbo.T_Users where C_login_name = \'{LoginName}\'";
             cmd = new SqlCommand(q, conn);
             try
             {
                 int count = int.Parse(cmd.ExecuteScalar().ToString());
-                return count < 1;
+                return count > 0;
             }
             catch (Exception ex)   
             {
@@ -33,14 +33,14 @@ namespace FileworxObjects
                 if (ID > -1)
                 {
                     base.DBUpdate();
-                    q = $"UPDATE  dbo.T_Users SET C_login_name='{LoginName}',C_password = \'{hashed}\',C_last_modifier = \'{LastModifier}\' WHERE ID = \'{ID}\'; ";
+                    q = $"UPDATE  dbo.T_Users SET C_login_name='{LoginName}',C_password = \'{hashed}\' WHERE ID = \'{ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
                 else
                 {
                     base.DBUpdate();
-                    q = $"INSERT INTO dbo.T_Users (ID,C_login_name,C_password,C_last_modifier) VALUES(\'{ID}\',\'{LoginName}\',\'{hashed}\',\'{LastModifier}\')";
+                    q = $"INSERT INTO dbo.T_Users (ID,C_login_name,C_password) VALUES(\'{ID}\',\'{LoginName}\',\'{hashed}\')";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -61,6 +61,7 @@ namespace FileworxObjects
             {
                 try
                 {
+                    CheckConnection();
                     q = $"DELETE FROM dbo.T_Users WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();

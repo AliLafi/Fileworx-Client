@@ -38,6 +38,7 @@ namespace FileworxObjects.Objects
             {
                 try
                 {
+                    CheckConnection();
                     q = $"DELETE FROM dbo.T_Photo WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();

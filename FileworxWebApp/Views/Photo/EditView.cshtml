@@ -5,7 +5,7 @@
 }
 
 @model FileModel
-@using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+@using (Html.BeginForm("Edit", "Photo", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
 {
 
     <div class="mb-3">
@@ -38,10 +38,15 @@
             Image Path cannot be empty
         </div>
     </div>
-    @Html.Hidden("created",DateTime.Now)
-    @Html.Hidden("ID",Model.ID,new {  htmlAttributes = new {value = Model.ID}})
-    @Html.Hidden("classID","2",new {  htmlAttributes = new {value = 2}})
 
+    @Html.Hidden("classID","2",new {  htmlAttributes = new {value = 2}})
+    @Html.Hidden("ID",Model.ID,new {  htmlAttributes = new {value = Model.ID}})
+    @Html.Hidden("created",Model.Created,new{ htmlAttributes =  new { value = Model.Created}})
+    @Html.Hidden("LastModifier",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("Creator",Model.Creator,new {  htmlAttributes = new {value =Model.Creator }});
+    @Html.Hidden("ModifyDate",DateTime.Now);
+    @Html.Hidden("ContactID",Model.ContactID,new {  htmlAttributes = new {value =Model.ContactID }});
+    @Html.Hidden("Category",null);
 
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Edit</button>

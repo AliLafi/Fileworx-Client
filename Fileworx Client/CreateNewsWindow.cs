@@ -1,6 +1,7 @@
-﻿using System;
+﻿using FileworxObjects.DTOs;
+using FileworxObjects.Objects;
+using System;
 using System.Windows.Forms;
-using FileworxObjects.DTOs;
 
 namespace Fileworx_Client
 {
@@ -79,12 +80,14 @@ namespace Fileworx_Client
         {
             if (newsItem is null)
             {
-                NewsDTO temp = new NewsDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, listCategory.Text);
+                NewsDTO temp = new NewsDTO(listCategory.Text,0,txtBody.Text,main.modifier,main.modifier,txtTitle.Text,txtDescription.Text,DateTime.Now,DateTime.Now);
                 await req.Create("News", temp);
             }
             else
             {
                 AddProperties();
+                newsItem.LastModifier= main.modifier;
+                newsItem.ModifyDate = DateTime.Now;
                 await req.Update("News", newsItem);
             }
             main.UpdateTable();

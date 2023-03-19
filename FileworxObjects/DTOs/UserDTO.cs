@@ -1,42 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FileworxObjects.DTOs
 {
     public class UserDTO : BusinessObjectDTO
     {
-
         public string LoginName { get; set; }
         public string Password { get; set; }
-        public int LastModifier { get; set; }
 
-        public UserDTO() 
-        {       
-        }
-
-        public UserDTO(string name, string description, DateTime created, int id, string loginName, string password, int lastmodifier) : base(name, description, created, id, 3)
+        public UserDTO(string loginName, string password, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(id, lastModifier, creator, name, description, created, modifyDate, 3)
         {
             LoginName = loginName;
             Password = password;
-            LastModifier = lastmodifier;
-
         }
 
-        public UserDTO(string name, string description, DateTime created, string loginName, string password, int lastmodifier) : base(name, description, created, 3)
+        public UserDTO  (string loginName, string password, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(lastModifier, creator, name, description, created, modifyDate, 3)
         {
             LoginName = loginName;
             Password = password;
-            LastModifier = lastmodifier;
-
         }
 
-        public override string ToString()
+        public UserDTO()
         {
-            return $"{Name}%{LoginName}%{Password}%{LastModifier}%{ID}";
         }
     }
 }

@@ -73,6 +73,8 @@
     <Compile Include="ApiRequests.cs" />
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="Connection\ElasticConnection.cs" />
+    <Compile Include="DTOs\ContactDTO.cs" />
+    <Compile Include="Mappers\ContactMapper.cs" />
     <Compile Include="Mappers\PhotoMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Objects\Business Object\BusinessObject.cs" />
@@ -82,6 +84,11 @@
     <Compile Include="DTOs\PhotoDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Objects\Business Object\BusinessObjectDB.cs" />
+    <Compile Include="Objects\Contact\ContactCrud.cs" />
+    <Compile Include="Objects\Contact\ContactDB.cs" />
+    <Compile Include="Objects\Contact\ContactElastic.cs" />
+    <Compile Include="Objects\Contact\ContactProp.cs" />
+    <Compile Include="Objects\Contact\ContactQuery.cs" />
     <Compile Include="Objects\File\File.cs" />
     <Compile Include="Mappers\NewsMapper.cs" />
     <Compile Include="Objects\File\FileDB.cs" />

@@ -9,11 +9,11 @@ namespace FileworxObjects.Mappers
         {
             if (dto.ID == -1)
             {
-                return new Photo(dto.Name, dto.Description, dto.Created, dto.Body, dto.ImagePath, dto.ClassID);
+                return new Photo(dto.ImagePath, dto.ContactId, dto.Body, dto.LastModifier, dto.Creator, dto.Name, dto.Description, dto.Created, dto.ModifyDate);
             }
             else
             {
-                return new Photo(dto.Name, dto.Description, dto.Created, dto.ID, dto.Body, dto.ImagePath, dto.ClassID);
+                return new Photo(dto.ImagePath,dto.ContactId, dto.Body, dto.ID, dto.LastModifier, dto.Creator, dto.Name, dto.Description, dto.Created, dto.ModifyDate);
             }
         }
 
@@ -21,21 +21,23 @@ namespace FileworxObjects.Mappers
         {
             if (photo.ID == -1)
             {
-                return new PhotoDTO(photo.Name, photo.Description, photo.Created, photo.Body, photo.ImagePath, photo.ClassID);
+                return new PhotoDTO(photo.ImagePath, photo.ContactID, photo.Body, photo.LastModifier, photo.Creator, photo.Name, photo.Description, photo.Created, photo.ModifyDate);
             }
             else
             {
-                return new PhotoDTO(photo.Name, photo.Description, photo.Created, photo.ID, photo.Body, photo.ImagePath, photo.ClassID);
+                return new PhotoDTO(photo.ImagePath, photo.ContactID,photo.Body, photo.ID, photo.LastModifier, photo.Creator, photo.Name, photo.Description, photo.Created, photo.ModifyDate);
             }
         }
         public static GridViewRows DtoToGridViewRows(PhotoDTO dto)
         {
-            GridViewRows rows = new GridViewRows();
-            rows.Created = dto.Created;
-            rows.Name = dto.Name;
-            rows.Description = dto.Description;
-            rows.ID = dto.ID;
-            rows.ClassId = dto.ClassID;
+            GridViewRows rows = new GridViewRows
+            {
+                Created = dto.Created,
+                Name = dto.Name,
+                Description = dto.Description,
+                ID = dto.ID,
+                ClassId = dto.ClassID
+            };
             return rows;
         }
     }

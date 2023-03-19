@@ -1,13 +1,14 @@
 ﻿using System.Data.SqlClient;
 
-namespace FileworxObjects
+namespace FileworxObjects.Objects
 {
     public partial class User
     {
         public bool Validate()
         {
             bool valid = false;
-            conn.Open();
+            CheckConnection();
+            
             q = $"Select C_password from dbo.T_Users where C_login_name = \'{LoginName}\' ;";
             cmd = new SqlCommand(q, conn);
             SqlDataReader r = cmd.ExecuteReader();
@@ -26,11 +27,7 @@ namespace FileworxObjects
             }
 
             conn.Close();
-            if (valid)
-            {
-                return true;
-            }
-            return false;
+            return valid;
         }
     }
 }

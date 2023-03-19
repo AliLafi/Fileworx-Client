@@ -14,6 +14,14 @@ namespace FileworxObjects
         public string q;
         public SqlCommand cmd;
 
+        public void CheckConnection()
+        {
+            if (conn.State == System.Data.ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+        }
+
         public virtual void DBUpdate()
         {
             CheckConnection();
@@ -22,31 +30,28 @@ namespace FileworxObjects
 
                 if (ID > -1)
                 {
-                    q = $"UPDATE  dbo.T_BusinessObject SET C_name =\'{Name}\', C_description = \'{Description}\' WHERE C_ID = \'{ID}\'; ";
+                    q = $"UPDATE  dbo.T_BusinessObject SET C_name =\'{Name}\'," +
+                        $" C_description = \'{Description}\' ," +
+                        $" C_last_modifier = \'{LastModifier}\'," +
+                        $"C_modify_date = \'{ModifyDate}\'"+
+                        $" WHERE C_ID = \'{ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
                 else
                 {
 
-                    q = $"INSERT INTO dbo.T_BusinessObject (C_name,C_description,C_creation_date,C_class_id) VALUES(\'{Name}\',\'{Description}\',\'{Created}\',\'{ClassID}\');SELECT SCOPE_IDENTITY()";
+                    q = $"INSERT INTO dbo.T_BusinessObject (C_name,C_description,C_creation_date,C_class_id,C_modify_date,C_last_modifier,C_creator) " +
+                        $"VALUES(\'{Name}\',\'{Description}\',\'{Created}\',\'{ClassID}\',\'{ModifyDate}\','{LastModifier}','{Creator}');SELECT SCOPE_IDENTITY()";
                     cmd = new SqlCommand(q, conn);
 
                     int t = int.Parse(cmd.ExecuteScalar().ToString());
-                    ID = t;
+                    this.ID = t;
                 }
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void CheckConnection()
-        {
-            if (conn.State == System.Data.ConnectionState.Closed)
-            {
-                conn.Open();
             }
         }
 
@@ -56,12 +61,7 @@ namespace FileworxObjects
             {
                 try
                 {
-
-                    if (conn.State == System.Data.ConnectionState.Closed)
-                    {
-                        conn.Open();
-                    }
-
+                    CheckConnection();
                     q = $"DELETE FROM dbo.T_BusinessObject WHERE C_ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
@@ -81,14 +81,16 @@ namespace FileworxObjects
             cmd = new SqlCommand(q,conn);
             try
             {
-
                 SqlDataReader r = cmd.ExecuteReader();
                 while (r.Read())
                 {
-                    Created = DateTime.Parse(r["C_Creation_date"].ToString());
+                    Created = DateTime.Parse(r["C_creation_date"].ToString());
                     ClassID = int.Parse(r["C_class_id"].ToString());
                     Description = r["C_description"].ToString();
                     Name = r["C_name"].ToString();
+                    Creator = int.Parse(r["C_creator"].ToString());
+                    LastModifier = int.Parse(r["C_last_modifier"].ToString());
+                    ModifyDate = DateTime.Parse(r["C_modify_date"].ToString());
 
                 }
                 r.Close();

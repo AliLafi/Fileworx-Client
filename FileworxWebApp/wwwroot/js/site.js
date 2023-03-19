@@ -22,3 +22,53 @@
     })
 })()
 
+
+function checkBtn() {
+    var checkBoxRead = document.getElementById("IsRead");
+    var checkBoxWrite = document.getElementById("IsWrite");
+    var submitBtn = document.getElementById("ContactBtn")
+    if (checkBoxRead.checked == true || checkBoxWrite.checked == true) {
+        submitBtn.removeAttribute("disabled");
+    }
+    else {
+        submitBtn.setAttribute("disabled", "disabled");
+    }
+}
+
+
+
+function checkReceive() {
+    checkBtn();
+    var checkBox = document.getElementById("IsRead");
+    var recieve = document.getElementById("ReceivePath");
+    if (checkBox.checked == true) {
+        recieve.type = "text";
+        checkBox.value = true;
+        recieve.setAttribute("required","required");
+    }
+    else
+    {
+        recieve.type = "hidden";
+        checkBox.value = false;
+        recieve.setAttribute("required", "");
+    }
+}
+
+function checkSend() {
+    checkBtn();
+
+    var checkBox = document.getElementById("IsWrite");
+    var send = document.getElementById("SendPath");
+    if (checkBox.checked == true) {
+        send.type = "text";
+        checkBox.value = true;
+        send.setAttribute("required", "required");
+    }
+    else
+    {
+        send.type = "hidden";
+        checkBox.value = false;
+        send.setAttribute("required", "");
+    }
+}
+

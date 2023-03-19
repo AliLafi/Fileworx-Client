@@ -1,4 +1,5 @@
 ﻿using FileworxObjects.DTOs;
+using FileworxObjects.Objects;
 
 namespace FileworxObjects.Mappers
 {
@@ -8,11 +9,11 @@ namespace FileworxObjects.Mappers
         {
             if (dto.ID == -1)
             {
-                return new User(dto.Name, dto.Description, dto.Created, dto.ClassID, dto.LoginName, dto.Password, dto.LastModifier);
+                return new User(dto.LoginName, dto.Password, dto.LastModifier, dto.Creator, dto.Name, dto.Description, dto.Created, dto.ModifyDate);
             }
             else
             {
-                return new User(dto.Name, dto.Description, dto.Created, dto.ID, dto.ClassID, dto.LoginName, dto.Password, dto.LastModifier);          
+                return new User(dto.LoginName, dto.Password, dto.ID,dto.LastModifier, dto.Creator, dto.Name, dto.Description, dto.Created, dto.ModifyDate);
             }
         }
 
@@ -20,11 +21,11 @@ namespace FileworxObjects.Mappers
         {
             if (user.ID == -1)
             {
-                return new UserDTO(user.Name, user.Description, user.Created, user.ClassID, user.LoginName, user.Password, user.LastModifier);
+                return new UserDTO(user.LoginName, user.Password, user.LastModifier, user.Creator, user.Name, user.Description, user.Created, user.ModifyDate);
             }
             else
             {
-                return new UserDTO(user.Name, user.Description, user.Created, user.ID,  user.LoginName, user.Password, user.LastModifier);
+                return new UserDTO(user.LoginName, user.Password, user.ID, user.LastModifier, user.Creator, user.Name, user.Description, user.Created, user.ModifyDate);
             }
         }
     }

@@ -16,7 +16,7 @@ namespace FileworxWebApp.Controllers
             {
                 return RedirectToAction("login", "home");
             }
-
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
             return View();
         }
 
@@ -48,6 +48,7 @@ namespace FileworxWebApp.Controllers
 
             PhotoDTO photo = await req.GetByID<PhotoDTO>("Photos", ID);
             FileModel file = FileMapper.PhotoDtoToFile(photo);
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
             return View(file);
         }
 
@@ -68,7 +69,7 @@ namespace FileworxWebApp.Controllers
         }
 
         [HttpPost]
-        [Route("/2/edit/{id}")]
+        [Route("Photo/Edit")]
         public async Task<IActionResult> Edit(FileModel f)
         {
             if (HttpContext.Session.GetString("loggedIn") != "in")

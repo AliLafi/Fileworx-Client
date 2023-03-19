@@ -1,4 +1,4 @@
-﻿namespace FileworxObjects
+﻿namespace FileworxObjects.Objects
 {
     public partial class User
     {

@@ -6,24 +6,19 @@ namespace FileworxObjects.Objects
     {
         public string Category { get; set; }
 
-        public News(string name, string description, DateTime created, int id, string body, string category) : base(name, description, created, id, body, 1)
+        public News(string category,int contactId,string body, int id , int lastModifier, int creator , string name,string description , DateTime created ,DateTime modifyDate ):base(contactId,body,id,lastModifier,creator,name,description,created,modifyDate,1)
         {
             Category = category;
         }
 
-        public News(string name, string description, DateTime created, string body, string category) : base(name, description, created, body, 1)
+        public News(string category, int contactId, string body,  int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(contactId, body,  lastModifier, creator, name, description, created, modifyDate, 1)
         {
             Category = category;
-            
         }
 
         public News() 
         {
         }
 
-        public override string ToString()
-        {
-            return $"{Name}%{Created}%{Description}%{Category}%{Body}";
-        }
     }
 }

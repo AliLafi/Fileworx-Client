@@ -1,0 +1,60 @@
+﻿@model FileworxWebApp.Models.ContactModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ContactModel</h4>
+<hr />
+
+@using (Html.BeginForm("Create", "Contact", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+{
+
+    <div class="mb-3">
+        @Html.Label("Name","Name")
+        @Html.EditorFor(m=>m.Name,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Name cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Description","Description")
+        @Html.EditorFor(m=>m.Description,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Description cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsRead","Read")
+
+        <input type="checkbox" id="IsRead" name="IsRead" class="form-check" onclick="checkReceive()" />
+
+    </div>
+    <div class="mb-3">
+
+        @Html.EditorFor(m=>m.ReceivePath,new {  htmlAttributes = new {@class = "form-control",type = "hidden"}})
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsWrite","Write")
+        <input type="checkbox" id="IsWrite" name="IsWrite" class="form-check" onclick="checkSend()" />
+
+    </div>
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.SendPath,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
+    </div>
+    @Html.Hidden("ID",-1,new {  htmlAttributes = new {value = -1}})
+    @Html.Hidden("classID","4",new {  htmlAttributes = new {value = 4}})
+    @Html.Hidden("created",DateTime.Now)
+    @Html.Hidden("LastModifier",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("Creator",ViewBag.Modifier,new {  htmlAttributes = new {value =ViewBag.Modifier }})
+    @Html.Hidden("LastModified",DateTime.Now)
+    @Html.Hidden("LastReceptionDate",DateTime.Now)
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary" id="ContactBtn" disabled>Create</button>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}

@@ -12,18 +12,18 @@ namespace FileworxWebApp.Controllers
 
         public IActionResult  Create()
         {
-
             if (HttpContext.Session.GetString("loggedIn") != "in")
             {
                 return RedirectToAction("login", "home");
             }
 
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(FileModel f) {
-
+            
             if (HttpContext.Session.GetString("loggedIn") != "in")
             {
                 return RedirectToAction("login", "home");
@@ -47,11 +47,12 @@ namespace FileworxWebApp.Controllers
             }
 
             FileModel file = await req.GetByID<FileModel>("news", ID);
+            ViewBag.Modifier = HttpContext.Session.GetInt32("modifier");
             return View(file);
         }
 
         [HttpPost]
-        [Route("/1/edit/{id}")]
+        [Route("News/Edit")]
         public async Task<IActionResult> Edit(FileModel f)
         {
             if (HttpContext.Session.GetString("loggedIn") != "in")

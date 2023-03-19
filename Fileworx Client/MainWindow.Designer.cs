@@ -311,6 +311,7 @@ namespace Fileworx_Client
             this.afterDate.Name = "afterDate";
             this.afterDate.Size = new System.Drawing.Size(200, 20);
             this.afterDate.TabIndex = 16;
+            this.afterDate.Value = new System.DateTime(1988, 12, 26, 0, 0, 0, 0);
             // 
             // beforeDate
             // 
@@ -320,6 +321,7 @@ namespace Fileworx_Client
             this.beforeDate.Name = "beforeDate";
             this.beforeDate.Size = new System.Drawing.Size(200, 20);
             this.beforeDate.TabIndex = 17;
+            this.beforeDate.Value = new System.DateTime(2023, 3, 16, 0, 0, 0, 0);
             // 
             // lblStart
             // 

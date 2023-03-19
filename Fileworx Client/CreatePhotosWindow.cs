@@ -9,12 +9,12 @@ namespace Fileworx_Client
         readonly PhotoDTO photoItem;
         bool imageChange = false;
         readonly ApiRequests req = new ApiRequests();
-        readonly MainWindow mainWindow;
+        readonly MainWindow main;
 
-        public CreatePhotosWindow(MainWindow m, PhotoDTO photoFromMain = null)
+        public CreatePhotosWindow(MainWindow main, PhotoDTO photoFromMain = null)
         {
             InitializeComponent();
-            mainWindow = m;
+            this.main = main;
 
             if (photoFromMain != null)
             {
@@ -133,18 +133,20 @@ namespace Fileworx_Client
             if (photoItem is null)
             {
                 pictureBox.ImageLocation = (pictureBox.ImageLocation is null) ? "" : pictureBox.ImageLocation;
-                PhotoDTO temp = new PhotoDTO(txtTitle.Text, txtDescription.Text, DateTime.Now, txtBody.Text, pictureBox.ImageLocation);
+                PhotoDTO temp = new PhotoDTO(pictureBox.ImageLocation,0, txtBody.Text, main.modifier, main.modifier, txtTitle.Text, txtDescription.Text, DateTime.Now, DateTime.Now);
                 await req.Create("Photo", temp);
 
             }
             else
             {
                 AddProperties();
+                photoItem.LastModifier= main.modifier;
+                photoItem.ModifyDate= DateTime.Now;
                 await req.Update("Photo", photoItem);
 
             }
 
-            mainWindow.UpdateTable();
+            main.UpdateTable();
         }
 
         private void AddProperties()
@@ -172,7 +174,7 @@ namespace Fileworx_Client
 
                         case DialogResult.Yes:
                             UpdateOrCreate();
-                            mainWindow.Show();
+                            main.Show();
                             e.Cancel = false;
                             break;
 

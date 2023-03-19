@@ -6,7 +6,7 @@ namespace FileworxObjects.Connection
 {
     public class ElasticConnection
     {
-        public static ElasticClient GetESClient()
+        public static ElasticClient GetESClient(string index="files")
         {
             ConnectionSettings connectionSettings;
             ElasticClient elasticClient;
@@ -19,7 +19,7 @@ namespace FileworxObjects.Connection
             connectionPool = new StaticConnectionPool(nodes);
             connectionSettings = new ConnectionSettings(connectionPool);
             elasticClient = new ElasticClient(connectionSettings);
-            connectionSettings.DefaultIndex("files");
+            connectionSettings.DefaultIndex(index);
 
             return elasticClient;
         }

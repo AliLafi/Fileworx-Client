@@ -5,57 +5,80 @@ namespace FileworxWebApp.Mappers
 {
     public class FileMapper
     {
-        public static NewsDTO FileToNewsDto(FileModel f)
+        public static NewsDTO FileToNewsDto(FileModel file)
         {
-            var news = new NewsDTO();
-            news.Name = f.Name;
-            news.Description = f.Description;
-            news.ClassID= f.ClassID;
-            news.Created = f.Created;
-            news.Category = f.Category;
-            news.ID = f.ID;
-            news.Body = f.Body;
+            var news = new NewsDTO
+            {
+                Name = file.Name,
+                Description = file.Description,
+                ClassID = file.ClassID,
+                Created = file.Created,
+                Category = file.Category,
+                ID = file.ID,
+                Body = file.Body,
+                Creator = file.Creator,
+                LastModifier = file.LastModifier,
+                ModifyDate = file.ModifyDate,
+                ContactId = file.ContactID
+            };
+
             return news;
 
         }
 
-        public static FileModel NewsDtoToFile(NewsDTO n)
+        public static FileModel NewsDtoToFile(NewsDTO news)
         {
-            var file = new FileModel();
-            file.Name = n.Name;
-            file.Description = n.Description;
-            file.ClassID = n.ClassID;
-            file.Created = n.Created;
-            file.Category = n.Category;
-            file.ID = n.ID;
-            file.Body = n.Body;
+            var file = new FileModel
+            {
+                Name = news.Name,
+                Description = news.Description,
+                ClassID = news.ClassID,
+                Created = news.Created,
+                Category = news.Category,
+                ID = news.ID,
+                Body = news.Body,
+                Creator = news.Creator,
+                LastModifier = news.LastModifier,
+                ModifyDate = news.ModifyDate
+            };
             return file;
         }
 
-        public static PhotoDTO FileToPhotoDto(FileModel f)
+        public static PhotoDTO FileToPhotoDto(FileModel file)
         {
-            var photo = new PhotoDTO();
-            photo.Name = f.Name;
-            photo.Description = f.Description;
-            photo.ClassID = f.ClassID;
-            photo.Created = f.Created;
-            photo.ImagePath = f.ImagePath;
-            photo.ID = f.ID;
-            photo.Body = f.Body;
+            var photo = new PhotoDTO
+            {
+                Name = file.Name,
+                Description = file.Description,
+                ClassID = file.ClassID,
+                Created = file.Created,
+                ImagePath = file.ImagePath,
+                ID = file.ID,
+                Body = file.Body,
+                Creator= file.Creator,
+                LastModifier = file.LastModifier,
+                ModifyDate = file.ModifyDate
+
+            };
             return photo;
 
         }
 
-        public static FileModel PhotoDtoToFile(PhotoDTO p)
+        public static FileModel PhotoDtoToFile(PhotoDTO photo)
         {
-            var file = new FileModel();
-            file.Name = p.Name;
-            file.Description = p.Description;
-            file.ClassID = p.ClassID;
-            file.Created = p.Created;
-            file.ImagePath = p.ImagePath;
-            file.ID = p.ID;
-            file.Body = p.Body;
+            var file = new FileModel
+            {
+                Name = photo.Name,
+                Description = photo.Description,
+                ClassID = photo.ClassID,
+                Created = photo.Created,
+                ImagePath = photo.ImagePath,
+                ID = photo.ID,
+                Body = photo.Body,
+                Creator= photo.Creator,
+                LastModifier = photo.LastModifier,
+                ModifyDate = photo.ModifyDate
+            };
             return file;
         }
     }

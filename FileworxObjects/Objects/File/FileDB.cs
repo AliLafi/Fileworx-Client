@@ -10,15 +10,14 @@ namespace FileworxObjects
                 if (ID > -1)
                 {
                     base.DBUpdate();
-                    q = $"UPDATE  dbo.T_File SET C_body =\'{Body}\' WHERE ID = \'{ID}\'; ";
+                    q = $"UPDATE  dbo.T_File SET C_body =\'{Body}\', C_contact = \'{ContactID}\' WHERE ID = \'{ID}\'; ";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
                 else
                 {
                     base.DBUpdate();
-
-                    q = $"INSERT INTO dbo.T_File (C_body,ID) VALUES(\'{Body}\',\'{ID}\');";
+                    q = $"INSERT INTO dbo.T_File (C_body,ID,C_contact) VALUES(\'{Body}\',\'{ID}\',\'{ContactID}\');";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();
                 }
@@ -52,6 +51,8 @@ namespace FileworxObjects
             while (r.Read())
             {
                 Body = r["C_body"].ToString();
+                if (! (r["C_contact"] is null))
+                ContactID =int.Parse( r["C_contact"].ToString());
             }
 
             r.Close();

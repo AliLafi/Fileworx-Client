@@ -9,11 +9,11 @@ namespace FileworxObjects.Mappers
         {
             if (dto.ID == -1)
             {
-                return new News(dto.Name, dto.Description, dto.Created, dto.Body, dto.Category);
+                return new News(dto.Category,dto.ContactId, dto.Body, dto.LastModifier,dto.Creator, dto.Name,dto.Description, dto.Created, dto.ModifyDate);
             }
             else
             {
-                return new News(dto.Name, dto.Description, dto.Created, dto.ID, dto.Body, dto.Category);            
+                return new News(dto.Category,dto.ContactId, dto.Body, dto.ID, dto.LastModifier, dto.Creator, dto.Name, dto.Description, dto.Created, dto.ModifyDate);
             }
         }
 
@@ -21,22 +21,24 @@ namespace FileworxObjects.Mappers
         {
             if(news.ID == -1)
             {
-               return new NewsDTO(news.Name,news.Description,news.Created,news.Body,news.Category);
+                return new NewsDTO(news.Category,news.ContactID, news.Body, news.LastModifier, news.Creator, news.Name, news.Description, news.Created, news.ModifyDate);
             }
             else
             {
-                return new NewsDTO(news.Name,news.Description,news.Created,news.ID,news.Body,news.Category);
+                return new NewsDTO(news.Category,news.ContactID, news.Body,news.ID, news.LastModifier, news.Creator, news.Name, news.Description, news.Created, news.ModifyDate);
             }
         }
 
         public static GridViewRows DtoToGridViewRows(NewsDTO dto)
         {
-            GridViewRows rows = new GridViewRows();
-            rows.Created = dto.Created;
-            rows.Name= dto.Name;
-            rows.Description= dto.Description;
-            rows.ID= dto.ID;
-            rows.ClassId = dto.ClassID;
+            GridViewRows rows = new GridViewRows
+            {
+                Created = dto.Created,
+                Name = dto.Name,
+                Description = dto.Description,
+                ID = dto.ID,
+                ClassId = dto.ClassID
+            };
             return rows;
         }
     }

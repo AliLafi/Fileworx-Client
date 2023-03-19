@@ -49,12 +49,14 @@ namespace Fileworx_Client
             {
                 categories.Add(item.ToString());
             }
-            
-            SearchObject searchObject = new SearchObject(after, before, categories, searchBar.Text);
-            searchObject.After= after;
-            searchObject.Before= before;
-            searchObject.Categories = categories;
-            searchObject.Query= searchBar.Text;
+
+            SearchObject searchObject = new SearchObject(after, before, categories, searchBar.Text)
+            {
+                After = after,
+                Before = before,
+                Categories = categories,
+                Query = searchBar.Text
+            };
 
             List<NewsDTO> newsList = (await req.GetSearch<NewsDTO>("News", searchObject));
             List<PhotoDTO> PhotoList = (await req.GetSearch<PhotoDTO>("Photos", searchObject));

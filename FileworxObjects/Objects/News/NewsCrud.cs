@@ -13,7 +13,6 @@ namespace FileworxObjects.Objects
         public  void Delete()
         {
             DBDelete();
-
             DeleteDocument(ElasticConnection.GetESClient());
 
         }

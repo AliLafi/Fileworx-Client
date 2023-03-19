@@ -33,6 +33,8 @@
     @Html.Hidden("ID","-1",new {  htmlAttributes = new {value = -1}})
     @Html.Hidden("classID","3",new {  htmlAttributes = new {value = 3}})
     @Html.Hidden("LastModifier",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("Creator",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("ModifyDate",DateTime.Now);
 
 
     <div class="mb-3">

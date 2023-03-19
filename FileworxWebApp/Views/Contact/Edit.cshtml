@@ -1,0 +1,101 @@
+﻿@model FileworxWebApp.Models.ContactModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Contact</h4>
+<hr />
+@using (Html.BeginForm("Edit", "Contact", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+{
+
+    <div class="mb-3">
+        @Html.Label("Name","Name")
+        @Html.EditorFor(m=>m.Name,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Name cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("Description","Description")
+        @Html.EditorFor(m=>m.Description,new {  htmlAttributes = new {@class = "form-control",required = string.Empty }})
+        <div class="invalid-feedback">
+            Description cannot be empty
+        </div>
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsRead","Read")
+        @if (Model.IsRead)
+        {
+
+            <input type="checkbox" id="IsRead" name="IsRead" class="form-check" onclick="checkReceive()" value="true" checked />
+        }
+        else
+        {
+
+            <input type="checkbox" id="IsRead" name="IsRead" class="form-check" onclick="checkReceive()" />
+        }
+    </div>
+    <div class="mb-3">
+        @if (Model.IsRead)
+        {
+            @Html.EditorFor(m=>m.ReceivePath,new {  htmlAttributes = new {@class = "form-control",required= "required"}})
+
+        }
+        else
+        {
+            @Html.EditorFor(m=>m.ReceivePath,new {  htmlAttributes = new {@class = "form-control",type = "hidden"}})
+        }
+
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsWrite","Write")
+        @if (Model.IsWrite)
+        {
+            <input type="checkbox" id="IsWrite" name="IsWrite" class="form-check" onclick="checkSend()" value="true" checked/>
+        }
+        else
+        {
+            <input type="checkbox" id="IsWrite" name="IsWrite" class="form-check" onclick="checkSend()"  />
+        }
+
+    </div>
+    <div class="mb-3">
+        @if (Model.IsWrite)
+        {
+            @Html.EditorFor(m=>m.SendPath,new {  htmlAttributes = new {@class = "form-control",required = "required" }})
+        }
+        else
+        {
+            @Html.EditorFor(m=>m.SendPath,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
+        }
+    </div>
+
+    @Html.Hidden("ID",Model.ID,new {  htmlAttributes = new {value = Model.ID}})
+    @Html.Hidden("classID","4",new {  htmlAttributes = new {value = 4}})
+    @Html.Hidden("created",Model.Created,new{ htmlAttributes =  new { value = Model.Created}})
+    @Html.Hidden("LastModifier",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("Creator",Model.Creator,new {  htmlAttributes = new {value =Model.Creator }})
+    @Html.Hidden("LastModified",DateTime.Now)
+
+    <div class="mb-3">
+        @if(Model.IsRead || Model.IsWrite)
+        {
+            <button type="submit" class="btn btn-primary" id="ContactBtn">Edit</button>
+
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary" id="ContactBtn" disabled>Edit</button>
+        }
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+
+
+

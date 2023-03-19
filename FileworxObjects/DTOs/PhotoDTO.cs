@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FileworxObjects.DTOs
 {
@@ -10,23 +6,19 @@ namespace FileworxObjects.DTOs
     {
         public string ImagePath { get; set; }
 
-        public PhotoDTO(string name, string description, DateTime created, int id, string body, string imagepath, int classid=2) : base(name, description, created, id, body, 2)
+        public PhotoDTO(string imagePath,int contactId, string body, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(contactId, body, id, lastModifier, creator, name, description, created, modifyDate, 2)
         {
-            ImagePath = imagepath;
+            ImagePath = imagePath;
         }
 
-        public PhotoDTO(string name, string description, DateTime created, string body, string imgPath, int classid=2) : base(name, description, created, body, 2)
+        public PhotoDTO(string imagePath, int contactId, string body, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(contactId,body, lastModifier, creator, name, description, created, modifyDate, 2)
         {
-            ImagePath = imgPath;
+            ImagePath = imagePath;
         }
 
-        public PhotoDTO() 
+        public PhotoDTO()
         {
         }
 
-        public override string ToString()
-        {
-            return $"{Name}%{Created}%{Description}%{ImagePath}%{Body}";
-        }
     }
 }

@@ -43,7 +43,7 @@
                                 </label>
                             </div>
 
-                        }            
+                        }
 
                     </div>
 
@@ -76,7 +76,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Body</th>
-            <th>ClassID</th>
+            <th>Type</th>
 
         </tr>
 
@@ -89,7 +89,20 @@
                 <td>@file.Name</td>
                 <td>@file.Description</td>
                 <td>@file.Body</td>
-                <td>@file.ClassID</td>
+
+                @if (@file.ClassID == 1)
+                {
+                    <td>
+                        News
+                    </td>
+                }
+                else
+                {
+                <td>
+                    Photo
+                </td>
+                }
+
                 <td>
                     <a class="btn btn-primary" role="button" href="@file.ClassID/edit/@file.ID">
                         <i class="bi bi-pencil-square"></i>

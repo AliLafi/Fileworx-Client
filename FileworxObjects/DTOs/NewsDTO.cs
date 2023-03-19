@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FileworxObjects.DTOs
 {
@@ -11,22 +6,19 @@ namespace FileworxObjects.DTOs
     {
         public string Category { get; set; }
 
-        public NewsDTO(string name, string description, DateTime created, int id, string body, string category) : base(name, description, created, id, body, 1)
+        public NewsDTO(string category, int contactId,string body, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(contactId,body, id, lastModifier, creator, name, description, created, modifyDate, 1)
         {
             Category = category;
         }
 
-        public NewsDTO(string name, string description, DateTime created, string body, string category) : base(name, description, created, body, 1)
+        public NewsDTO(string category,int contactId, string body, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate) : base(contactId,body, lastModifier, creator, name, description, created, modifyDate, 1)
         {
             Category = category;
         }
-        public NewsDTO() 
-        {      
+
+        public NewsDTO()
+        {
         }
 
-        public override string ToString()
-        {
-            return $"{Name}%{Created}%{Description}%{Category}%{Body}";
-        }
     }
 }

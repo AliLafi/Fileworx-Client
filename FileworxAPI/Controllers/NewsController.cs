@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FileworxObjects;
-using FileworxObjects.DTOs;
 using FileworxObjects.Mappers;
-using FileworxObjects.Objects;
+using FileworxObjects.DTOs;
 using Nest;
 using FileworxObjects.Connection;
+using FileworxObjects.Objects;
 
 namespace FileworxAPI.Controllers
 {
@@ -70,7 +70,7 @@ namespace FileworxAPI.Controllers
         public string AddNews([FromBody] NewsDTO dto)
         {
             News news = NewsMapper.DtoToNews(dto);
-
+            news.ClassID = 1;
             news.Update();
             return "Added Successfully";
         }

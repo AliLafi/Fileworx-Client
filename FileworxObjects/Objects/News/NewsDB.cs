@@ -38,7 +38,7 @@ namespace FileworxObjects.Objects
             {
                 try
                 {
-                    conn.Open();
+                    CheckConnection();
                     q = $"DELETE FROM dbo.T_News WHERE ID =\'{ID}\'";
                     cmd = new SqlCommand(q, conn);
                     cmd.ExecuteNonQuery();

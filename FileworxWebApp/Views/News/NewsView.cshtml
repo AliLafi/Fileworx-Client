@@ -10,6 +10,16 @@
 </div>
 
 <div class="mb-3">
+    <label for="ContactID">ContactID</label>
+    <input type="text" class="form-control" id="ContactID" name="ContactID" value="@Model.ContactID" readonly />
+</div>
+
+<div class="mb-3">
+    <label for="Creator">Creator</label>
+    <input type="text" class="form-control" id="Creator" name="Creator" value="@Model.Creator" readonly />
+</div>
+
+<div class="mb-3">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name" value="@Model.Name" readonly />
 </div>
@@ -34,3 +44,7 @@
     <input type="text" class="form-control" id="created" name="created" value="@Model.Created" readonly />
 </div>
 
+<div class="mb-3">
+    <label for="ModifyDate">Last Modified</label>
+    <input type="text" class="form-control" id="ModifyDate" name="ModifyDate" value="@Model.ModifyDate" readonly />
+</div>

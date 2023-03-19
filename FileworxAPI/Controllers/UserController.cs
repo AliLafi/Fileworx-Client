@@ -1,8 +1,7 @@
-﻿using FileworxObjects;
-using Microsoft.AspNetCore.Mvc;
-using FileworxObjects.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
 using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
+using FileworxObjects.DTOs;
 
 namespace FileworxAPI.Controllers
 {
@@ -37,8 +36,9 @@ namespace FileworxAPI.Controllers
         public string AddUser([FromBody] UserDTO dto)
         {
             User user = UserMapper.DtoToUser(dto);
-
-            if (user.UserExists())
+            user.ClassID = 3;
+            user.ID = -1;
+            if (!user.UserExists())
             {
                 user.Update();
                 return "Added Successfully";

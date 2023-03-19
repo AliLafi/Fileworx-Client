@@ -1,11 +1,9 @@
-﻿using FileworxObjects;
-using Microsoft.AspNetCore.Mvc;
-using FileworxObjects.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
 using FileworxObjects.Mappers;
 using FileworxObjects.Objects;
 using Nest;
 using FileworxObjects.Connection;
-using Microsoft.Extensions.Logging;
+using FileworxObjects.DTOs;
 
 namespace FileworxAPI.Controllers
 {
@@ -69,6 +67,8 @@ namespace FileworxAPI.Controllers
         public string AddPhoto([FromBody] PhotoDTO dto)
         {
             Photo photo = PhotoMapper.DtoToPhoto(dto);
+            photo.ID = -1;
+            photo.ClassID = 2;
             photo.Update();
             return "Added Successfully";
         }

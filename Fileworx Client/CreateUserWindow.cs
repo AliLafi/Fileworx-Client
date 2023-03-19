@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using FileworxObjects;
 using FileworxObjects.DTOs;
 
 namespace Fileworx_Client
@@ -33,14 +32,17 @@ namespace Fileworx_Client
             }
             return false;
         }
-
+        private UserDTO CreateUser()
+        {
+            return new UserDTO(txtLogin.Text,txtPassword.Text,main.modifier,main.modifier,txtName.Text,"",DateTime.Now,DateTime.Now);
+        }
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             if (HasChanged())
             {
                 if (!IsEmpty())
                 {
-                    UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
+                    UserDTO temp = CreateUser();
                     string resMessage = await req.Create("user", temp);
                     MessageBox.Show(resMessage);
                     Hide();
@@ -63,7 +65,7 @@ namespace Fileworx_Client
                     {
                         case DialogResult.Yes:
 
-                            UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
+                            UserDTO temp = CreateUser();
                             string resMessage = await req.Create("user", temp);
                             MessageBox.Show(resMessage);
                             Hide();
@@ -107,7 +109,7 @@ namespace Fileworx_Client
 
                         case DialogResult.Yes:
 
-                            UserDTO temp = new UserDTO(txtName.Text, "", DateTime.Now, txtLogin.Text, txtPassword.Text, main.modifier);
+                            UserDTO temp = CreateUser();
                             string resMessage = await req.Create("user", temp);
                             MessageBox.Show(resMessage);
                             e.Cancel = false;
