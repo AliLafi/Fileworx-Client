@@ -19,6 +19,9 @@ namespace FileworxObjects.Objects
         public Photo() 
         {
         }
-
+        public override string ToString()
+        {
+            return $"{ImagePath}%{ContactID}%{Body}%{ID}%{LastModifier}%{Creator}%{Name}%{Description}%{Created}%{ModifyDate}";
+        }
     }
 }

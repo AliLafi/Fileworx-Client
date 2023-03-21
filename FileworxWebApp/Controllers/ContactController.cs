@@ -1,4 +1,4 @@
-﻿using Fileworx_Client;
+﻿using FileworxObjects;
 using FileworxObjects.DTOs;
 using FileworxObjects.Objects.Contact;
 using FileworxWebApp.Mappers;

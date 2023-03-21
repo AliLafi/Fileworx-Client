@@ -1,4 +1,4 @@
-﻿using Fileworx_Client;
+﻿using FileworxObjects;
 using FileworxObjects.DTOs;
 using FileworxWebApp.Mappers;
 using FileworxWebApp.Models;
@@ -30,6 +30,14 @@ namespace FileworxWebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if(f.Image!= null)
+                {
+                   
+                    f.ImageName =  Guid.NewGuid().ToString()+ Path.GetExtension(f.Image.FileName);
+                   string folder =FileModel.SharedFolder+ f.ImageName;
+                    await f.Image.CopyToAsync(new FileStream(folder, FileMode.Create));
+                    
+                }
                 PhotoDTO photo = FileMapper.FileToPhotoDto(f);
                 await req.Create("Photo", photo);
             }
@@ -79,6 +87,14 @@ namespace FileworxWebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (f.Image != null)
+                {
+
+                    f.ImageName = Guid.NewGuid().ToString() + Path.GetExtension(f.Image.FileName);
+                    string folder = FileModel.SharedFolder + f.ImageName;
+                    await f.Image.CopyToAsync(new FileStream(folder, FileMode.Create));
+
+                }
                 PhotoDTO photo = FileMapper.FileToPhotoDto(f);
                 await req.Update<PhotoDTO>("photo", photo);
 
@@ -88,7 +104,7 @@ namespace FileworxWebApp.Controllers
         }
 
         [Route("/2/delete/{id}")]
-        public async Task<IActionResult> DeleteNews(int ID)
+        public async Task<IActionResult> DeletePhoto(int ID)
         {
             if (HttpContext.Session.GetString("loggedIn") != "in")
             {
@@ -96,7 +112,7 @@ namespace FileworxWebApp.Controllers
             }
 
             ApiRequests req = new ApiRequests();
-            await req.Delete("news", ID);
+            await req.Delete("photo", ID);
             return RedirectToAction("Index", "");
         }
     }

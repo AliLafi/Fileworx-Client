@@ -16,7 +16,8 @@
        
         public string? Category { get; set; }
        
-        public string? ImagePath { get; set; }
+        public IFormFile? Image { get; set; }
+        public string ImageName { get; set; }
 
         public static readonly List<string> Categories = new()
         {
@@ -25,11 +26,11 @@
             "Sports",
             "Health"
         };
-
-        public FileModel(string category,string imagePath, int contactId, string body, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate)
+        public static readonly string SharedFolder = "D:\\SharedPhotos\\";
+        public FileModel(string category,IFormFile image,string imageName, int contactId, string body, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime modifyDate,int classId)
         {
             Category = category;
-            ImagePath = imagePath;
+            Image = image;
             Body = body;
                 ID = id;
             LastModifier = lastModifier;
@@ -38,10 +39,9 @@
             Description = description;
             Created = created;
             ModifyDate = modifyDate;
-            ClassID = ClassID;
             ContactID = contactId;
-
-
+            ClassID= classId;
+            ImageName= imageName;
         }
 
         public FileModel()

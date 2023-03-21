@@ -71,6 +71,7 @@ namespace FileworxAPI.Controllers
         {
             News news = NewsMapper.DtoToNews(dto);
             news.ClassID = 1;
+            news.ID = -1;
             news.Update();
             return "Added Successfully";
         }

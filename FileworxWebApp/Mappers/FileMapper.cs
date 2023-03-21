@@ -1,5 +1,6 @@
 ﻿using FileworxObjects.DTOs;
 using FileworxWebApp.Models;
+using System.Drawing;
 
 namespace FileworxWebApp.Mappers
 {
@@ -52,7 +53,7 @@ namespace FileworxWebApp.Mappers
                 Description = file.Description,
                 ClassID = file.ClassID,
                 Created = file.Created,
-                ImagePath = file.ImagePath,
+                ImagePath = file.ImageName,
                 ID = file.ID,
                 Body = file.Body,
                 Creator= file.Creator,
@@ -72,12 +73,12 @@ namespace FileworxWebApp.Mappers
                 Description = photo.Description,
                 ClassID = photo.ClassID,
                 Created = photo.Created,
-                ImagePath = photo.ImagePath,
                 ID = photo.ID,
                 Body = photo.Body,
-                Creator= photo.Creator,
+                Creator = photo.Creator,
                 LastModifier = photo.LastModifier,
-                ModifyDate = photo.ModifyDate
+                ModifyDate = photo.ModifyDate,
+                ImageName = photo.ImagePath
             };
             return file;
         }

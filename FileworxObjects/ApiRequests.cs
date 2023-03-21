@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using FileworxObjects.Objects;
 
-namespace Fileworx_Client
+namespace FileworxObjects
 {
     public class ApiRequests
     {

@@ -4,7 +4,7 @@
 @{
 }
 @model FileModel
-@using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+@using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { @class = "needs-validation", novalidate = "true", enctype = "multipart/form-data" }))
 {
 
     <div class="mb-3">
@@ -25,15 +25,13 @@
         @Html.Label("Body","Body")
         @Html.TextAreaFor(m=>m.Body,new  {@class = "form-control",required = string.Empty ,rows="3"})
         <div class="invalid-feedback">
-            Body cannot be empty
+            Body cannot be empty 
         </div>
     </div>
     <div class="mb-3">
-
-        @Html.Label("ImagePath","Image Path")
-        @Html.EditorFor(m=>m.ImagePath,new {  htmlAttributes = new {@class = "form-control" ,type = "file" }})
-        <div class="invalid-feedback">
-            Image Path cannot be empty
+        <div class="mb-3">
+            <label asp-for="Image" class="form-label">Upload Photo</label>
+            <input class="form-control" asp-for="Image" id="Image">
         </div>
     </div>
 
@@ -44,7 +42,7 @@
     @Html.Hidden("Creator",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
     @Html.Hidden("ModifyDate",DateTime.Now);
     @Html.Hidden("ContactID",0);
-    @Html.Hidden("ImagePath",null);
+    @Html.Hidden("ImageName","name");
 
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">Create</button>
