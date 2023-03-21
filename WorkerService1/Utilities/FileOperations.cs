@@ -28,8 +28,8 @@ namespace WorkerService1.Utilities
         {
             if (Directory.Exists(path))
             {
-
-                using (StreamWriter sw = new(path))
+                string pathToSave = Path.Combine(path, Guid.NewGuid().ToString()+".txt");
+                using (StreamWriter sw = new(pathToSave))
                 {
                     sw.WriteLine(content);
                 }

@@ -21,7 +21,7 @@ namespace FileworxObjects.Objects
         }
         public override string ToString()
         {
-            return $"{Category}%{ContactID}%{Body}%{ID}%{LastModifier}%{Creator}%{Name}%{Description}%{Created}%{ModifyDate}%\'{ClassID}\'";
+            return $"{Category}%{ContactID}%{Body}%{ID}%{LastModifier}%{Creator}%{Name}%{Description}%{Created}%{ModifyDate}%{ClassID}";
         }
     }
 }

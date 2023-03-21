@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using FileworxObjects.Objects;
+using System.Security.Policy;
 
 namespace FileworxObjects
 {

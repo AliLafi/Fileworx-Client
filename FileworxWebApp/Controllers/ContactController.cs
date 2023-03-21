@@ -17,7 +17,7 @@ namespace FileworxWebApp.Controllers
             return View(contacts);
         }
 
-        public async Task <ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             ContactModel contact = await req.GetByID<ContactModel>("contact", id);
             return View(contact);
@@ -40,7 +40,7 @@ namespace FileworxWebApp.Controllers
                 await req.Create("contact", contactToSave);
             }
 
-              return RedirectToAction("index","Contact");    
+            return RedirectToAction("index", "Contact");
         }
 
         public async Task<ActionResult> Edit(int id)
@@ -53,33 +53,26 @@ namespace FileworxWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ContactModel contact)
         {
-            if(!contact.IsWrite)
+            if (!contact.IsWrite)
             {
-                contact.SendPath = "";   
+                contact.SendPath = "";
             }
-            if(!contact.IsRead)
+            if (!contact.IsRead)
             {
                 contact.ReceivePath = "";
             }
             if (ModelState.IsValid)
             {
-               
-
-
-                    ContactDTO contactDTO = ContactMapper.ContactToDto(contact);
-                    await req.Update("Contact", contactDTO);
-
-                
+                ContactDTO contactDTO = ContactMapper.ContactToDto(contact);
+                await req.Update("Contact", contactDTO);
             }
 
             return RedirectToAction("Index", "Contact");
         }
 
-
-
         public async Task<ActionResult> Delete(int id)
         {
-             await req.Delete("Contact", id);
+            await req.Delete("Contact", id);
             return RedirectToAction("Index", "Contact");
         }
     }

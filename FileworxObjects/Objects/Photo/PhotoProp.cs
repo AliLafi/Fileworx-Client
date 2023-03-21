@@ -21,7 +21,7 @@ namespace FileworxObjects.Objects
         }
         public override string ToString()
         {
-            return $"{ImagePath}%{ContactID}%{Body}%{ID}%{LastModifier}%{Creator}%{Name}%{Description}%{Created}%{ModifyDate}";
+            return $"{ImagePath}%{ContactID}%{Body}%{ID}%{LastModifier}%{Creator}%{Name}%{Description}%{Created}%{ModifyDate}%{ClassID}";
         }
     }
 }
