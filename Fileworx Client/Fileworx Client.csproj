@@ -96,6 +96,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactListWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactListWindow.Designer.cs">
+      <DependentUpon>ContactListWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateContactWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateContactWindow.Designer.cs">
+      <DependentUpon>CreateContactWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateNewsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +140,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContactListWindow.resx">
+      <DependentUpon>ContactListWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateContactWindow.resx">
+      <DependentUpon>CreateContactWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateNewsWindow.resx">
       <DependentUpon>CreateNewsWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using FileworxObjects;
 using FileworxObjects.DTOs;
 
 namespace Fileworx_Client

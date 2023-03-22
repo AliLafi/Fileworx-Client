@@ -40,6 +40,9 @@ namespace Fileworx_Client
             this.newsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.photoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.previewTab = new System.Windows.Forms.TabPage();
             this.txtBody = new System.Windows.Forms.RichTextBox();
@@ -119,7 +122,8 @@ namespace Fileworx_Client
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.contactsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(904, 24);
@@ -164,6 +168,29 @@ namespace Fileworx_Client
             this.userToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.userToolStripMenuItem.Text = "User";
             this.userToolStripMenuItem.Click += new System.EventHandler(this.UserToolStripMenuItem_Click);
+            // 
+            // contactsToolStripMenuItem
+            // 
+            this.contactsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem,
+            this.createToolStripMenuItem});
+            this.contactsToolStripMenuItem.Name = "contactsToolStripMenuItem";
+            this.contactsToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.contactsToolStripMenuItem.Text = "Contacts";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
+            // 
+            // createToolStripMenuItem
+            // 
+            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createToolStripMenuItem.Text = "Create";
+            this.createToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
             // 
             // tabControlMain
             // 
@@ -439,6 +466,9 @@ namespace Fileworx_Client
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.CheckedListBox catList;
         private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
     }
 }
 

@@ -13,6 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileworxWebApp", "FileworxW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactService", "WorkerService1\ContactService.csproj", "{F75CBE54-F04A-43B1-A502-44580F241EC1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScripts", "DBScripts", "{7631A7A6-B176-440F-B270-414FB57B5958}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\Business.sql = ..\..\..\Downloads\Business.sql
+		..\..\..\Downloads\Contact.sql = ..\..\..\Downloads\Contact.sql
+		..\..\..\Downloads\File.sql = ..\..\..\Downloads\File.sql
+		..\..\..\Downloads\News.sql = ..\..\..\Downloads\News.sql
+		..\..\..\Downloads\Photo.sql = ..\..\..\Downloads\Photo.sql
+		..\..\..\Downloads\Users.sql = ..\..\..\Downloads\Users.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

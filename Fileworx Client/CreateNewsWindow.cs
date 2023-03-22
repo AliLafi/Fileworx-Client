@@ -1,5 +1,5 @@
-﻿using FileworxObjects.DTOs;
-using FileworxObjects.Objects;
+﻿using FileworxObjects;
+using FileworxObjects.DTOs;
 using System;
 using System.Windows.Forms;
 

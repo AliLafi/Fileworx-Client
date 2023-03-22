@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+using FileworxObjects;
 
 namespace Fileworx_Client
 {
@@ -211,6 +212,18 @@ namespace Fileworx_Client
         private void BtnReset_Click(object sender, EventArgs e)
         {
             UpdateTable();
+        }
+
+        private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateContactWindow createContactWindow = new CreateContactWindow(this,null);
+            createContactWindow.Show();
+        }
+
+        private void ViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ContactListWindow listWindow = new ContactListWindow(this);
+            listWindow.Show();
         }
     }
 }
