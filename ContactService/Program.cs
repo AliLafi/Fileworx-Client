@@ -1,22 +1,14 @@
-using ContactService;
-using Microsoft.Extensions.Hosting.WindowsServices;
+using WorkerService1;
 
-var options = new WebApplicationOptions
-{
-    Args = args,
-    ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default
-};
+var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(options);
-builder.Services.AddRazorPages();
+
+builder.Services.AddWindowsService();
 builder.Services.AddHostedService<Worker>();
-
-builder.Host.UseWindowsService();
-
+builder.Services.AddControllers();
 var app = builder.Build();
 
-
-app.UseStaticFiles();
-app.UseRouting();
-app.MapRazorPages();
-await app.Run();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.Run();
