@@ -11,17 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileworxAPI", "FileworxAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileworxWebApp", "FileworxWebApp\FileworxWebApp.csproj", "{BE1A376A-1C83-4954-9FCF-58C349A84AFA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScripts", "DBScripts", "{7631A7A6-B176-440F-B270-414FB57B5958}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Downloads\Business.sql = ..\..\..\Downloads\Business.sql
-		..\..\..\Downloads\Contact.sql = ..\..\..\Downloads\Contact.sql
-		..\..\..\Downloads\File.sql = ..\..\..\Downloads\File.sql
-		..\..\..\Downloads\News.sql = ..\..\..\Downloads\News.sql
-		..\..\..\Downloads\Photo.sql = ..\..\..\Downloads\Photo.sql
-		..\..\..\Downloads\Users.sql = ..\..\..\Downloads\Users.sql
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactService", "ContactService\ContactService.csproj", "{B400126D-75B3-4F3E-A420-8C3CADAC9047}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScripts", "DBScripts", "{6068A9B3-AB46-40C5-B5CC-47BC9C6ABD65}"
+	ProjectSection(SolutionItems) = preProject
+		DBScripts\Business.sql = DBScripts\Business.sql
+		DBScripts\Contact.sql = DBScripts\Contact.sql
+		DBScripts\File.sql = DBScripts\File.sql
+		DBScripts\News.sql = DBScripts\News.sql
+		DBScripts\Photo.sql = DBScripts\Photo.sql
+		DBScripts\Users.sql = DBScripts\Users.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
