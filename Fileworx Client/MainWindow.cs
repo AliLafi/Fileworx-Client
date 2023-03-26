@@ -98,6 +98,7 @@ namespace Fileworx_Client
                 {
                     values[i] = Props[i].GetValue(item, null);
                 }
+
                 dataTable.Rows.Add(values);
             }
 
@@ -129,7 +130,7 @@ namespace Fileworx_Client
                     DialogResult res = MessageBox.Show($"are you sure you want to delete {txtTitle.Text} with id of {id}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (res == DialogResult.Yes)
                     {
-                        if (string.IsNullOrEmpty(GridView.Rows[selectedRow].Cells[7].Value.ToString()))
+                        if (classId == 1)
                         {
                             await req.Delete("News", id);
                             UpdateTable();
@@ -137,6 +138,7 @@ namespace Fileworx_Client
                         else
                         {
                             await req.Delete("Photo", id);
+                            UpdateTable();
                         }
                     }
                 }

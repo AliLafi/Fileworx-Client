@@ -72,6 +72,7 @@
             this.checkWrite.TabIndex = 2;
             this.checkWrite.Text = "Transmission Contacts";
             this.checkWrite.UseVisualStyleBackColor = true;
+            this.checkWrite.CheckedChanged += new System.EventHandler(this.CheckWrite_CheckedChangedAsync);
             // 
             // ContactListWindow
             // 

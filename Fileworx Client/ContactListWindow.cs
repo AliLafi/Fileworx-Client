@@ -88,6 +88,17 @@ namespace Fileworx_Client
 
         private async void CheckRead_CheckedChanged(object sender, EventArgs e)
         {
+            await CheckFilters();
+        }
+
+        private async void CheckWrite_CheckedChangedAsync(object sender, EventArgs e)
+        {
+            await CheckFilters();
+
+        }
+
+        private async Task CheckFilters()
+        {
             if (checkRead.Checked && !checkWrite.Checked)
             {
                 List<ContactDTO> receiveContacts = await apiRequests.GetAll<ContactDTO>("contacts/receive");
