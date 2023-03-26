@@ -30,6 +30,7 @@ namespace Fileworx_Client
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCreated = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
@@ -60,12 +61,20 @@ namespace Fileworx_Client
             this.lblEnd = new System.Windows.Forms.Label();
             this.catList = new System.Windows.Forms.CheckedListBox();
             this.lblSearch = new System.Windows.Forms.Label();
+            this.gridViewRowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.classIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSend = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.previewTab.SuspendLayout();
             this.imageTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRowsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -286,13 +295,23 @@ namespace Fileworx_Client
             this.GridView.AllowUserToDeleteRows = false;
             this.GridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GridView.AutoGenerateColumns = false;
             this.GridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn,
+            this.createdDataGridViewTextBoxColumn,
+            this.classIdDataGridViewTextBoxColumn,
+            this.btnSend});
+            this.GridView.DataSource = this.gridViewRowsBindingSource;
             this.GridView.Location = new System.Drawing.Point(18, 198);
             this.GridView.Name = "GridView";
             this.GridView.ReadOnly = true;
             this.GridView.Size = new System.Drawing.Size(865, 184);
             this.GridView.TabIndex = 12;
+            this.GridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellContentClick);
             this.GridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellDoubleClick);
             this.GridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridView_CellMouseClick);
             // 
@@ -394,6 +413,63 @@ namespace Fileworx_Client
             this.lblSearch.TabIndex = 21;
             this.lblSearch.Text = "Search Term";
             // 
+            // gridViewRowsBindingSource
+            // 
+            this.gridViewRowsBindingSource.DataSource = typeof(FileworxObjects.Objects.GridViewRows);
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.FillWeight = 81.74032F;
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.FillWeight = 81.74032F;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.FillWeight = 81.74032F;
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createdDataGridViewTextBoxColumn
+            // 
+            this.createdDataGridViewTextBoxColumn.DataPropertyName = "Created";
+            this.createdDataGridViewTextBoxColumn.FillWeight = 81.74032F;
+            this.createdDataGridViewTextBoxColumn.HeaderText = "Created";
+            this.createdDataGridViewTextBoxColumn.Name = "createdDataGridViewTextBoxColumn";
+            this.createdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // classIdDataGridViewTextBoxColumn
+            // 
+            this.classIdDataGridViewTextBoxColumn.DataPropertyName = "ClassId";
+            this.classIdDataGridViewTextBoxColumn.FillWeight = 81.74032F;
+            this.classIdDataGridViewTextBoxColumn.HeaderText = "ClassId";
+            this.classIdDataGridViewTextBoxColumn.Name = "classIdDataGridViewTextBoxColumn";
+            this.classIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // btnSend
+            // 
+            this.btnSend.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.btnSend.FillWeight = 139.0141F;
+            this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSend.HeaderText = "Send To Contect";
+            this.btnSend.Name = "btnSend";
+            this.btnSend.ReadOnly = true;
+            this.btnSend.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseColumnTextForButtonValue = true;
+            this.btnSend.Width = 94;
+            // 
             // MainWindow
             // 
             this.AcceptButton = this.btnSearch;
@@ -431,6 +507,7 @@ namespace Fileworx_Client
             this.imageTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRowsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -469,6 +546,13 @@ namespace Fileworx_Client
         private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
+        private System.Windows.Forms.BindingSource gridViewRowsBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn classIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn btnSend;
     }
 }
 

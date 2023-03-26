@@ -227,6 +227,20 @@ namespace Fileworx_Client
             ContactListWindow listWindow = new ContactListWindow(this);
             listWindow.Show();
         }
+
+        private void GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedRow = GridView.CurrentCell.RowIndex;
+
+            int id = int.Parse(GridView.Rows[selectedRow].Cells[0].Value.ToString());
+            int classId = int.Parse(GridView.Rows[selectedRow].Cells[4].Value.ToString());
+
+            if (GridView.Columns[e.ColumnIndex].Name == "btnSend")
+            {
+                TransmissionContactsWindow transmissionContactsWindow = new TransmissionContactsWindow(id,classId);
+                transmissionContactsWindow.Show();
+            }
+        }
     }
 }
 
