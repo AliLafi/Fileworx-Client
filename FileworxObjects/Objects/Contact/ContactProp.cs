@@ -4,57 +4,111 @@ namespace FileworxObjects.Objects.Contact
 {
     public partial class Contact : BusinessObject
     {
-        public string SendPath { get; set; }
-        public string ReceivePath { get; set; }
-        public DateTime LastReceptionDate { get; set; }
-        public bool IsRead { get;set; }
-        public bool IsWrite { get; set; }  
+        public string SendFilePath { get; set; }
+        public string ReceiveFilePath { get; set; }
+        public DateTime LastFileReceptionDate { get; set; }
+        public bool IsReadFile { get;set; }
+        public bool IsWriteFile { get; set; }
+        public bool IsReadFtp { get; set; }
+        public bool IsWriteFtp { get; set; }
+        public string SendFtpPath { get; set; }
+        public string ReceiveFtpPath { get; set; }
+        public DateTime LastFtpReceptionDate { get; set; }
+        public string Host { get; set; }    
+        public string Password { get; set; }
+        public string Username { get; set; }
 
-        public Contact(bool isRead,bool isWrite,string send,string recieve ,DateTime lastReceptionDate, int id , int lastModifier , int creator , string name , string description , DateTime created , DateTime lastModified ) : base(id,lastModifier,creator,name , description,created , lastModified , 4)
+
+        public Contact(bool isRead,bool isWrite,string send,string recieve ,DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host,string username,string password,int id , int lastModifier , int creator , string name , string description , DateTime created , DateTime lastModified ) : base(id,lastModifier,creator,name , description,created , lastModified , 4)
         {
-         
-            LastReceptionDate= lastReceptionDate;
-            IsRead = isRead;
-            IsWrite= isWrite;
-            if (isRead)
+            Host = host;
+            Password= password;
+            Username= username;
+            LastFileReceptionDate= lastReceptionDate;
+            LastFtpReceptionDate = lastReceptionDateFtp;
+            IsReadFile = isRead;
+            IsWriteFile= isWrite;
+            IsReadFtp = isReadFtp;
+            IsWriteFtp = isWriteFtp;
+
+            if (IsReadFile)
             {
-                ReceivePath = recieve;
+                ReceiveFilePath = recieve;
             }
             else
             {
-                ReceivePath = "";
+                ReceiveFilePath = "";
             }
-            if (isWrite)
+            if (IsWriteFile)
             {
-                SendPath = send;
+                SendFilePath = send;
             }
             else
             {
-                SendPath = "";
+                SendFilePath = "";
+            }
+            if (IsReadFtp)
+            {
+                ReceiveFtpPath = recieveFtp;
+            }
+            else
+            {
+                ReceiveFtpPath = "";
+            }
+            if (IsWriteFtp)
+            {
+                SendFtpPath = sendFtp;
+            }
+            else
+            {
+                SendFtpPath = "";
             }
         }
 
-        public Contact(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
+        public Contact(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host, string username, string password, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
         {
-            LastReceptionDate = lastReceptionDate;
-            IsRead = isRead;
-            IsWrite = isWrite;
+            Host = host;
+            Password = password;
+            Username = username;
+            LastFileReceptionDate = lastReceptionDate;
+            LastFtpReceptionDate = lastReceptionDateFtp;
+            IsReadFile = isRead;
+            IsWriteFile = isWrite;
+            IsReadFtp = isReadFtp;
+            IsWriteFtp = isWriteFtp;
+
             if (isRead)
             {
-                ReceivePath = recieve;
+                ReceiveFilePath = recieve;
             }
             else
             {
-                ReceivePath = "";
+                ReceiveFilePath = "";
             }
 
             if (isWrite)
             {
-                SendPath = send;
+                SendFilePath = send;
             }
             else
             {
-                SendPath = "";
+                SendFilePath = "";
+            }
+            if (IsReadFtp)
+            {
+                ReceiveFtpPath = recieveFtp;
+            }
+            else
+            {
+                ReceiveFtpPath = "";
+            }
+            if (IsWriteFtp)
+            {
+                SendFtpPath = sendFtp;
+            }
+            else
+            {
+                SendFtpPath = "";
             }
         }
 

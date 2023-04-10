@@ -1,7 +1,5 @@
-﻿using FileworxObjects.DTOs;
-using FileworxObjects.Mappers;
+﻿using FileworxObjects.Mappers;
 using Nest;
-using Newtonsoft.Json;
 
 namespace FileworxObjects.Objects.Contact
 {

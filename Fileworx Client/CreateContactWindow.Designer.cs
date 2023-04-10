@@ -30,17 +30,35 @@
         {
             this.lblName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.checkRead = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkWrite = new System.Windows.Forms.CheckBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.btnWrite = new System.Windows.Forms.Button();
             this.lblRead = new System.Windows.Forms.Label();
-            this.btnRead = new System.Windows.Forms.Button();
             this.lblWrite = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabFile = new System.Windows.Forms.TabPage();
+            this.lblWriteFile = new System.Windows.Forms.Label();
+            this.btnWriteFile = new System.Windows.Forms.Button();
+            this.checkWriteFile = new System.Windows.Forms.CheckBox();
+            this.lblReadFile = new System.Windows.Forms.Label();
+            this.btnReadFile = new System.Windows.Forms.Button();
+            this.checkReadFile = new System.Windows.Forms.CheckBox();
+            this.tabFtp = new System.Windows.Forms.TabPage();
+            this.txtWriteFtp = new System.Windows.Forms.TextBox();
+            this.txtReadFtp = new System.Windows.Forms.TextBox();
+            this.checkWriteFtp = new System.Windows.Forms.CheckBox();
+            this.checkReadFtp = new System.Windows.Forms.CheckBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblHost = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtHost = new System.Windows.Forms.TextBox();
+            this.tabControl.SuspendLayout();
+            this.tabFile.SuspendLayout();
+            this.tabFtp.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -63,30 +81,6 @@
             this.lblDescription.TabIndex = 1;
             this.lblDescription.Text = "Description";
             // 
-            // checkRead
-            // 
-            this.checkRead.AutoSize = true;
-            this.checkRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRead.Location = new System.Drawing.Point(18, 137);
-            this.checkRead.Name = "checkRead";
-            this.checkRead.Size = new System.Drawing.Size(83, 30);
-            this.checkRead.TabIndex = 3;
-            this.checkRead.Text = "Read";
-            this.checkRead.UseVisualStyleBackColor = true;
-            this.checkRead.CheckedChanged += new System.EventHandler(this.CheckRead_CheckedChanged);
-            // 
-            // checkWrite
-            // 
-            this.checkWrite.AutoSize = true;
-            this.checkWrite.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkWrite.Location = new System.Drawing.Point(19, 236);
-            this.checkWrite.Name = "checkWrite";
-            this.checkWrite.Size = new System.Drawing.Size(82, 30);
-            this.checkWrite.TabIndex = 4;
-            this.checkWrite.Text = "Write";
-            this.checkWrite.UseVisualStyleBackColor = true;
-            this.checkWrite.CheckedChanged += new System.EventHandler(this.CheckWrite_CheckedChanged);
-            // 
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -105,18 +99,6 @@
             this.txtDescription.Size = new System.Drawing.Size(648, 32);
             this.txtDescription.TabIndex = 6;
             // 
-            // btnWrite
-            // 
-            this.btnWrite.Enabled = false;
-            this.btnWrite.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWrite.Location = new System.Drawing.Point(18, 272);
-            this.btnWrite.Name = "btnWrite";
-            this.btnWrite.Size = new System.Drawing.Size(82, 33);
-            this.btnWrite.TabIndex = 8;
-            this.btnWrite.Text = "Browse";
-            this.btnWrite.UseVisualStyleBackColor = true;
-            this.btnWrite.Click += new System.EventHandler(this.BtnWrite_Click);
-            // 
             // lblRead
             // 
             this.lblRead.AutoSize = true;
@@ -125,18 +107,6 @@
             this.lblRead.Name = "lblRead";
             this.lblRead.Size = new System.Drawing.Size(0, 26);
             this.lblRead.TabIndex = 9;
-            // 
-            // btnRead
-            // 
-            this.btnRead.Enabled = false;
-            this.btnRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRead.Location = new System.Drawing.Point(19, 173);
-            this.btnRead.Name = "btnRead";
-            this.btnRead.Size = new System.Drawing.Size(82, 33);
-            this.btnRead.TabIndex = 10;
-            this.btnRead.Text = "Browse";
-            this.btnRead.UseVisualStyleBackColor = true;
-            this.btnRead.Click += new System.EventHandler(this.BtnRead_Click);
             // 
             // lblWrite
             // 
@@ -168,25 +138,230 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabFile);
+            this.tabControl.Controls.Add(this.tabFtp);
+            this.tabControl.Location = new System.Drawing.Point(13, 122);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(775, 256);
+            this.tabControl.TabIndex = 14;
+            // 
+            // tabFile
+            // 
+            this.tabFile.Controls.Add(this.lblWriteFile);
+            this.tabFile.Controls.Add(this.btnWriteFile);
+            this.tabFile.Controls.Add(this.checkWriteFile);
+            this.tabFile.Controls.Add(this.lblReadFile);
+            this.tabFile.Controls.Add(this.btnReadFile);
+            this.tabFile.Controls.Add(this.checkReadFile);
+            this.tabFile.Location = new System.Drawing.Point(4, 22);
+            this.tabFile.Name = "tabFile";
+            this.tabFile.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFile.Size = new System.Drawing.Size(767, 230);
+            this.tabFile.TabIndex = 0;
+            this.tabFile.Text = "File";
+            this.tabFile.UseVisualStyleBackColor = true;
+            // 
+            // lblWriteFile
+            // 
+            this.lblWriteFile.AutoSize = true;
+            this.lblWriteFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWriteFile.Location = new System.Drawing.Point(142, 167);
+            this.lblWriteFile.Name = "lblWriteFile";
+            this.lblWriteFile.Size = new System.Drawing.Size(0, 20);
+            this.lblWriteFile.TabIndex = 5;
+            // 
+            // btnWriteFile
+            // 
+            this.btnWriteFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWriteFile.Location = new System.Drawing.Point(7, 167);
+            this.btnWriteFile.Name = "btnWriteFile";
+            this.btnWriteFile.Size = new System.Drawing.Size(81, 27);
+            this.btnWriteFile.TabIndex = 4;
+            this.btnWriteFile.Text = "Browse";
+            this.btnWriteFile.UseVisualStyleBackColor = true;
+            this.btnWriteFile.Click += new System.EventHandler(this.BtnWrite_Click);
+            // 
+            // checkWriteFile
+            // 
+            this.checkWriteFile.AutoSize = true;
+            this.checkWriteFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkWriteFile.Location = new System.Drawing.Point(7, 137);
+            this.checkWriteFile.Name = "checkWriteFile";
+            this.checkWriteFile.Size = new System.Drawing.Size(121, 24);
+            this.checkWriteFile.TabIndex = 3;
+            this.checkWriteFile.Text = "Transmission";
+            this.checkWriteFile.UseVisualStyleBackColor = true;
+            this.checkWriteFile.CheckedChanged += new System.EventHandler(this.CheckWriteFile_CheckedChanged);
+            // 
+            // lblReadFile
+            // 
+            this.lblReadFile.AutoSize = true;
+            this.lblReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReadFile.Location = new System.Drawing.Point(142, 64);
+            this.lblReadFile.Name = "lblReadFile";
+            this.lblReadFile.Size = new System.Drawing.Size(0, 20);
+            this.lblReadFile.TabIndex = 2;
+            // 
+            // btnReadFile
+            // 
+            this.btnReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReadFile.Location = new System.Drawing.Point(7, 59);
+            this.btnReadFile.Name = "btnReadFile";
+            this.btnReadFile.Size = new System.Drawing.Size(81, 31);
+            this.btnReadFile.TabIndex = 1;
+            this.btnReadFile.Text = "Browse";
+            this.btnReadFile.UseVisualStyleBackColor = true;
+            this.btnReadFile.Click += new System.EventHandler(this.BtnRead_Click);
+            // 
+            // checkReadFile
+            // 
+            this.checkReadFile.AutoSize = true;
+            this.checkReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkReadFile.Location = new System.Drawing.Point(7, 29);
+            this.checkReadFile.Name = "checkReadFile";
+            this.checkReadFile.Size = new System.Drawing.Size(101, 24);
+            this.checkReadFile.TabIndex = 0;
+            this.checkReadFile.Text = "Reception";
+            this.checkReadFile.UseVisualStyleBackColor = true;
+            this.checkReadFile.CheckedChanged += new System.EventHandler(this.CheckReadFile_CheckedChanged);
+            // 
+            // tabFtp
+            // 
+            this.tabFtp.Controls.Add(this.txtWriteFtp);
+            this.tabFtp.Controls.Add(this.txtReadFtp);
+            this.tabFtp.Controls.Add(this.checkWriteFtp);
+            this.tabFtp.Controls.Add(this.checkReadFtp);
+            this.tabFtp.Controls.Add(this.lblPassword);
+            this.tabFtp.Controls.Add(this.lblUsername);
+            this.tabFtp.Controls.Add(this.lblHost);
+            this.tabFtp.Controls.Add(this.txtPassword);
+            this.tabFtp.Controls.Add(this.txtUsername);
+            this.tabFtp.Controls.Add(this.txtHost);
+            this.tabFtp.Location = new System.Drawing.Point(4, 22);
+            this.tabFtp.Name = "tabFtp";
+            this.tabFtp.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFtp.Size = new System.Drawing.Size(767, 230);
+            this.tabFtp.TabIndex = 1;
+            this.tabFtp.Text = "Ftp";
+            this.tabFtp.UseVisualStyleBackColor = true;
+            // 
+            // txtWriteFtp
+            // 
+            this.txtWriteFtp.Enabled = false;
+            this.txtWriteFtp.Location = new System.Drawing.Point(138, 179);
+            this.txtWriteFtp.Name = "txtWriteFtp";
+            this.txtWriteFtp.Size = new System.Drawing.Size(623, 20);
+            this.txtWriteFtp.TabIndex = 9;
+            // 
+            // txtReadFtp
+            // 
+            this.txtReadFtp.Enabled = false;
+            this.txtReadFtp.Location = new System.Drawing.Point(138, 131);
+            this.txtReadFtp.Name = "txtReadFtp";
+            this.txtReadFtp.Size = new System.Drawing.Size(623, 20);
+            this.txtReadFtp.TabIndex = 8;
+            // 
+            // checkWriteFtp
+            // 
+            this.checkWriteFtp.AutoSize = true;
+            this.checkWriteFtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkWriteFtp.Location = new System.Drawing.Point(11, 176);
+            this.checkWriteFtp.Name = "checkWriteFtp";
+            this.checkWriteFtp.Size = new System.Drawing.Size(121, 24);
+            this.checkWriteFtp.TabIndex = 7;
+            this.checkWriteFtp.Text = "Transmission";
+            this.checkWriteFtp.UseVisualStyleBackColor = true;
+            this.checkWriteFtp.CheckedChanged += new System.EventHandler(this.CheckWriteFtp_CheckedChanged);
+            // 
+            // checkReadFtp
+            // 
+            this.checkReadFtp.AutoSize = true;
+            this.checkReadFtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkReadFtp.Location = new System.Drawing.Point(11, 131);
+            this.checkReadFtp.Name = "checkReadFtp";
+            this.checkReadFtp.Size = new System.Drawing.Size(105, 24);
+            this.checkReadFtp.TabIndex = 6;
+            this.checkReadFtp.Text = "Reception ";
+            this.checkReadFtp.UseVisualStyleBackColor = true;
+            this.checkReadFtp.CheckedChanged += new System.EventHandler(this.CheckReadFtp_CheckedChanged);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Location = new System.Drawing.Point(7, 94);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(78, 20);
+            this.lblPassword.TabIndex = 5;
+            this.lblPassword.Text = "Password";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(7, 57);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(83, 20);
+            this.lblUsername.TabIndex = 4;
+            this.lblUsername.Text = "Username";
+            // 
+            // lblHost
+            // 
+            this.lblHost.AutoSize = true;
+            this.lblHost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHost.Location = new System.Drawing.Point(7, 20);
+            this.lblHost.Name = "lblHost";
+            this.lblHost.Size = new System.Drawing.Size(43, 20);
+            this.lblHost.TabIndex = 3;
+            this.lblHost.Text = "Host";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(138, 94);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(623, 20);
+            this.txtPassword.TabIndex = 2;
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Location = new System.Drawing.Point(138, 57);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(626, 21);
+            this.txtUsername.TabIndex = 1;
+            // 
+            // txtHost
+            // 
+            this.txtHost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHost.Location = new System.Drawing.Point(138, 20);
+            this.txtHost.Name = "txtHost";
+            this.txtHost.Size = new System.Drawing.Size(623, 21);
+            this.txtHost.TabIndex = 0;
+            // 
             // CreateContactWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblWrite);
-            this.Controls.Add(this.btnRead);
             this.Controls.Add(this.lblRead);
-            this.Controls.Add(this.btnWrite);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.checkWrite);
-            this.Controls.Add(this.checkRead);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblName);
             this.Name = "CreateContactWindow";
             this.Text = "CreateContact";
+            this.tabControl.ResumeLayout(false);
+            this.tabFile.ResumeLayout(false);
+            this.tabFile.PerformLayout();
+            this.tabFtp.ResumeLayout(false);
+            this.tabFtp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,16 +371,31 @@
 
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.CheckBox checkRead;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-        private System.Windows.Forms.CheckBox checkWrite;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.Button btnWrite;
         private System.Windows.Forms.Label lblRead;
-        private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.Label lblWrite;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabFile;
+        private System.Windows.Forms.TabPage tabFtp;
+        private System.Windows.Forms.Label lblWriteFile;
+        private System.Windows.Forms.Button btnWriteFile;
+        private System.Windows.Forms.CheckBox checkWriteFile;
+        private System.Windows.Forms.Button btnReadFile;
+        private System.Windows.Forms.CheckBox checkReadFile;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label lblHost;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtHost;
+        private System.Windows.Forms.Label lblReadFile;
+        private System.Windows.Forms.TextBox txtWriteFtp;
+        private System.Windows.Forms.TextBox txtReadFtp;
+        private System.Windows.Forms.CheckBox checkWriteFtp;
+        private System.Windows.Forms.CheckBox checkReadFtp;
     }
 }

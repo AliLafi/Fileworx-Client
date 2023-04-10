@@ -11,42 +11,12 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SendPath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SendPath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReceivePath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReceivePath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastReceptionDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastReceptionDate)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ID)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ID)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastModifier)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastModifier)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Creator)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Creator)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
@@ -58,6 +28,20 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
+                <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastModifier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastModifier)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Creator)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Creator)
+        </dd>
+
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Created)
         </dt>
@@ -70,15 +54,107 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LastModified)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastFtpReceptionDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastFtpReceptionDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastFileReceptionDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastFileReceptionDate)
+        </dd>
+        
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClassID)
+            @Html.DisplayNameFor(model => model.IsReadFile)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClassID)
+            @Html.DisplayFor(model => model.IsReadFile)
         </dd>
+        @if (Model.IsReadFile)
+        {
+             <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReceiveFilePath)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReceiveFilePath)
+        </dd>
+        }
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsWriteFile)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsWriteFile)
+        </dd>
+        @if (Model.IsWriteFile)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SendFilePath)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SendFilePath)
+            </dd>
+        }
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsReadFtp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsReadFtp)
+        </dd>
+
+        @if (Model.IsReadFtp)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ReceiveFtpPath)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ReceiveFtpPath)
+            </dd>
+        }
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsWriteFtp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsWriteFtp)
+        </dd>
+
+        @if (Model.IsWriteFtp)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SendFtpPath)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SendFtpPath)
+            </dd>
+        }
+
+        @if(Model.IsReadFtp || Model.IsWriteFtp)
+        {
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Host)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Host)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Username)
+            </dd>
+        }
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     <a asp-action="Index">Back to List</a>
 </div>

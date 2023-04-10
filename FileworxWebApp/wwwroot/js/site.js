@@ -24,10 +24,12 @@
 
 
 function checkBtn() {
-    var checkBoxRead = document.getElementById("IsRead");
-    var checkBoxWrite = document.getElementById("IsWrite");
+    var checkBoxRead = document.getElementById("IsReadFile");
+    var checkBoxWrite = document.getElementById("IsWriteFile");
+    var checkBoxReadFtp = document.getElementById("IsReadFtp");
+    var checkBoxWriteFtp = document.getElementById("IsWriteFtp");
     var submitBtn = document.getElementById("ContactBtn")
-    if (checkBoxRead.checked == true || checkBoxWrite.checked == true) {
+    if (checkBoxRead.checked == true || checkBoxWrite.checked == true || checkBoxReadFtp.checked == true || checkBoxWriteFtp.checked == true) {
         submitBtn.removeAttribute("disabled");
     }
     else {
@@ -35,12 +37,35 @@ function checkBtn() {
     }
 }
 
+function checkFtp() {
+    var checkRead = document.getElementById("IsReadFtp");
+    var checkWrite = document.getElementById("IsWriteFtp");
+    var Host = document.getElementById("Host");
+    var User = document.getElementById("Username");
+    var Pass = document.getElementById("Password");
+    if (checkRead.checked || checkWrite.checked) {
+        Host.type = "text";
+        Pass.type = "text";
+        User.type = "text";
+        Host.removeAttribute("disabled");
+        Pass.removeAttribute("disabled");
+        User.removeAttribute("disabled");
+    }
+    else {
+        Host.type = "hidden";
+        Pass.type = "hidden";
+        User.type = "hidden";
+        Host.setAttribute("disabled", "disabled");
+        User.setAttribute("disabled", "disabled");
+        Pass.setAttribute("disabled", "disabled");
+    }
+}
 
 
-function checkReceive() {
+function checkFileReceive() {
     checkBtn();
-    var checkBox = document.getElementById("IsRead");
-    var recieve = document.getElementById("ReceivePath");
+    var checkBox = document.getElementById("IsReadFile");
+    var recieve = document.getElementById("ReceiveFilePath");
     if (checkBox.checked == true) {
         recieve.type = "text";
         checkBox.value = true;
@@ -54,11 +79,11 @@ function checkReceive() {
     }
 }
 
-function checkSend() {
+function checkFileSend() {
     checkBtn();
 
-    var checkBox = document.getElementById("IsWrite");
-    var send = document.getElementById("SendPath");
+    var checkBox = document.getElementById("IsWriteFile");
+    var send = document.getElementById("SendFilePath");
     if (checkBox.checked == true) {
         send.type = "text";
         checkBox.value = true;
@@ -72,3 +97,39 @@ function checkSend() {
     }
 }
 
+
+function checkFtpReceive() {
+    checkBtn();
+    var checkBox = document.getElementById("IsReadFtp");
+    var recieve = document.getElementById("ReceiveFtpPath");
+    if (checkBox.checked == true) {
+        recieve.type = "text";
+        checkBox.value = true;
+        recieve.setAttribute("required", "required");
+        checkFtp();
+    }
+    else {
+        recieve.type = "hidden";
+        checkBox.value = false;
+        recieve.setAttribute("required", "");
+    }
+    checkFtp();
+}
+
+function checkFtpSend() {
+    checkBtn();
+
+    var checkBox = document.getElementById("IsWriteFtp");
+    var send = document.getElementById("SendFtpPath");
+    if (checkBox.checked == true) {
+        send.type = "text";
+        checkBox.value = true;
+        send.setAttribute("required", "required");
+    }
+    else {
+        send.type = "hidden";
+        checkBox.value = false;
+        send.setAttribute("required", "");
+    }
+    checkFtp();
+}

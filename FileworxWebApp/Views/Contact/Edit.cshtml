@@ -4,10 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Contact</h4>
-<hr />
+<h1>Create</h1>
 @using (Html.BeginForm("Edit", "Contact", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
 {
 
@@ -26,76 +23,121 @@
         </div>
     </div>
     <div class="mb-3">
-        @Html.Label("IsRead","Read")
-        @if (Model.IsRead)
-        {
+        @Html.Label("IsReadFile","File Reception")
 
-            <input type="checkbox" id="IsRead" name="IsRead" class="form-check" onclick="checkReceive()" value="true" checked />
-        }
-        else
-        {
-
-            <input type="checkbox" id="IsRead" name="IsRead" class="form-check" onclick="checkReceive()" />
-        }
-    </div>
-    <div class="mb-3">
-        @if (Model.IsRead)
-        {
-            @Html.EditorFor(m=>m.ReceivePath,new {  htmlAttributes = new {@class = "form-control",required= "required"}})
-
-        }
-        else
-        {
-            @Html.EditorFor(m=>m.ReceivePath,new {  htmlAttributes = new {@class = "form-control",type = "hidden"}})
-        }
+        <input type="checkbox" id="IsReadFile" name="IsReadFile" class="form-check" onclick="checkFileReceive()" />
 
     </div>
     <div class="mb-3">
-        @Html.Label("IsWrite","Write")
-        @if (Model.IsWrite)
+
+        @if (Model.IsReadFile)
         {
-            <input type="checkbox" id="IsWrite" name="IsWrite" class="form-check" onclick="checkSend()" value="true" checked/>
+            @Html.EditorFor(m=>m.ReceiveFilePath,new {  htmlAttributes = new {@class = "form-control"}})
         }
         else
         {
-            <input type="checkbox" id="IsWrite" name="IsWrite" class="form-check" onclick="checkSend()"  />
+            @Html.EditorFor(m=>m.ReceiveFilePath,new {  htmlAttributes = new {@class = "form-control",type = "hidden"}})
         }
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsWriteFile","File Transmission")
+        <input type="checkbox" id="IsWriteFile" name="IsWriteFile" class="form-check" onclick="checkFileSend()" />
 
     </div>
     <div class="mb-3">
-        @if (Model.IsWrite)
+        @if (Model.IsWriteFile)
         {
-            @Html.EditorFor(m=>m.SendPath,new {  htmlAttributes = new {@class = "form-control",required = "required" }})
+            @Html.EditorFor(m=>m.SendFilePath,new {  htmlAttributes = new {@class = "form-control" }})
         }
         else
         {
-            @Html.EditorFor(m=>m.SendPath,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
+            @Html.EditorFor(m=>m.SendFilePath,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
         }
     </div>
 
-    @Html.Hidden("ID",Model.ID,new {  htmlAttributes = new {value = Model.ID}})
+    <div class="mb-3">
+        @Html.Label("IsReadFtp","Ftp Reception")
+
+        <input type="checkbox" id="IsReadFtp" name="IsReadFtp" class="form-check" onclick="checkFtpReceive()" />
+
+    </div>
+    <div class="mb-3">
+        @if (Model.IsReadFtp)
+        {
+            @Html.EditorFor(m=>m.ReceiveFtpPath,new {  htmlAttributes = new {@class = "form-control"}})
+        }
+        else
+        {
+            @Html.EditorFor(m=>m.ReceiveFtpPath,new {  htmlAttributes = new {@class = "form-control",type = "hidden"}})
+        }
+    </div>
+    <div class="mb-3">
+        @Html.Label("IsWriteFtp","Ftp Transmission")
+        <input type="checkbox" id="IsWriteFtp" name="IsWriteFtp" class="form-check" onclick="checkFtpSend()" />
+
+    </div>
+    <div class="mb-3">
+        @if (Model.IsWriteFtp)
+        {
+            @Html.EditorFor(m=>m.SendFtpPath,new {  htmlAttributes = new {@class = "form-control" }})
+        }
+        else
+        {
+            @Html.EditorFor(m=>m.SendFtpPath,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
+        }
+    </div>
+    <hr />
+    if(Model.IsWriteFtp || Model.IsReadFtp)
+    {
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Host,new {  htmlAttributes = new {@class = "form-control",placeholder="Ftp Host" }})
+    </div>
+
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Username,new {  htmlAttributes = new {@class = "form-control",placeholder="Ftp UserName" }})
+    </div>
+
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Password,new {  htmlAttributes = new {@class = "form-control",placeholder="Ftp Password" }})
+    </div>
+    }
+    else
+    {      
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Host,new {  htmlAttributes = new {@class = "form-control",type="hidden",placeholder="Ftp Host" }})
+    </div>
+
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Username,new {  htmlAttributes = new {@class = "form-control",type="hidden",placeholder="Ftp UserName" }})
+    </div>
+
+    <div class="mb-3">
+        @Html.EditorFor(m=>m.Password,new {  htmlAttributes = new {@class = "form-control",type="hidden",placeholder="Ftp Password" }})
+    </div>
+    }
+
+    @Html.Hidden("created",DateTime.Now)
+    @Html.Hidden("ID","-1",new {  htmlAttributes = new {value = -1}})
     @Html.Hidden("classID","4",new {  htmlAttributes = new {value = 4}})
-    @Html.Hidden("created",Model.Created,new{ htmlAttributes =  new { value = Model.Created}})
     @Html.Hidden("LastModifier",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
-    @Html.Hidden("Creator",Model.Creator,new {  htmlAttributes = new {value =Model.Creator }})
-    @Html.Hidden("LastModified",DateTime.Now)
+    @Html.Hidden("Creator",ViewBag.Modifier,new {  htmlAttributes = new {value = ViewBag.Modifier}})
+    @Html.Hidden("ModifyDate",DateTime.Now);
+    @Html.Hidden("LastFileReceptionDate",DateTime.Now);
+    @Html.Hidden("LastFtpReceptionDate",DateTime.Now);
+
 
     <div class="mb-3">
-        @if(Model.IsRead || Model.IsWrite)
-        {
-            <button type="submit" class="btn btn-primary" id="ContactBtn">Edit</button>
-
-        }
-        else
-        {
-            <button type="submit" class="btn btn-primary" id="ContactBtn" disabled>Edit</button>
-        }
+        <button type="submit" id="ContactBtn" class="btn btn-primary" disabled>Save</button>
     </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
 }
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

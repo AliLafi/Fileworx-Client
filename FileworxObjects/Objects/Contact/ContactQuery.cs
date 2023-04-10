@@ -16,7 +16,8 @@ namespace FileworxObjects.Objects.Contact
         {
             var res = elasticClient.Search<Contact>(new SearchRequest<Contact>
             {
-                Query = new TermQuery { Field = Infer.Field<Contact>(p => p.IsWrite), Value = "true" }
+                Query = new TermQuery { Field = Infer.Field<Contact>(p => p.IsWriteFile), Value = "true" } ||
+                        new TermQuery { Field = Infer.Field<Contact> (p => p.IsWriteFtp),Value= "true" }
             });
             return res.Documents.ToList();
         }
@@ -26,7 +27,9 @@ namespace FileworxObjects.Objects.Contact
 
             var res = elasticClient.Search<Contact>(new SearchRequest<Contact>
             {
-                Query = new TermQuery { Field = Infer.Field<Contact>(p => p.IsRead), Value = "true" }
+                Query = new TermQuery { Field = Infer.Field<Contact>(p => p.IsReadFile), Value = "true" }||
+                        new TermQuery { Field = Infer.Field<Contact>(p => p.IsReadFtp), Value = "true" }
+
             });
             return res.Documents.ToList();
         }

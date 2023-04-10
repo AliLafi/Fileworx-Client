@@ -71,7 +71,7 @@ namespace Fileworx_Client
             int id = int.Parse(gridView.Rows[selectedRow].Cells[0].Value.ToString());
             if (gridView.Columns[e.ColumnIndex].Name == "btnSend")
             {
-                if(fileId == 1)
+                if(classId == 1)
                 {
                     await windowsServiceRequests.TransmitFile("news", fileId, id);
                 }

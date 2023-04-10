@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBScripts", "DBScripts", "{
 	ProjectSection(SolutionItems) = preProject
 		DBScripts\Business.sql = DBScripts\Business.sql
 		DBScripts\Contact.sql = DBScripts\Contact.sql
+		DBScripts\Contact_Updated.sql = DBScripts\Contact_Updated.sql
 		DBScripts\File.sql = DBScripts\File.sql
 		DBScripts\News.sql = DBScripts\News.sql
 		DBScripts\Photo.sql = DBScripts\Photo.sql

@@ -1,5 +1,4 @@
 ﻿using FileworxObjects.Connection;
-using Nest;
 using System.Collections.Generic;
 
 namespace FileworxObjects.Objects.Contact
@@ -39,5 +38,6 @@ namespace FileworxObjects.Objects.Contact
         {
             return GetReceiveContacts(ElasticConnection.GetESClient("contacts"));
         }
+        
     }
 }

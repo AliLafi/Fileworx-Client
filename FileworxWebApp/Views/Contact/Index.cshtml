@@ -12,26 +12,30 @@
 <table class="table">
     <thead>
         <tr>
-
-
             <th>
                 @Html.DisplayNameFor(model => model.ID)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastModifier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                Access
+                @Html.DisplayNameFor(model => model.Description)
             </th>
 
-            <th></th>
 
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsWriteFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReadFtp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsWriteFtp)
+            </th>
 
         </tr>
     </thead>
@@ -39,35 +43,29 @@
         @foreach (var item in Model)
         {
             <tr>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.ID)
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastModifier)
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadFile)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Creator)
+                    @Html.DisplayFor(modelItem => item.IsWriteFile)
                 </td>
-                @if (item.IsRead && item.IsWrite)
-                {
-                    <td>Read/Write</td>
-
-
-                }
-                else if (item.IsWrite)
-                {
-                    <td>Write</td>
-                }
-                else
-                {
-                    <td>
-                        Read
-                    </td>
-                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReadFtp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsWriteFtp)
+                </td>
 
                 <td>
                     <a class="btn btn-primary" role="button" href="Contact/Edit/@item.ID">

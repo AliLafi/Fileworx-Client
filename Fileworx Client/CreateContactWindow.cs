@@ -1,23 +1,16 @@
 ﻿using FileworxObjects;
 using FileworxObjects.DTOs;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fileworx_Client
 {
     public partial class CreateContactWindow : Form
     {
-        MainWindow main;
-        ContactListWindow contactList;
-        ContactDTO contact;
-        ApiRequests apiRequests = new ApiRequests();
+        readonly MainWindow main;
+        readonly ContactListWindow contactList;
+        readonly ContactDTO contact;
+        readonly ApiRequests apiRequests = new ApiRequests();
 
         public CreateContactWindow(MainWindow main, ContactDTO contactFromMain = null, ContactListWindow contactList = null)
         {
@@ -40,58 +33,96 @@ namespace Fileworx_Client
             {
                 txtDescription.Text = contact.Description;
                 txtName.Text = contact.Name;
-                checkRead.Checked = contact.IsRead;
-                checkWrite.Checked = contact.IsWrite;
-                lblRead.Text = contact.ReceivePath;
-                lblWrite.Text = contact.SendPath;
-                if (checkRead.Checked || checkWrite.Checked)
+                checkReadFile.Checked = contact.IsReadFile;
+                checkWriteFile.Checked = contact.IsWriteFile;
+                checkReadFtp.Checked = contact.IsReadFtp;
+                checkWriteFtp.Checked = contact.IsWriteFtp;
+                lblRead.Text = contact.ReceiveFilePath;
+                lblWrite.Text = contact.SendFilePath;
+                txtPassword.Text = contact.Password;
+                txtUsername.Text = contact.Username;
+                txtHost.Text = contact.Host;
+                txtReadFtp.Text = contact.ReceiveFtpPath;
+                txtWriteFtp.Text = contact.SendFtpPath;
+
+                if (checkReadFile.Checked || checkWriteFile.Checked || checkReadFtp.Checked || checkWriteFtp.Checked)
                 {
                     btnSave.Enabled = true;
                 }
             }
         }
 
-        private void CheckRead_CheckedChanged(object sender, EventArgs e)
+        private void CheckReadFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkRead.Checked)
+            if (checkReadFile.Checked)
             {
-                btnRead.Enabled = true;
+                btnReadFile.Enabled = true;
             }
             else
             {
-                btnRead.Enabled = false;
+                btnReadFile.Enabled = false;
                 lblRead.Text = string.Empty;
-                if (!checkWrite.Checked)
-                {
-                    btnSave.Enabled = false;
-                }
+                CheckBoxes();
             }
         }
 
-        private void CheckWrite_CheckedChanged(object sender, EventArgs e)
+        private void CheckWriteFile_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkWrite.Checked)
+            if (checkWriteFile.Checked)
             {
-                btnWrite.Enabled = true;
+                btnWriteFile.Enabled = true;
             }
             else
             {
-                btnWrite.Enabled = false;
+                btnWriteFile.Enabled = false;
                 lblWrite.Text = string.Empty;
-                if (!checkRead.Checked)
-                {
-                    btnSave.Enabled = false;
-                }
+                CheckBoxes();
             }
         }
 
+        private void CheckReadFtp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkReadFtp.Checked)
+            {
+                txtReadFtp.Enabled = true;
+            }
+            else
+            {
+                txtReadFtp.Enabled = false;
+            }
+            CheckBoxes();
+        }
+
+        private void CheckWriteFtp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkWriteFtp.Checked)
+            {
+                txtWriteFtp.Enabled = true;
+            }
+            else
+            {
+                txtWriteFtp.Enabled = false;
+            }
+            CheckBoxes();
+        }
+        private void CheckBoxes()
+        {
+            if (!(!string.IsNullOrEmpty(lblWriteFile.Text)|| !string.IsNullOrEmpty(lblReadFile.Text)|| checkWriteFtp.Checked || checkReadFtp.Checked))
+            {
+                btnSave.Enabled = false;
+            }
+            else
+            {
+                btnSave.Enabled = true;
+            }
+        }
         private void BtnRead_Click(object sender, EventArgs e)
         {
             folderBrowserDialog.Description = "Select the Reception path for Contact";
             DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                lblRead.Text = folderBrowserDialog.SelectedPath;
+                lblReadFile.Text = folderBrowserDialog.SelectedPath;
                 btnSave.Enabled = true;
             }
 
@@ -103,7 +134,7 @@ namespace Fileworx_Client
             DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                lblWrite.Text = folderBrowserDialog.SelectedPath;
+                lblWriteFile.Text = folderBrowserDialog.SelectedPath;
                 btnSave.Enabled = true;
 
             }
@@ -123,7 +154,7 @@ namespace Fileworx_Client
         {
             if (contact is null)
             {
-                ContactDTO contactDTO = new ContactDTO(checkRead.Checked, checkWrite.Checked, lblWrite.Text, lblRead.Text, DateTime.Now, main.modifier, main.modifier, txtName.Text, txtDescription.Text, DateTime.Now, DateTime.Now); ;
+                ContactDTO contactDTO = new ContactDTO(checkReadFile.Checked, checkWriteFile.Checked, lblWrite.Text, lblRead.Text, DateTime.Now,checkWriteFtp.Checked,checkReadFtp.Checked,txtWriteFtp.Text,txtReadFtp.Text,DateTime.Now,txtHost.Text,txtUsername.Text,txtPassword.Text, main.modifier, main.modifier, txtName.Text, txtDescription.Text, DateTime.Now, DateTime.Now); ;
                 await apiRequests.Create("contact", contactDTO);
             }
             else
@@ -142,15 +173,22 @@ namespace Fileworx_Client
         {
             contact.Name = txtName.Text;
             contact.Description = txtDescription.Text;
-            contact.IsRead = checkRead.Checked;
-            contact.IsWrite = checkWrite.Checked;
-            contact.SendPath = lblWrite.Text;
-            contact.ReceivePath = lblRead.Text;
+            contact.IsReadFile = checkReadFile.Checked;
+            contact.IsWriteFile = checkWriteFile.Checked;
+            contact.SendFilePath = lblWrite.Text;
+            contact.ReceiveFilePath = lblRead.Text;
+            contact.Host= txtHost.Text;
+            contact.Username= txtUsername.Text;
+            contact.Password= txtPassword.Text;
+            contact.SendFtpPath = txtWriteFtp.Text;
+            contact.ReceiveFtpPath= txtReadFtp.Text;
+            contact.IsReadFtp= checkReadFtp.Checked;
+            contact.IsWriteFtp= checkWriteFtp.Checked;
         }
 
         private bool IsEmpty()
         {
-            return ((string.IsNullOrEmpty(lblRead.Text) && string.IsNullOrEmpty(lblWrite.Text)) || string.IsNullOrEmpty(txtDescription.Text) || string.IsNullOrEmpty(txtName.Text));
+            return ((string.IsNullOrEmpty(lblRead.Text) && string.IsNullOrEmpty(lblWrite.Text) && string.IsNullOrEmpty(txtWriteFtp.Text)&&string.IsNullOrEmpty(txtReadFtp.Text)) || string.IsNullOrEmpty(txtDescription.Text) || string.IsNullOrEmpty(txtName.Text));
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

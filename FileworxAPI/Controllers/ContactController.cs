@@ -51,7 +51,8 @@ namespace FileworxAPI.Controllers
             Contact contactToAdd = ContactMapper.DTOToContact(dto);
             contactToAdd.ID = -1;
             contactToAdd.ClassID = 4;
-            contactToAdd.LastReceptionDate= DateTime.Now;
+            contactToAdd.LastFileReceptionDate = DateTime.Now;
+            contactToAdd.LastFtpReceptionDate = DateTime.Now;
             contactToAdd.ModifyDate = DateTime.Now;
             contactToAdd.Created = DateTime.Now;
             contactToAdd.Update();

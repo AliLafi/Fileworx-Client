@@ -11,11 +11,19 @@ namespace FileworxObjects.Objects.Contact
             if (ID > -1)
             {
                 base.DBUpdate();
-                q = $"UPDATE  dbo.T_Contact SET C_receive_file_path =\'{ReceivePath}\' ," +
-                    $"C_send_file_path = \'{SendPath}\'," +
-                    $"C_last_reception_date = \'{LastReceptionDate}\'," +
-                    $"C_is_read = \'{IsRead}\'," +
-                    $"C_is_write = \'{IsWrite}\'" +
+                q = $"UPDATE  dbo.T_Contact SET C_receive_file_path =\'{ReceiveFilePath}\' ," +
+                    $"C_send_file_path = \'{SendFilePath}\'," +
+                    $"C_last_file_reception_date = \'{LastFileReceptionDate}\'," +
+                    $"C_is_read_file = \'{IsReadFile}\'," +
+                    $"C_is_write_file = \'{IsWriteFile}\'," +
+                    $"C_is_write_ftp = \'{IsWriteFtp}\'," +
+                    $"C_is_read_ftp = \'{IsReadFtp}\'," +
+                    $"C_send_ftp_path = \'{SendFtpPath}\'," +
+                    $"C_receive_ftp_path = \'{ReceiveFtpPath}\'," +
+                    $"C_last_ftp_reception_date = \'{LastFtpReceptionDate}\'," +
+                    $"C_host = \'{Host}\'," +
+                    $"C_password = \'{Password}\'," +
+                    $"C_username = \'{Username}\'" +
                     $" WHERE ID = \'{ID}\'; ";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
@@ -23,8 +31,8 @@ namespace FileworxObjects.Objects.Contact
             else
             {
                 base.DBUpdate();
-                q = $"INSERT INTO dbo.T_Contact (ID,C_receive_file_path,C_send_file_path,C_last_reception_date,C_is_read,C_is_write)" +
-                    $" VALUES(\'{ID}\',\'{ReceivePath}\',\'{SendPath}\',\'{LastReceptionDate}\',\'{IsRead}\',\'{IsWrite}\');";
+                q = $"INSERT INTO dbo.T_Contact (ID,C_receive_file_path,C_send_file_path,C_last_file_reception_date,C_is_read_file,C_is_write_file,C_receive_ftp_path,C_send_ftp_path,C_last_ftp_reception_date,C_is_read_ftp,C_is_write_ftp,C_host,C_username,C_password)" +
+                    $" VALUES(\'{ID}\',\'{ReceiveFilePath}\',\'{SendFilePath}\',\'{LastFileReceptionDate}\',\'{IsReadFile}\',\'{IsWriteFile}\',\'{ReceiveFtpPath}\',\'{SendFtpPath}\',\'{LastFtpReceptionDate}\',\'{IsReadFtp}\',\'{IsWriteFtp}\',\'{Host}\',\'{Username}\',\'{Password}\');";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -56,11 +64,19 @@ namespace FileworxObjects.Objects.Contact
             SqlDataReader r = cmd.ExecuteReader();
             while (r.Read())
             {
-                ReceivePath = r["C_receive_file_path"].ToString();
-                SendPath = r["C_send_file_path"].ToString() ;
-                IsWrite = bool.Parse(r["C_is_write"].ToString());
-                IsRead = bool.Parse(r["C_is_read"].ToString());
-                LastReceptionDate = DateTime.Parse(r["C_last_reception_date"].ToString());
+                ReceiveFilePath = r["C_receive_file_path"].ToString();
+                SendFilePath = r["C_send_file_path"].ToString() ;
+                ReceiveFtpPath = r["C_receive_ftp_path"].ToString();
+                SendFtpPath = r["C_send_ftp_path"].ToString();
+                IsWriteFile = bool.Parse(r["C_is_write_file"].ToString());
+                IsReadFile = bool.Parse(r["C_is_read_file"].ToString());
+                IsWriteFtp = bool.Parse(r["C_is_write_ftp"].ToString());
+                IsReadFtp = bool.Parse(r["C_is_read_ftp"].ToString());
+                LastFileReceptionDate = DateTime.Parse(r["C_last_file_reception_date"].ToString());
+                LastFtpReceptionDate = DateTime.Parse(r["C_last_ftp_reception_date"].ToString());
+                Host = r["C_host"].ToString();
+                Username = r["C_username"].ToString();
+                Password = r["C_password"].ToString();
                 ID = int.Parse(r["ID"].ToString());
             }
 

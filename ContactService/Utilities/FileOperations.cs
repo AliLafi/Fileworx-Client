@@ -1,6 +1,4 @@
-﻿using FileworxObjects.DTOs;
-
-namespace WorkerService1.Utilities
+﻿namespace WorkerService1.Utilities
 {
     public class FileOperations
     {
@@ -9,7 +7,7 @@ namespace WorkerService1.Utilities
         {
             if(Directory.Exists(path))
             {
-                List<string> result = new List<string>();   
+                List<string> result = new();   
                 DirectoryInfo contactDirectory = new(path);
                 foreach (var file in contactDirectory.EnumerateFiles())
                 {
@@ -24,7 +22,7 @@ namespace WorkerService1.Utilities
             return new List<string>();
         }
 
-        public static void WriteToFile(string path, string content)
+        public static string WriteToFile(string path, string content)
         {
             if (Directory.Exists(path))
             {
@@ -33,7 +31,9 @@ namespace WorkerService1.Utilities
                 {
                     sw.WriteLine(content);
                 }
+                return pathToSave;
             }
+            return string.Empty;
         }
 
         public static string CopyPhoto(string path, string photoPath)

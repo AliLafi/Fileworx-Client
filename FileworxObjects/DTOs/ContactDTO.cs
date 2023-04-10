@@ -1,32 +1,55 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace FileworxObjects.DTOs
 {
     public  class ContactDTO : BusinessObjectDTO
     {
-        public string SendPath { get; set; }
-        public string ReceivePath { get; set; }
-        public DateTime LastReceptionDate { get; set; }
-        public bool IsRead { get; set; }
-        public bool IsWrite { get; set; }
+        public string SendFilePath { get; set; }
+        public string ReceiveFilePath { get; set; }
+        public DateTime LastFileReceptionDate { get; set; }
+        public bool IsReadFile { get; set; }
+        public bool IsWriteFile { get; set; }
+        public bool IsReadFtp { get; set; }
+        public bool IsWriteFtp { get; set; }
+        public string SendFtpPath { get; set; }
+        public string ReceiveFtpPath { get; set; }
+        public DateTime LastFtpReceptionDate { get; set; }
+        public string Host { get; set; }
+        public string Password { get; set; }
+        public string Username { get; set; }
 
-        public ContactDTO(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(id, lastModifier, creator, name, description, created, lastModified, 4)
+        public ContactDTO(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp,string host,string username,string password, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(id, lastModifier, creator, name, description, created, lastModified, 4)
         {
-            LastReceptionDate = lastReceptionDate;
-            IsRead = isRead;
-            IsWrite = isWrite;
-            SendPath = send;
-            ReceivePath = recieve;
+            Host = host;
+            Username = username;
+            Password = password;
+            LastFileReceptionDate = lastReceptionDate;
+            IsReadFile = isRead;
+            IsWriteFile = isWrite;
+            SendFilePath = send;
+            ReceiveFilePath = recieve;
+            IsReadFtp= isReadFtp;
+            IsWriteFtp = isWriteFtp;
+            SendFtpPath= sendFtp;
+            ReceiveFtpPath= recieveFtp;
+            LastFtpReceptionDate= lastReceptionDateFtp;
         }
 
-        public ContactDTO(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
+        public ContactDTO(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp,string host,string username ,string password, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
         {
-            IsRead = isRead;
-            IsWrite = isWrite;
-            SendPath = send;
-            ReceivePath = recieve;
-            LastReceptionDate = lastReceptionDate;
+            Host = host;
+            Username = username;
+            Password = password;
+            IsReadFile = isRead;
+            IsWriteFile = isWrite;
+            SendFilePath = send;
+            ReceiveFilePath = recieve;
+            LastFileReceptionDate = lastReceptionDate;
+            IsReadFtp = isReadFtp;
+            IsWriteFtp = isWriteFtp;
+            SendFtpPath = sendFtp;
+            ReceiveFtpPath = recieveFtp;
+            LastFtpReceptionDate = lastReceptionDateFtp;
 
         }
 
