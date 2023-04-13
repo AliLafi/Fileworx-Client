@@ -23,10 +23,8 @@
         </div>
     </div>
     <div class="mb-3">
+        @Html.CheckBoxFor(m=>m.IsReadFile,new {onclick = "checkFileReceive()"})
         @Html.Label("IsReadFile","File Reception")
-
-        <input type="checkbox" id="IsReadFile" name="IsReadFile" class="form-check" onclick="checkFileReceive()" />
-
     </div>
     <div class="mb-3">
 
@@ -40,8 +38,8 @@
         }
     </div>
     <div class="mb-3">
+        @Html.CheckBoxFor(m=>m.IsWriteFile,new {onclick = "checkFileSend()"})
         @Html.Label("IsWriteFile","File Transmission")
-        <input type="checkbox" id="IsWriteFile" name="IsWriteFile" class="form-check" onclick="checkFileSend()" />
 
     </div>
     <div class="mb-3">
@@ -56,8 +54,8 @@
     </div>
 
     <div class="mb-3">
+       @Html.CheckBoxFor(m=>m.IsWriteTelegram,new {onclick = "checkTelegramSend()"})
         @Html.Label("IsWriteTelegram","Telegram Transmission")
-        <input type="checkbox" id="IsWriteTelegram" name="IsWriteTelegram" class="form-check" onclick="checkTelegramSend()" />
 
     </div>
         <div class="mb-3">
@@ -72,9 +70,8 @@
     </div>
 
     <div class="mb-3">
+        @Html.CheckBoxFor(m=>m.IsReadFtp,new {onclick = "checkFtpReceive()"})
         @Html.Label("IsReadFtp","Ftp Reception")
-
-        <input type="checkbox" id="IsReadFtp" name="IsReadFtp" class="form-check" onclick="checkFtpReceive()" />
 
     </div>
     <div class="mb-3">
@@ -88,9 +85,8 @@
         }
     </div>
     <div class="mb-3">
+        @Html.CheckBoxFor(m=>m.IsWriteFtp,new {onclick = "checkFtpSend()"})
         @Html.Label("IsWriteFtp","Ftp Transmission")
-        <input type="checkbox" id="IsWriteFtp" name="IsWriteFtp" class="form-check" onclick="checkFtpSend()" />
-
     </div>
     <div class="mb-3">
         @if (Model.IsWriteFtp)

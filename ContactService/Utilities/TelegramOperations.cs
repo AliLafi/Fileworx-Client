@@ -51,8 +51,10 @@ namespace ContactService.Utilities
             {
                 if (update.Message?.Chat.Username == username)
                     chatId = update.Message.Chat.Id.ToString(); 
+                if(update.Message?.Chat.Title == username)
+                    chatId = update.Message.Chat.Id.ToString();
             }
-        return chatId;
+            return chatId;
         }
 
         private static string CreateNewsMessage(News news)
