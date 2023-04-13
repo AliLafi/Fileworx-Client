@@ -25,9 +25,14 @@ namespace WorkerService1.Contollers
 
             if(contact.IsWriteFtp)
             {
-                FtpClient con = new FtpClient(contact.Host,contact.Username,contact.Password);
+                FtpClient con = new(contact.Host,contact.Username,contact.Password);
                 FtpOperations.WriteToFtp(con,contact.SendFtpPath,newsToSave.ToString());
             }
+            if (contact.IsWriteTelegram)
+            {
+                await TelegramOperations.SendNews(contact.TelegramUsername, newsToSave);
+            }
+           
             return "success";
         }
 
@@ -36,7 +41,20 @@ namespace WorkerService1.Contollers
         {
             Photo photoToSave = await apiRequests.GetByID<Photo>("photos", photoId);
             Contact contact = await apiRequests.GetByID<Contact>("contact", contactId);
-            FileOperations.WriteToFile(contact.SendFilePath, photoToSave.ToString());
+            if(contact.IsWriteFile)
+            {
+                FileOperations.WriteToFile(contact.SendFilePath, photoToSave.ToString());
+            }
+            if (contact.IsWriteFtp)
+            {
+                FtpClient con = new(contact.Host,contact.Username,contact.Password);
+                FtpOperations.WriteToFtp(con,contact.SendFtpPath,photoToSave.ToString());
+            }
+            if (contact.IsWriteTelegram)
+            {
+                await TelegramOperations.SendPhoto(contact.TelegramUsername, photoToSave);
+            }
+            
             return "success";
         }
     }

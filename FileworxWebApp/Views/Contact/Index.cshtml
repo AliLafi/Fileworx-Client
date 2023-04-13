@@ -36,6 +36,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsWriteFtp)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsWriteTelegram)
+            </th>
 
         </tr>
     </thead>
@@ -66,7 +69,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.IsWriteFtp)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsWriteTelegram)
+                </td>
                 <td>
                     <a class="btn btn-primary" role="button" href="Contact/Edit/@item.ID">
                         <i class="bi bi-pencil-square"></i>

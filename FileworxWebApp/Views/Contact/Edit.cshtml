@@ -56,6 +56,22 @@
     </div>
 
     <div class="mb-3">
+        @Html.Label("IsWriteTelegram","Telegram Transmission")
+        <input type="checkbox" id="IsWriteTelegram" name="IsWriteTelegram" class="form-check" onclick="checkTelegramSend()" />
+
+    </div>
+        <div class="mb-3">
+        @if (Model.IsWriteTelegram)
+        {
+            @Html.EditorFor(m=>m.TelegramUsername,new {  htmlAttributes = new {@class = "form-control" }})
+        }
+        else
+        {
+            @Html.EditorFor(m=>m.TelegramUsername,new {  htmlAttributes = new {@class = "form-control",type="hidden" }})
+        }
+    </div>
+
+    <div class="mb-3">
         @Html.Label("IsReadFtp","Ftp Reception")
 
         <input type="checkbox" id="IsReadFtp" name="IsReadFtp" class="form-check" onclick="checkFtpReceive()" />

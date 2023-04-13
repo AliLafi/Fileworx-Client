@@ -44,28 +44,8 @@ namespace FileworxWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ContactModel contact)
         {
-            if (!contact.IsWriteFile)
-            {
-                contact.SendFilePath = "";
-            }
-            if (!contact.IsReadFile)
-            {
-                contact.ReceiveFilePath = "";
-            }
-            if (!contact.IsWriteFtp)
-            {
-                contact.SendFtpPath = "";
-            }
-            if (!contact.IsReadFtp)
-            {
-                contact.ReceiveFtpPath = "";
-            }
-            if (!contact.IsReadFtp && !contact.IsWriteFtp)
-            {
-                contact.Host = "";
-                contact.Username = "";
-                contact.Password = "";
-            }
+            CheckBooleans(contact);
+
             if (ModelState.IsValid)
             {
                 ContactDTO contactToSave = ContactMapper.ContactToDto(contact);
@@ -89,6 +69,19 @@ namespace FileworxWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ContactModel contact)
         {
+            CheckBooleans(contact);
+
+            if (ModelState.IsValid)
+            {
+                ContactDTO contactDTO = ContactMapper.ContactToDto(contact);
+                await req.Update("Contact", contactDTO);
+            }
+
+            return RedirectToAction("Index", "Contact");
+        }
+
+        private static void CheckBooleans(ContactModel contact)
+        {
             if (!contact.IsWriteFile)
             {
                 contact.SendFilePath = "";
@@ -97,7 +90,7 @@ namespace FileworxWebApp.Controllers
             {
                 contact.ReceiveFilePath = "";
             }
-            if(!contact.IsWriteFtp)
+            if (!contact.IsWriteFtp)
             {
                 contact.SendFtpPath = "";
             }
@@ -105,19 +98,16 @@ namespace FileworxWebApp.Controllers
             {
                 contact.ReceiveFtpPath = "";
             }
-            if(!contact.IsReadFtp && !contact.IsWriteFtp)
+            if (!contact.IsWriteTelegram)
+            {
+                contact.TelegramUsername = "";
+            }
+            if (!contact.IsReadFtp && !contact.IsWriteFtp)
             {
                 contact.Host = "";
                 contact.Username = "";
                 contact.Password = "";
             }
-            if (ModelState.IsValid)
-            {
-                ContactDTO contactDTO = ContactMapper.ContactToDto(contact);
-                await req.Update("Contact", contactDTO);
-            }
-
-            return RedirectToAction("Index", "Contact");
         }
 
         public async Task<ActionResult> Delete(int id)

@@ -23,7 +23,9 @@ namespace FileworxObjects.Objects.Contact
                     $"C_last_ftp_reception_date = \'{LastFtpReceptionDate}\'," +
                     $"C_host = \'{Host}\'," +
                     $"C_password = \'{Password}\'," +
-                    $"C_username = \'{Username}\'" +
+                    $"C_username = \'{Username}\'," +
+                    $"C_is_write_telegram = \'{IsWriteTelegram}\'," +
+                    $"C_telegram_username = \'{TelegramUsername}\'" +
                     $" WHERE ID = \'{ID}\'; ";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
@@ -31,8 +33,8 @@ namespace FileworxObjects.Objects.Contact
             else
             {
                 base.DBUpdate();
-                q = $"INSERT INTO dbo.T_Contact (ID,C_receive_file_path,C_send_file_path,C_last_file_reception_date,C_is_read_file,C_is_write_file,C_receive_ftp_path,C_send_ftp_path,C_last_ftp_reception_date,C_is_read_ftp,C_is_write_ftp,C_host,C_username,C_password)" +
-                    $" VALUES(\'{ID}\',\'{ReceiveFilePath}\',\'{SendFilePath}\',\'{LastFileReceptionDate}\',\'{IsReadFile}\',\'{IsWriteFile}\',\'{ReceiveFtpPath}\',\'{SendFtpPath}\',\'{LastFtpReceptionDate}\',\'{IsReadFtp}\',\'{IsWriteFtp}\',\'{Host}\',\'{Username}\',\'{Password}\');";
+                q = $"INSERT INTO dbo.T_Contact (ID,C_receive_file_path,C_send_file_path,C_last_file_reception_date,C_is_read_file,C_is_write_file,C_receive_ftp_path,C_send_ftp_path,C_last_ftp_reception_date,C_is_read_ftp,C_is_write_ftp,C_host,C_username,C_password,C_is_write_telegram,C_telegram_username)" +
+                    $" VALUES(\'{ID}\',\'{ReceiveFilePath}\',\'{SendFilePath}\',\'{LastFileReceptionDate}\',\'{IsReadFile}\',\'{IsWriteFile}\',\'{ReceiveFtpPath}\',\'{SendFtpPath}\',\'{LastFtpReceptionDate}\',\'{IsReadFtp}\',\'{IsWriteFtp}\',\'{Host}\',\'{Username}\',\'{Password}\',\'{IsWriteTelegram}\',\'{TelegramUsername}\');";
                 cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -72,11 +74,13 @@ namespace FileworxObjects.Objects.Contact
                 IsReadFile = bool.Parse(r["C_is_read_file"].ToString());
                 IsWriteFtp = bool.Parse(r["C_is_write_ftp"].ToString());
                 IsReadFtp = bool.Parse(r["C_is_read_ftp"].ToString());
+                IsWriteTelegram = bool.Parse(r["C_is_write_telegram"].ToString());
                 LastFileReceptionDate = DateTime.Parse(r["C_last_file_reception_date"].ToString());
                 LastFtpReceptionDate = DateTime.Parse(r["C_last_ftp_reception_date"].ToString());
                 Host = r["C_host"].ToString();
                 Username = r["C_username"].ToString();
                 Password = r["C_password"].ToString();
+                TelegramUsername = r["C_telegram_username"].ToString();
                 ID = int.Parse(r["ID"].ToString());
             }
 

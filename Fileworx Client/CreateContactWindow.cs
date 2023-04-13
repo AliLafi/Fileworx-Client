@@ -37,6 +37,7 @@ namespace Fileworx_Client
                 checkWriteFile.Checked = contact.IsWriteFile;
                 checkReadFtp.Checked = contact.IsReadFtp;
                 checkWriteFtp.Checked = contact.IsWriteFtp;
+                checkWriteTelegram.Checked = contact.IsWriteTelegram;
                 lblRead.Text = contact.ReceiveFilePath;
                 lblWrite.Text = contact.SendFilePath;
                 txtPassword.Text = contact.Password;
@@ -44,6 +45,7 @@ namespace Fileworx_Client
                 txtHost.Text = contact.Host;
                 txtReadFtp.Text = contact.ReceiveFtpPath;
                 txtWriteFtp.Text = contact.SendFtpPath;
+                txtUsernameTelegram.Text = contact.TelegramUsername;
 
                 if (checkReadFile.Checked || checkWriteFile.Checked || checkReadFtp.Checked || checkWriteFtp.Checked)
                 {
@@ -105,9 +107,22 @@ namespace Fileworx_Client
             }
             CheckBoxes();
         }
+        private void CheckWriteTelegram_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkWriteTelegram.Checked)
+            {
+                txtUsernameTelegram.Enabled = true;
+            }
+            else
+            {
+                txtUsernameTelegram.Enabled = false;
+            }
+            CheckBoxes();
+        }
+
         private void CheckBoxes()
         {
-            if (!(!string.IsNullOrEmpty(lblWriteFile.Text)|| !string.IsNullOrEmpty(lblReadFile.Text)|| checkWriteFtp.Checked || checkReadFtp.Checked))
+            if (!(!string.IsNullOrEmpty(lblWriteFile.Text)|| !string.IsNullOrEmpty(lblReadFile.Text)|| checkWriteFtp.Checked || checkReadFtp.Checked || checkWriteTelegram.Checked))
             {
                 btnSave.Enabled = false;
             }
@@ -154,7 +169,7 @@ namespace Fileworx_Client
         {
             if (contact is null)
             {
-                ContactDTO contactDTO = new ContactDTO(checkReadFile.Checked, checkWriteFile.Checked, lblWrite.Text, lblRead.Text, DateTime.Now,checkWriteFtp.Checked,checkReadFtp.Checked,txtWriteFtp.Text,txtReadFtp.Text,DateTime.Now,txtHost.Text,txtUsername.Text,txtPassword.Text, main.modifier, main.modifier, txtName.Text, txtDescription.Text, DateTime.Now, DateTime.Now); ;
+                ContactDTO contactDTO = new ContactDTO(checkReadFile.Checked, checkWriteFile.Checked, lblWrite.Text, lblRead.Text, DateTime.Now,checkWriteFtp.Checked,checkReadFtp.Checked,txtWriteFtp.Text,txtReadFtp.Text,DateTime.Now,txtHost.Text,txtUsername.Text,txtPassword.Text, checkWriteTelegram.Checked, txtUsernameTelegram.Text, main.modifier, main.modifier, txtName.Text, txtDescription.Text, DateTime.Now, DateTime.Now); ;
                 await apiRequests.Create("contact", contactDTO);
             }
             else
@@ -184,11 +199,13 @@ namespace Fileworx_Client
             contact.ReceiveFtpPath= txtReadFtp.Text;
             contact.IsReadFtp= checkReadFtp.Checked;
             contact.IsWriteFtp= checkWriteFtp.Checked;
+            contact.IsWriteTelegram = checkWriteTelegram.Checked;
+            contact.TelegramUsername = txtUsernameTelegram.Text;
         }
 
         private bool IsEmpty()
         {
-            return ((string.IsNullOrEmpty(lblRead.Text) && string.IsNullOrEmpty(lblWrite.Text) && string.IsNullOrEmpty(txtWriteFtp.Text)&&string.IsNullOrEmpty(txtReadFtp.Text)) || string.IsNullOrEmpty(txtDescription.Text) || string.IsNullOrEmpty(txtName.Text));
+            return ((string.IsNullOrEmpty(lblRead.Text) && string.IsNullOrEmpty(lblWrite.Text) && string.IsNullOrEmpty(txtWriteFtp.Text)&&string.IsNullOrEmpty(txtReadFtp.Text) && string.IsNullOrEmpty(txtUsernameTelegram.Text)) || string.IsNullOrEmpty(txtDescription.Text) || string.IsNullOrEmpty(txtName.Text));
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

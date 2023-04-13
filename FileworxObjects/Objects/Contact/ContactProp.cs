@@ -11,15 +11,17 @@ namespace FileworxObjects.Objects.Contact
         public bool IsWriteFile { get; set; }
         public bool IsReadFtp { get; set; }
         public bool IsWriteFtp { get; set; }
+        public bool IsWriteTelegram { get; set; }
         public string SendFtpPath { get; set; }
         public string ReceiveFtpPath { get; set; }
         public DateTime LastFtpReceptionDate { get; set; }
         public string Host { get; set; }    
         public string Password { get; set; }
         public string Username { get; set; }
+        public string TelegramUsername { get; set; }
 
 
-        public Contact(bool isRead,bool isWrite,string send,string recieve ,DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host,string username,string password,int id , int lastModifier , int creator , string name , string description , DateTime created , DateTime lastModified ) : base(id,lastModifier,creator,name , description,created , lastModified , 4)
+        public Contact(bool isRead,bool isWrite,string send,string recieve ,DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host,string username,string password,bool isWriteTelegram, string telegramUsername,int id , int lastModifier , int creator , string name , string description , DateTime created , DateTime lastModified ) : base(id,lastModifier,creator,name , description,created , lastModified , 4)
         {
             Host = host;
             Password= password;
@@ -30,6 +32,8 @@ namespace FileworxObjects.Objects.Contact
             IsWriteFile= isWrite;
             IsReadFtp = isReadFtp;
             IsWriteFtp = isWriteFtp;
+            IsWriteTelegram= isWriteTelegram;
+            TelegramUsername = telegramUsername;
 
             if (IsReadFile)
             {
@@ -65,7 +69,7 @@ namespace FileworxObjects.Objects.Contact
             }
         }
 
-        public Contact(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host, string username, string password, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
+        public Contact(bool isRead, bool isWrite, string send, string recieve, DateTime lastReceptionDate, bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host, string username, string password, bool isWriteTelegram, string telegramUsername, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) : base(lastModifier, creator, name, description, created, lastModified, 4)
         {
             Host = host;
             Password = password;
@@ -76,6 +80,8 @@ namespace FileworxObjects.Objects.Contact
             IsWriteFile = isWrite;
             IsReadFtp = isReadFtp;
             IsWriteFtp = isWriteFtp;
+            IsWriteTelegram= isWriteTelegram;
+            TelegramUsername = telegramUsername;
 
             if (isRead)
             {

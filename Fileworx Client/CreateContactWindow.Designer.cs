@@ -37,7 +37,7 @@
             this.lblWrite = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabTelegram = new System.Windows.Forms.TabControl();
             this.tabFile = new System.Windows.Forms.TabPage();
             this.lblWriteFile = new System.Windows.Forms.Label();
             this.btnWriteFile = new System.Windows.Forms.Button();
@@ -56,9 +56,14 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtHost = new System.Windows.Forms.TextBox();
-            this.tabControl.SuspendLayout();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblTelegramUsername = new System.Windows.Forms.Label();
+            this.txtUsernameTelegram = new System.Windows.Forms.TextBox();
+            this.checkWriteTelegram = new System.Windows.Forms.CheckBox();
+            this.tabTelegram.SuspendLayout();
             this.tabFile.SuspendLayout();
             this.tabFtp.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -138,15 +143,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // tabControl
+            // tabTelegram
             // 
-            this.tabControl.Controls.Add(this.tabFile);
-            this.tabControl.Controls.Add(this.tabFtp);
-            this.tabControl.Location = new System.Drawing.Point(13, 122);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(775, 256);
-            this.tabControl.TabIndex = 14;
+            this.tabTelegram.Controls.Add(this.tabFile);
+            this.tabTelegram.Controls.Add(this.tabFtp);
+            this.tabTelegram.Controls.Add(this.tabPage1);
+            this.tabTelegram.Location = new System.Drawing.Point(13, 122);
+            this.tabTelegram.Name = "tabTelegram";
+            this.tabTelegram.SelectedIndex = 0;
+            this.tabTelegram.Size = new System.Drawing.Size(775, 256);
+            this.tabTelegram.TabIndex = 14;
             // 
             // tabFile
             // 
@@ -341,12 +347,56 @@
             this.txtHost.Size = new System.Drawing.Size(623, 21);
             this.txtHost.TabIndex = 0;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.lblTelegramUsername);
+            this.tabPage1.Controls.Add(this.txtUsernameTelegram);
+            this.tabPage1.Controls.Add(this.checkWriteTelegram);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(767, 230);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Telegram";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblTelegramUsername
+            // 
+            this.lblTelegramUsername.AutoSize = true;
+            this.lblTelegramUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTelegramUsername.Location = new System.Drawing.Point(6, 75);
+            this.lblTelegramUsername.Name = "lblTelegramUsername";
+            this.lblTelegramUsername.Size = new System.Drawing.Size(170, 20);
+            this.lblTelegramUsername.TabIndex = 2;
+            this.lblTelegramUsername.Text = "Telegram Username";
+            // 
+            // txtUsernameTelegram
+            // 
+            this.txtUsernameTelegram.Enabled = false;
+            this.txtUsernameTelegram.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsernameTelegram.Location = new System.Drawing.Point(186, 69);
+            this.txtUsernameTelegram.Name = "txtUsernameTelegram";
+            this.txtUsernameTelegram.Size = new System.Drawing.Size(575, 26);
+            this.txtUsernameTelegram.TabIndex = 1;
+            // 
+            // checkWriteTelegram
+            // 
+            this.checkWriteTelegram.AutoSize = true;
+            this.checkWriteTelegram.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkWriteTelegram.Location = new System.Drawing.Point(6, 19);
+            this.checkWriteTelegram.Name = "checkWriteTelegram";
+            this.checkWriteTelegram.Size = new System.Drawing.Size(138, 24);
+            this.checkWriteTelegram.TabIndex = 0;
+            this.checkWriteTelegram.Text = "Transmission ";
+            this.checkWriteTelegram.UseVisualStyleBackColor = true;
+            this.checkWriteTelegram.CheckedChanged += new System.EventHandler(this.CheckWriteTelegram_CheckedChanged);
+            // 
             // CreateContactWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.tabTelegram);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblWrite);
@@ -357,11 +407,13 @@
             this.Controls.Add(this.lblName);
             this.Name = "CreateContactWindow";
             this.Text = "CreateContact";
-            this.tabControl.ResumeLayout(false);
+            this.tabTelegram.ResumeLayout(false);
             this.tabFile.ResumeLayout(false);
             this.tabFile.PerformLayout();
             this.tabFtp.ResumeLayout(false);
             this.tabFtp.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,7 +430,7 @@
         private System.Windows.Forms.Label lblWrite;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabControl tabTelegram;
         private System.Windows.Forms.TabPage tabFile;
         private System.Windows.Forms.TabPage tabFtp;
         private System.Windows.Forms.Label lblWriteFile;
@@ -397,5 +449,9 @@
         private System.Windows.Forms.TextBox txtReadFtp;
         private System.Windows.Forms.CheckBox checkWriteFtp;
         private System.Windows.Forms.CheckBox checkReadFtp;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label lblTelegramUsername;
+        private System.Windows.Forms.TextBox txtUsernameTelegram;
+        private System.Windows.Forms.CheckBox checkWriteTelegram;
     }
 }

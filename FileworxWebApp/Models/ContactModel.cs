@@ -43,12 +43,15 @@ namespace FileworxWebApp.Models
         public bool IsReadFtp { get; set; }
         [DisplayName("Ftp Reception")]
         public bool IsWriteFtp { get; set; }
+        [DisplayName("Telegram Reception")]
+        public bool IsWriteTelegram { get; set; }
         public string? Host { get; set; }
         public string? Password { get; set; }
         public string? Username { get; set; }
+        [DisplayName("Telegram Username")]
+        public string? TelegramUsername { get; set; }
 
-
-        public ContactModel(bool isRead , bool isWrite, string send, string recieve, DateTime lastReceptionDate,  bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host,string username,string password,int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) 
+        public ContactModel(bool isRead , bool isWrite, string send, string recieve, DateTime lastReceptionDate,  bool isWriteFtp, bool isReadFtp, string sendFtp, string recieveFtp, DateTime lastReceptionDateFtp, string host,string username,string password, bool isWriteTelegram, string telegramUsername, int id, int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified) 
         {
             Host = host;
             Password= password;
@@ -64,11 +67,13 @@ namespace FileworxWebApp.Models
             LastModified = lastModified;
             LastFileReceptionDate = lastReceptionDate;
             LastFtpReceptionDate = lastReceptionDateFtp;
+            TelegramUsername= telegramUsername;
 
             IsWriteFile = isWrite;
             IsReadFile = isRead;
             IsWriteFtp = isWriteFtp;   
             IsReadFtp = isReadFtp;
+            IsWriteTelegram = isWriteTelegram;
 
             ReceiveFilePath = recieve;
             SendFilePath = send;

@@ -28,8 +28,9 @@ function checkBtn() {
     var checkBoxWrite = document.getElementById("IsWriteFile");
     var checkBoxReadFtp = document.getElementById("IsReadFtp");
     var checkBoxWriteFtp = document.getElementById("IsWriteFtp");
+    var checkBoxWriteTelegram = document.getElementById("IsWriteTelegram");
     var submitBtn = document.getElementById("ContactBtn")
-    if (checkBoxRead.checked == true || checkBoxWrite.checked == true || checkBoxReadFtp.checked == true || checkBoxWriteFtp.checked == true) {
+    if (checkBoxRead.checked == true || checkBoxWrite.checked == true || checkBoxReadFtp.checked == true || checkBoxWriteFtp.checked == true || checkBoxWriteTelegram.checked == true) {
         submitBtn.removeAttribute("disabled");
     }
     else {
@@ -97,6 +98,21 @@ function checkFileSend() {
     }
 }
 
+function checkTelegramSend() {
+    checkBtn();
+    var checkBox = document.getElementById("IsWriteTelegram");
+    var userBox = document.getElementById("TelegramUsername");
+    if (checkBox.checked == true) {
+        userBox.type = "text";
+        checkBox.value = true;
+        userBox.setAttribute("required", "required");
+    }
+    else {
+        userBox.type = "hidden";
+        checkBox.value = false;
+        userBox.setAttribute("required", "");
+    }
+}
 
 function checkFtpReceive() {
     checkBtn();

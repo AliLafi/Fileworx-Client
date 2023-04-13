@@ -97,6 +97,25 @@
                 @Html.DisplayFor(model => model.SendFilePath)
             </dd>
         }
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsWriteTelegram)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsWriteTelegram)
+        </dd>
+        @if (Model.IsWriteTelegram)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TelegramUsername)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TelegramUsername)
+            </dd>
+        }
+        
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsReadFtp)
         </dt>
@@ -129,6 +148,7 @@
                 @Html.DisplayFor(model => model.SendFtpPath)
             </dd>
         }
+        
 
         @if(Model.IsReadFtp || Model.IsWriteFtp)
         {
