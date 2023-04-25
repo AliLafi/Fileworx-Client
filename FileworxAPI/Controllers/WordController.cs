@@ -34,7 +34,7 @@ namespace FileworxAPI.Controllers
         [HttpPost("/Word/Photo/{id}")]
         public ActionResult? SavePhotoWord(int id)
         {
-            Photo photo= new()
+            Photo photo = new()
             {
                 ID = id
             };
@@ -67,7 +67,7 @@ namespace FileworxAPI.Controllers
             {
                 return null;
             }
-            
+
         }
 
         [HttpPost("Word/Photo/List")]

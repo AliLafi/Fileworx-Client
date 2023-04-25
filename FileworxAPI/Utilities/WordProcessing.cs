@@ -1,7 +1,11 @@
 ﻿using FileworxObjects.Objects;
-using Syncfusion.DocIO.DLS;
-using Syncfusion.DocIO;
 
+using Telerik.Windows.Documents.Flow.Model;
+using Telerik.Windows.Documents.Flow.FormatProviders.Docx;
+using Telerik.Documents.Core.Fonts;
+using Telerik.Windows.Documents.Flow.Model.Shapes;
+using Telerik.Windows.Documents.Fixed.Model.Resources;
+using Telerik.Windows.Documents.Flow.Model.Styles;
 
 namespace FileworxAPI.Utilities
 {
@@ -11,105 +15,164 @@ namespace FileworxAPI.Utilities
 
         public static Stream SaveNews(News news)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NRAiBiAaIQQuGjN/V0d+XU9Hc1RHQmJOYVF2R2BJelRycl9CaUwgOX1dQl9gSXpSfkVgXHZcd3VRRmI=");
-            WordDocument document = new WordDocument();
-            IWSection section = document.AddSection();
-            IWParagraph firstParagraph = section.AddParagraph();
-            firstParagraph.AppendText(news.Name);
-            firstParagraph.ApplyStyle(BuiltinStyle.Heading1);
+            RadFlowDocument document = new RadFlowDocument();
+            Section section = new Section(document);
+            document.Sections.Add(section);
 
-            IWParagraph secondParagraph = section.AddParagraph();
-            secondParagraph.AppendText(news.Body);
-            secondParagraph.ApplyStyle(BuiltinStyle.BodyText);
+            Paragraph firstParagraph = new Paragraph(document);
+            section.Blocks.Add(firstParagraph);
+
+            Run name = new Run(document);
+            name.Text = news.Name;
+            name.FontSize = 50;
+            firstParagraph.Inlines.Add(name);
+
+            Paragraph secondParagraph = new Paragraph(document);
+            section.Blocks.Add(secondParagraph);
+
+            Run body = new Run(document);
+            body.Text = news.Body;
+            body.FontSize = 30;
+            secondParagraph.Inlines.Add(body);
 
             return SaveDocument(document);
-            
+
         }
 
         public static Stream SavePhoto(Photo photo)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NRAiBiAaIQQuGjN/V0d+XU9Hc1RHQmJOYVF2R2BJelRycl9CaUwgOX1dQl9gSXpSfkVgXHZcd3VRRmI=");
-            WordDocument document = new WordDocument();
-            IWSection section = document.AddSection();
-            IWParagraph firstParagraph = section.AddParagraph();
-            firstParagraph.AppendText(photo.Name);
-            firstParagraph.ApplyStyle(BuiltinStyle.Heading1);
+            RadFlowDocument document = new RadFlowDocument();
+            Section section = new Section(document);
+            document.Sections.Add(section);
 
-            IWParagraph secondParagraph = section.AddParagraph();
-            secondParagraph.AppendText(photo.Body);
-            secondParagraph.ApplyStyle(BuiltinStyle.BodyText);
-            
+            Paragraph firstParagraph = new Paragraph(document);
+            section.Blocks.Add(firstParagraph);
+
+            Run name = new Run(document);
+            name.Text = photo.Name;
+            name.FontSize = 50;
+            firstParagraph.Inlines.Add(name);
+
+            Paragraph secondParagraph = new Paragraph(document);
+            section.Blocks.Add(secondParagraph);
+
+            Run body = new Run(document);
+            body.Text = photo.Body;
+            body.FontSize = 30;
+            secondParagraph.Inlines.Add(body);
+
+            Paragraph imageParagraph = new Paragraph(document);
+            section.Blocks.Add(imageParagraph);
             try
             {
-                IWParagraph photoParagraph = section.AddParagraph();
-                FileStream imageStream = new FileStream(Path.Join(SharedFolder, photo.ImagePath), FileMode.Open, FileAccess.ReadWrite);
-                photoParagraph.AppendPicture(imageStream);
+                ImageInline imageInline = new ImageInline(document);
+
+                byte[] data = File.ReadAllBytes(photo.ImagePath);
+                string extension = Path.GetExtension(photo.ImagePath);
+                imageInline.Image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(data, extension);
+                imageInline.Image.SetWidth(true, 400);
+                imageInline.Image.SetHeight(false, 400);
+
+                imageParagraph.Inlines.Insert(0, imageInline);
             }
             catch
             {
 
             }
 
-            return SaveDocument( document);    
+            return SaveDocument(document);
         }
 
         public static Stream ExportNewsList(List<News> news)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NRAiBiAaIQQuGjN/V0d+XU9Hc1RHQmJOYVF2R2BJelRycl9CaUwgOX1dQl9gSXpSfkVgXHZcd3VRRmI=");
-            WordDocument document = new WordDocument();
-            IWSection section = document.AddSection();
-
-            IWTable table = section.AddTable();
-            table.ResetCells(news.Count + 1, 4);
+            RadFlowDocument document = new RadFlowDocument();
+            Section section = new Section(document);
+            document.Sections.Add(section);
 
 
-            table.Rows[0].Cells[0].AddParagraph().AppendText("ID");
-            table.Rows[0].Cells[1].AddParagraph().AppendText("Title");
-            table.Rows[0].Cells[2].AddParagraph().AppendText("Category");
-            table.Rows[0].Cells[3].AddParagraph().AppendText("Description");
+            Table table = new Table(document);
+            section.Blocks.Add(table);
+            document.StyleRepository.AddBuiltInStyle(BuiltInStyleNames.TableGridStyleId);
+            table.StyleId = BuiltInStyleNames.TableGridStyleId;
 
-            for (int i = 1; i <= news.Count; i++)
+            TableRow row = table.Rows.AddTableRow();
+            TableCell IdCell = row.Cells.AddTableCell();
+            IdCell.Blocks.AddParagraph().Inlines.AddRun("ID");
+            TableCell Namecell = row.Cells.AddTableCell();
+            Namecell.Blocks.AddParagraph().Inlines.AddRun("Name");
+            TableCell categoryCell = row.Cells.AddTableCell();
+            categoryCell.Blocks.AddParagraph().Inlines.AddRun("Category");
+            TableCell descriptionCell = row.Cells.AddTableCell();
+            descriptionCell.Blocks.AddParagraph().Inlines.AddRun("Description");
+            for (int i = 0; i < news.Count; i++)
             {
-                table.Rows[i].Cells[0].AddParagraph().AppendText(news.ElementAt(i-1).ID.ToString());
-                table.Rows[i].Cells[1].AddParagraph().AppendText(news.ElementAt(i-1).Name);
-                table.Rows[i].Cells[2].AddParagraph().AppendText(news.ElementAt(i-1).Category);
-                table.Rows[i].Cells[3].AddParagraph().AppendText(news.ElementAt(i - 1).Description);
-            }
-           return SaveDocument( document);
-        }
+                row = table.Rows.AddTableRow();
 
+
+                IdCell = row.Cells.AddTableCell();
+                IdCell.Blocks.AddParagraph().Inlines.AddRun(news[i].ID.ToString());
+
+                Namecell = row.Cells.AddTableCell();
+                Namecell.Blocks.AddParagraph().Inlines.AddRun(news[i].Name);
+
+                categoryCell = row.Cells.AddTableCell();
+                categoryCell.Blocks.AddParagraph().Inlines.AddRun(news[i].Category);
+
+                descriptionCell = row.Cells.AddTableCell();
+                descriptionCell.Blocks.AddParagraph().Inlines.AddRun(news[i].Description);
+
+            }
+            return SaveDocument(document);
+        }
         public static Stream ExportPhotoList(List<Photo> photos)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NRAiBiAaIQQuGjN/V0d+XU9Hc1RHQmJOYVF2R2BJelRycl9CaUwgOX1dQl9gSXpSfkVgXHZcd3VRRmI=");
-            WordDocument document = new WordDocument();
-            IWSection section = document.AddSection();
-
-            IWTable table = section.AddTable();
-            table.ResetCells(photos.Count + 1, 4);
+            RadFlowDocument document = new RadFlowDocument();
+            Section section = new Section(document);
+            document.Sections.Add(section);
 
 
-            table.Rows[0].Cells[0].AddParagraph().AppendText("ID");
-            table.Rows[0].Cells[1].AddParagraph().AppendText("Title");
-            table.Rows[0].Cells[2].AddParagraph().AppendText("Image Path");
-            table.Rows[0].Cells[3].AddParagraph().AppendText("Description");
+            Table table = new Table(document);
+            section.Blocks.Add(table);
+            document.StyleRepository.AddBuiltInStyle(BuiltInStyleNames.TableGridStyleId);
+            table.StyleId = BuiltInStyleNames.TableGridStyleId;
 
-            for (int i = 1; i <= photos.Count; i++)
+            TableRow row = table.Rows.AddTableRow();
+            TableCell IdCell = row.Cells.AddTableCell();
+            IdCell.Blocks.AddParagraph().Inlines.AddRun("ID");
+            TableCell Namecell = row.Cells.AddTableCell();
+            Namecell.Blocks.AddParagraph().Inlines.AddRun("Name");
+            TableCell categoryCell = row.Cells.AddTableCell();
+            categoryCell.Blocks.AddParagraph().Inlines.AddRun("Image Path");
+            TableCell descriptionCell = row.Cells.AddTableCell();
+            descriptionCell.Blocks.AddParagraph().Inlines.AddRun("Description");
+            for (int i = 0; i < photos.Count; i++)
             {
-                table.Rows[i].Cells[0].AddParagraph().AppendText(photos.ElementAt(i - 1).ID.ToString());
-                table.Rows[i].Cells[1].AddParagraph().AppendText(photos.ElementAt(i - 1).Name);
-                table.Rows[i].Cells[2].AddParagraph().AppendText(photos.ElementAt(i - 1).ImagePath);
-                table.Rows[i].Cells[3].AddParagraph().AppendText(photos.ElementAt(i - 1).Description);
+                row = table.Rows.AddTableRow();
+
+
+                IdCell = row.Cells.AddTableCell();
+                IdCell.Blocks.AddParagraph().Inlines.AddRun(photos[i].ID.ToString());
+
+                Namecell = row.Cells.AddTableCell();
+                Namecell.Blocks.AddParagraph().Inlines.AddRun(photos[i].Name);
+
+                categoryCell = row.Cells.AddTableCell();
+                categoryCell.Blocks.AddParagraph().Inlines.AddRun(photos[i].ImagePath);
+
+                descriptionCell = row.Cells.AddTableCell();
+                descriptionCell.Blocks.AddParagraph().Inlines.AddRun(photos[i].Description);
+
             }
             return SaveDocument(document);
         }
 
-        private static Stream SaveDocument( WordDocument document)
+        private static Stream SaveDocument(RadFlowDocument document)
         {
 
             MemoryStream stream = new MemoryStream();
-            document.Save(stream, FormatType.Docx);
+            DocxFormatProvider provider = new DocxFormatProvider();
+            provider.Export(document, stream);
             stream.Position = 0;
-            document.Close();
 
             return stream;
         }
