@@ -16,7 +16,7 @@ namespace FileworxObjects.Objects
             Category = category;
         }
 
-        public News() 
+        public News() :base()
         {
         }
         public override string ToString()

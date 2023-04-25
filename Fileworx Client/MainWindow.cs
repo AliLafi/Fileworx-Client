@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Threading.Tasks;
 using FileworxObjects;
+using System.IO;
 
 namespace Fileworx_Client
 {
@@ -228,7 +229,7 @@ namespace Fileworx_Client
             listWindow.Show();
         }
 
-        private void GridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void GridView_CellContentClickAsync(object sender, DataGridViewCellEventArgs e)
         {
             selectedRow = GridView.CurrentCell.RowIndex;
 
@@ -240,6 +241,36 @@ namespace Fileworx_Client
                 TransmissionContactsWindow transmissionContactsWindow = new TransmissionContactsWindow(id,classId);
                 transmissionContactsWindow.Show();
             }
+            if (GridView.Columns[e.ColumnIndex].Name == "btnSave")
+            {
+                Stream stream;
+                if (classId == 1)
+                {
+                    stream = await req.DownloadWord(id, "News");
+
+                }
+                else
+                {
+                    stream = await req.DownloadWord(id, "Photo");
+                }
+                PathWindow pathWindow = new PathWindow(stream,txtTitle.Text);
+                pathWindow.Show();
+               
+            }
+        }
+
+        private async void NewsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Stream stream = await req.DownloadWordList("News");
+            PathWindow pathWindow = new PathWindow(stream, "NewsList");
+            pathWindow.Show();
+        }
+
+        private async void PhotosToolStripMenuItem_ClickAsync(object sender, EventArgs e)
+        {
+            Stream stream = await req.DownloadWordList("Photo");
+            PathWindow pathWindow = new PathWindow(stream, "PhotoList");
+            pathWindow.Show();
         }
     }
 }

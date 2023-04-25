@@ -18,7 +18,7 @@ namespace FileworxObjects
             Body = body;
         }
 
-        public File() 
+        public File() : base()
         {
         }
     }

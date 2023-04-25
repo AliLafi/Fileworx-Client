@@ -44,6 +44,9 @@ namespace Fileworx_Client
             this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAsWordListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.photosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.previewTab = new System.Windows.Forms.TabPage();
             this.txtBody = new System.Windows.Forms.RichTextBox();
@@ -52,6 +55,7 @@ namespace Fileworx_Client
             this.txtCategory = new System.Windows.Forms.ComboBox();
             this.txtCreated = new System.Windows.Forms.DateTimePicker();
             this.GridView = new System.Windows.Forms.DataGridView();
+            this.gridViewRowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.searchBar = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
@@ -61,13 +65,13 @@ namespace Fileworx_Client
             this.lblEnd = new System.Windows.Forms.Label();
             this.catList = new System.Windows.Forms.CheckedListBox();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.gridViewRowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.classIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSend = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnSave = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.previewTab.SuspendLayout();
@@ -132,7 +136,8 @@ namespace Fileworx_Client
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.contactsToolStripMenuItem});
+            this.contactsToolStripMenuItem,
+            this.exportAsWordListToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(904, 24);
@@ -200,6 +205,29 @@ namespace Fileworx_Client
             this.createToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.createToolStripMenuItem.Text = "Create";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
+            // 
+            // exportAsWordListToolStripMenuItem
+            // 
+            this.exportAsWordListToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newsToolStripMenuItem1,
+            this.photosToolStripMenuItem});
+            this.exportAsWordListToolStripMenuItem.Name = "exportAsWordListToolStripMenuItem";
+            this.exportAsWordListToolStripMenuItem.Size = new System.Drawing.Size(160, 20);
+            this.exportAsWordListToolStripMenuItem.Text = "Export As Word Document";
+            // 
+            // newsToolStripMenuItem1
+            // 
+            this.newsToolStripMenuItem1.Name = "newsToolStripMenuItem1";
+            this.newsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newsToolStripMenuItem1.Text = "News";
+            this.newsToolStripMenuItem1.Click += new System.EventHandler(this.NewsToolStripMenuItem1_Click);
+            // 
+            // photosToolStripMenuItem
+            // 
+            this.photosToolStripMenuItem.Name = "photosToolStripMenuItem";
+            this.photosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.photosToolStripMenuItem.Text = "Photos";
+            this.photosToolStripMenuItem.Click += new System.EventHandler(this.PhotosToolStripMenuItem_ClickAsync);
             // 
             // tabControlMain
             // 
@@ -304,16 +332,21 @@ namespace Fileworx_Client
             this.descriptionDataGridViewTextBoxColumn,
             this.createdDataGridViewTextBoxColumn,
             this.classIdDataGridViewTextBoxColumn,
-            this.btnSend});
+            this.btnSend,
+            this.btnSave});
             this.GridView.DataSource = this.gridViewRowsBindingSource;
             this.GridView.Location = new System.Drawing.Point(18, 198);
             this.GridView.Name = "GridView";
             this.GridView.ReadOnly = true;
             this.GridView.Size = new System.Drawing.Size(865, 184);
             this.GridView.TabIndex = 12;
-            this.GridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellContentClick);
+            this.GridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellContentClickAsync);
             this.GridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridView_CellDoubleClick);
             this.GridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GridView_CellMouseClick);
+            // 
+            // gridViewRowsBindingSource
+            // 
+            this.gridViewRowsBindingSource.DataSource = typeof(FileworxObjects.Objects.GridViewRows);
             // 
             // searchBar
             // 
@@ -413,10 +446,6 @@ namespace Fileworx_Client
             this.lblSearch.TabIndex = 21;
             this.lblSearch.Text = "Search Term";
             // 
-            // gridViewRowsBindingSource
-            // 
-            this.gridViewRowsBindingSource.DataSource = typeof(FileworxObjects.Objects.GridViewRows);
-            // 
             // iDDataGridViewTextBoxColumn
             // 
             this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
@@ -468,7 +497,19 @@ namespace Fileworx_Client
             this.btnSend.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.btnSend.Text = "Send";
             this.btnSend.UseColumnTextForButtonValue = true;
-            this.btnSend.Width = 94;
+            this.btnSend.Width = 85;
+            // 
+            // btnSave
+            // 
+            this.btnSave.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.HeaderText = "Save As Word Document";
+            this.btnSave.Name = "btnSave";
+            this.btnSave.ReadOnly = true;
+            this.btnSave.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseColumnTextForButtonValue = true;
+            this.btnSave.Width = 121;
             // 
             // MainWindow
             // 
@@ -547,12 +588,16 @@ namespace Fileworx_Client
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
         private System.Windows.Forms.BindingSource gridViewRowsBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem exportAsWordListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem photosToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn classIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn btnSend;
+        private System.Windows.Forms.DataGridViewButtonColumn btnSave;
     }
 }
 

@@ -42,7 +42,7 @@ namespace FileworxObjects
                     cmd = new SqlCommand(q, conn);
 
                     int t = int.Parse(cmd.ExecuteScalar().ToString());
-                    this.ID = t;
+                    ID = t;
                 }
             }
             catch(Exception ex)

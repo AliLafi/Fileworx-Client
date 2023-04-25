@@ -55,7 +55,6 @@
                     <div class="col-auto mb-3">
                         <button type="reset" class="btn btn-danger " id="btn_reset">
                             <i class="bi bi-backspace"></i>
-
                         </button>
                     </div>
 
@@ -121,6 +120,29 @@
                     </a>
                 </td>
 
+                <td>
+                    @if (file.ClassID == 1)
+                    {
+                        @using (Html.BeginForm("SaveNewsWord", "Word", FormMethod.Post))
+                        {
+
+
+                            <input type="hidden" name="id" value="@file.ID" />
+                            <input type="hidden" name="name" value="@file.Name" />
+                            <button class="btn btn-warning" type="submit">Save As Word</button>
+                        }
+                    }
+                    else
+                    {
+                        @using (Html.BeginForm("SavePhotoWord", "Word", FormMethod.Post))
+                        {
+                            <input type="hidden" name="id" value="@file.ID" />
+                            <input type="hidden" name="name" value="@file.Name" />
+                            <button class="btn btn-warning" type="submit">Save As Word</button>
+                        }
+                    }
+
+                </td>
 
             </tr>
         }

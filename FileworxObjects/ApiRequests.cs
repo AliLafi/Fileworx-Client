@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using FileworxObjects.Objects;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FileworxObjects
 {
@@ -120,6 +122,20 @@ namespace FileworxObjects
             var content = await response.Content.ReadAsStringAsync();
             var res = content.ToString();
             return int.Parse(res);
+        }
+
+        public async Task<Stream> DownloadWord(int id, string type)
+        {
+            var response = await _httpClient.PostAsync("Word/" + type + "/" + id, null);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStreamAsync();
+        }
+
+        public async Task<Stream> DownloadWordList(string type)
+        {
+            var response = await _httpClient.PostAsync("Word/" + type + "/list", null);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStreamAsync();
         }
     }
 }

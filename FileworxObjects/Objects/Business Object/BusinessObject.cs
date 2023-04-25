@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FileworxObjects.Connection;
+using System;
+using System.Data.SqlClient;
 
 namespace FileworxObjects
 {
@@ -25,7 +27,7 @@ namespace FileworxObjects
             ClassID = classID;
 
         }
-        public BusinessObject( int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified, int classID)
+        public BusinessObject(int lastModifier, int creator, string name, string description, DateTime created, DateTime lastModified, int classID)
         {
             ID = -1;
             LastModifier = lastModifier;
@@ -37,8 +39,11 @@ namespace FileworxObjects
             ClassID = classID;
 
         }
-        public BusinessObject() 
-        {        
+        public BusinessObject()
+        {
+            conn = DBConnection.GetSqlConnection();
         }
+
+
     }
 }
